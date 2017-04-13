@@ -30,7 +30,7 @@ public class User {
     @ManyToMany
     @JoinTable(name = "user_genders", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "gender_id"))
-    private Set<Role> genders;
+    private Set<Gender> genders;
 
     @ManyToMany
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
@@ -46,6 +46,22 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -72,20 +88,20 @@ public class User {
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
-    public String getPassword() {
-        return password;
+    public Set<Gender> getGenders() {
+        return genders;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setGenders(Set<Gender> genders) {
+        this.genders = genders;
     }
 
     public Set<Role> getRoles() {
@@ -96,11 +112,11 @@ public class User {
         this.roles = roles;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public List<Photo> getTodos() {
+        return todos;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setTodos(List<Photo> todos) {
+        this.todos = todos;
     }
 }
