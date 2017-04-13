@@ -14,27 +14,12 @@
 <div th:replace="header :: header">
 </div>
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-    </ol>
 
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
         <div class="item active">
-            <img th:src="@{/resources/static/img/img1.jpg}" alt="Image" />
-            <div class="carousel-caption">
-                <h3>Develop sites</h3>
-                <p>Easier... Better...</p>
-            </div>
-        </div>
-
-        <div class="item">
-            <img th:src="@{/resources/static/img/img2.jpg}" alt="Image" />
-            <div class="carousel-caption">
-                <h3>Make money</h3>
-                <p>It's easy to be successful</p>
+            <div class="carousel">
+                <h3 class="text-center">#foto</h3>
             </div>
         </div>
     </div>
@@ -53,40 +38,12 @@
 <p></p>
 <div class="container">
     <div class="row">
-        <div class="col-md-6 well" style="background:#eee">
-            <h4 class="text-center">Most popular sites</h4>
+        <div class="col-md-12 well" style="background:#eee">
+
+            <h4 class="text-center">Most popular foto</h4>
             <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>№</th>
-                    <th>UserForm</th>
-                    <th>Site</th>
-                </tr>
-                </thead>
                 <tbody>
                 <tr th:each="site,iterStat : ${sites}" class="clickable-row" th:onclick="'siteRedirect(\''  + ${site.username+'/'+site.id}+'\')'">
-                    <td th:text="${iterStat.index}+1">
-                    </td>
-                    <td th:text="${site.username}">
-                    </td>
-                    <td th:text="${site.siteName}">
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-md-6 well" style="background:#eee">
-            <h4 class="text-center">Last created sites</h4>
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>№</th>
-                    <th>UserForm</th>
-                    <th>Site</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="site,iterStat : ${sites}" class="clickable-row"  th:onclick="'siteRedirect(\''  + ${site.username+'/'+site.id}+'\')'">
                     <td th:text="${iterStat.index}+1">
                     </td>
                     <td th:text="${site.username}">
