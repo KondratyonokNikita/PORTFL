@@ -1,5 +1,6 @@
 package com.portfl.model;
 
+import org.hibernate.validator.constraints.Email;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -28,7 +29,7 @@ public class User {
     private String firstName;
 
     private String lastName;
-
+    @Email
     private String email;
 
     private boolean enabled;
@@ -37,7 +38,7 @@ public class User {
 
     private Long height;
 
-    private Date birthday;
+    private Long birthday;
 
     @ManyToMany
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
@@ -55,86 +56,6 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Photo> photos;
-
-    @CreatedDate
-    @org.hibernate.annotations.Type(type = "java.time.Instant")
-    private Instant created;
-
-    @LastModifiedDate
-    @org.hibernate.annotations.Type(type = "java.time.Instant")
-    private Instant updated;
-
-    @Column(name = "CREATED_BY_ID")
-    @CreatedBy
-    private Long createdBy;
-
-    @Column(name = "UPDATED_BY_ID")
-    @LastModifiedBy
-    private Long updatedBy;
-
-    public Set<Type> getTypes() {
-        return types;
-    }
-
-    public void setTypes(Set<Type> types) {
-        this.types = types;
-    }
-
-    public Long getWieght() {
-        return wieght;
-    }
-
-    public void setWieght(Long wieght) {
-        this.wieght = wieght;
-    }
-
-    public Long getHeight() {
-        return height;
-    }
-
-    public void setHeight(Long height) {
-        this.height = height;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public Instant getCreated() {
-        return created;
-    }
-
-    public void setCreated(Instant created) {
-        this.created = created;
-    }
-
-    public Instant getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(Instant updated) {
-        this.updated = updated;
-    }
-
-    public Long getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(Long createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Long getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(Long updatedBy) {
-        this.updatedBy = updatedBy;
-    }
 
     public Long getId() {
         return id;
@@ -192,12 +113,44 @@ public class User {
         this.enabled = enabled;
     }
 
+    public Long getWieght() {
+        return wieght;
+    }
+
+    public void setWieght(Long wieght) {
+        this.wieght = wieght;
+    }
+
+    public Long getHeight() {
+        return height;
+    }
+
+    public void setHeight(Long height) {
+        this.height = height;
+    }
+
+    public Long getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Long birthday) {
+        this.birthday = birthday;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Type> getTypes() {
+        return types;
+    }
+
+    public void setTypes(Set<Type> types) {
+        this.types = types;
     }
 
     public Gender getGender() {

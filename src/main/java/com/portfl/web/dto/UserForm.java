@@ -3,6 +3,7 @@ package com.portfl.web.dto;
 import com.portfl.constants.Constants;
 
 import javax.validation.constraints.Pattern;
+import java.util.Date;
 
 /**
  * Created by Vlad on 18.03.17.
@@ -13,12 +14,42 @@ public class UserForm {
     private String username;
     @Pattern(regexp = Constants.Regex.PASSWORD)
     private String password;
-    @Pattern(regexp = Constants.Regex.FIRST_NAME)
+
     private String firstName;
-    @Pattern(regexp = Constants.Regex.LAST_NAME)
+
     private String lastName;
-    @Pattern(regexp = Constants.Regex.EMAIL)
+
     private String email;
+
+    private Long weight;
+
+    private Long height;
+
+    private Long birthday;
+
+    public Long getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Long weight) {
+        this.weight = weight;
+    }
+
+    public Long getHeight() {
+        return height;
+    }
+
+    public void setHeight(Long height) {
+        this.height = height;
+    }
+
+    public Long getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Long birthday) {
+        this.birthday = birthday;
+    }
 
     public String getFirstName() {
         return firstName;

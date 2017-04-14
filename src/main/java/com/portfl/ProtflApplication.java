@@ -25,7 +25,7 @@ public class ProtflApplication extends SpringBootServletInitializer {
         SpringApplication.run(ProtflApplication.class, args);
     }
 
-    /*@Bean
+    @Bean
     public CommandLineRunner bootstrap(GenderDao genderDao, RoleDao roleDao) {
         return (args) -> {
             // save a couple of customers
@@ -37,5 +37,5 @@ public class ProtflApplication extends SpringBootServletInitializer {
             roleDao.save(new Role("ROLE_USER"));
             roleDao.save(new Role("ROLE_ADMIN"));
         };
-    }*/
+    }
 }
