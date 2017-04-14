@@ -7,28 +7,25 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import javax.print.DocFlavor;
 import java.time.Instant;
-import java.util.Set;
 
 /**
- * Created by Samsung on 13.04.2017.
+ * Created by Samsung on 14.04.2017.
  */
 @Entity
-@Table(name = "photos")
-public class Photo {
+@Table(name = "commentaries")
+public class Commentary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String url;
+    private String sender;
+
+    private String text;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "photo")
-    private Set<Commentary> commentaries;
+    @JoinColumn(name = "photo_id")
+    private Photo photo;
 
     @CreatedDate
     @Type(type = "java.time.Instant")
@@ -45,22 +42,6 @@ public class Photo {
     @Column(name = "UPDATED_BY_ID")
     @LastModifiedBy
     private Long updatedBy;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Set<Commentary> getCommentaries() {
-        return commentaries;
-    }
-
-    public void setCommentaries(Set<Commentary> commentaries) {
-        this.commentaries = commentaries;
-    }
 
     public Instant getCreated() {
         return created;
@@ -102,11 +83,27 @@ public class Photo {
         this.id = id;
     }
 
-    public String getUrl() {
-        return url;
+    public String getSender() {
+        return sender;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
     }
 }

@@ -41,9 +41,7 @@ public class UserServiceImpl implements UserService {
         Set<Role> roles = new HashSet<>();
         roles.add(roleDao.findAll().get(0));
         user.setRoles(roles);
-        Set<Gender> genders = new HashSet<>();
-        genders.add(genderDao.findAll().get(0));
-        user.setGenders(genders);
+        user.setGender(genderDao.findAll().get(0));
         userDao.save(user);
     }
 

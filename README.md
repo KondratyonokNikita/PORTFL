@@ -1,5 +1,7 @@
 # PORTFL
 
+## Properties files
+
 ### application.properties
 
     spring.datasource.url=jdbc:mysql://localhost:3306/???
@@ -34,3 +36,4 @@
             </properties>
         </persistence-unit>
     </persistence>
+    

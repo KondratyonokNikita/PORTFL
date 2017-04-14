@@ -1,7 +1,13 @@
 package com.portfl.model;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
-import java.util.List;
+import java.time.Instant;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -27,18 +33,108 @@ public class User {
 
     private boolean enabled;
 
-    @ManyToMany
-    @JoinTable(name = "user_genders", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "gender_id"))
-    private Set<Gender> genders;
+    private Long wieght;
+
+    private Long height;
+
+    private Date birthday;
 
     @ManyToMany
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @ManyToMany
+    @JoinTable(name = "user_types", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "type_id"))
+    private Set<Type> types;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gender_id")
+    private Gender gender;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Photo> todos;
+    private Set<Photo> photos;
+
+    @CreatedDate
+    @org.hibernate.annotations.Type(type = "java.time.Instant")
+    private Instant created;
+
+    @LastModifiedDate
+    @org.hibernate.annotations.Type(type = "java.time.Instant")
+    private Instant updated;
+
+    @Column(name = "CREATED_BY_ID")
+    @CreatedBy
+    private Long createdBy;
+
+    @Column(name = "UPDATED_BY_ID")
+    @LastModifiedBy
+    private Long updatedBy;
+
+    public Set<Type> getTypes() {
+        return types;
+    }
+
+    public void setTypes(Set<Type> types) {
+        this.types = types;
+    }
+
+    public Long getWieght() {
+        return wieght;
+    }
+
+    public void setWieght(Long wieght) {
+        this.wieght = wieght;
+    }
+
+    public Long getHeight() {
+        return height;
+    }
+
+    public void setHeight(Long height) {
+        this.height = height;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public Instant getCreated() {
+        return created;
+    }
+
+    public void setCreated(Instant created) {
+        this.created = created;
+    }
+
+    public Instant getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Instant updated) {
+        this.updated = updated;
+    }
+
+    public Long getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Long getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(Long updatedBy) {
+        this.updatedBy = updatedBy;
+    }
 
     public Long getId() {
         return id;
@@ -96,14 +192,6 @@ public class User {
         this.enabled = enabled;
     }
 
-    public Set<Gender> getGenders() {
-        return genders;
-    }
-
-    public void setGenders(Set<Gender> genders) {
-        this.genders = genders;
-    }
-
     public Set<Role> getRoles() {
         return roles;
     }
@@ -112,11 +200,19 @@ public class User {
         this.roles = roles;
     }
 
-    public List<Photo> getTodos() {
-        return todos;
+    public Gender getGender() {
+        return gender;
     }
 
-    public void setTodos(List<Photo> todos) {
-        this.todos = todos;
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public Set<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(Set<Photo> photos) {
+        this.photos = photos;
     }
 }
