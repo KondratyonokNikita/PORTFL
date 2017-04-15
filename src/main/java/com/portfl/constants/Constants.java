@@ -9,6 +9,8 @@ public class Constants {
         public static final String HOME_PAGE = "home";
         public static final String LOGIN_PAGE = "login";
         public static final String REGISTRATION_PAGE = "registration";
+        public static final String PROFILE_PAGE="profile";
+        public static final String PHOTO_PAGE="photo";
     }
 
     public static final class Redirect {
