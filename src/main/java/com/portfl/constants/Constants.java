@@ -5,6 +5,14 @@ package com.portfl.constants;
  */
 public class Constants {
 
+    public static final class cloud {
+        public static final String CLOUD_PUBLIC_ID = "public_id";
+        public static final String CLOUD_FILE = "temp.jpg";
+        public static final String CLOUD_NAME = "cloud_name";
+        public static final String CLOUD_API_KEY="api_key";
+        public static final String CLOUD_API_SECRET="api_secret";
+    }
+
     public static final class Views {
         public static final String HOME_PAGE = "home";
         public static final String LOGIN_PAGE = "login";
