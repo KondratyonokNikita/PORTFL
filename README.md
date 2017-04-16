@@ -16,6 +16,10 @@
     smtp.protocol=smtps
     smtp.username=???
     smtp.password=???
+    
+    cloud_name=???
+    cloud_api_key=???
+    cloud_api_secret=???
 
 ### META-INF/persistence.xml
 
