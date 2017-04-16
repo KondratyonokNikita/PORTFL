@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,10 +40,9 @@ public class UserServiceImpl implements UserService {
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Set<Role> roles = new HashSet<>();
-        roles.add(roleDao.getOne(1L));
-        Set<Gender> genders = new HashSet<>();
-        genders.add(genderDao.findOne(1L));
+        roles.add(roleDao.findAll().get(0));
         user.setRoles(roles);
+        user.setGender(genderDao.findAll().get(0));
         userDao.save(user);
     }
 

@@ -1,29 +1,25 @@
 package com.portfl.model;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 /**
- * Created by Samsung on 13.04.2017.
+ * Created by Samsung on 14.04.2017.
  */
 @Entity
-@Table(name = "genders")
-public class Gender {
+@Table(name = "types")
+public class Type {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gender")
+    @ManyToMany(mappedBy = "types")
     private Set<User> users;
 
-    public Gender(String name) {
-        this.name = name;
-    }
-
-    public Gender() {
+    public Type() {
     }
 
     public Long getId() {
@@ -52,7 +48,7 @@ public class Gender {
 
     @Override
     public String toString() {
-        return "Gender{" +
+        return "Type{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", users=" + users +

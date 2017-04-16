@@ -1,5 +1,7 @@
 # PORTFL
 
+## Properties files
+
 ### application.properties
 
     spring.datasource.url=jdbc:mysql://localhost:3306/???
@@ -14,6 +16,10 @@
     smtp.protocol=smtps
     smtp.username=???
     smtp.password=???
+    
+    cloud_name=???
+    cloud_api_key=???
+    cloud_api_secret=???
 
 ### META-INF/persistence.xml
 
@@ -34,3 +40,4 @@
             </properties>
         </persistence-unit>
     </persistence>
+    

@@ -1,6 +1,14 @@
 package com.portfl.model;
 
+import org.hibernate.validator.constraints.Email;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
+import java.time.Instant;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -21,20 +29,33 @@ public class User {
     private String firstName;
 
     private String lastName;
-
+    @Email
     private String email;
 
     private boolean enabled;
 
-    @ManyToMany
-    @JoinTable(name = "user_genders", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "gender_id"))
-    private Set<Role> genders;
+    private Long wieght;
+
+    private Long height;
+
+    private Long birthday;
 
     @ManyToMany
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+    @ManyToMany
+    @JoinTable(name = "user_types", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "type_id"))
+    private Set<Type> types;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gender_id")
+    private Gender gender;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Photo> photos;
 
     public Long getId() {
         return id;
@@ -42,6 +63,22 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -68,20 +105,36 @@ public class User {
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
-    public String getPassword() {
-        return password;
+    public Long getWieght() {
+        return wieght;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setWieght(Long wieght) {
+        this.wieght = wieght;
+    }
+
+    public Long getHeight() {
+        return height;
+    }
+
+    public void setHeight(Long height) {
+        this.height = height;
+    }
+
+    public Long getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Long birthday) {
+        this.birthday = birthday;
     }
 
     public Set<Role> getRoles() {
@@ -92,11 +145,27 @@ public class User {
         this.roles = roles;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public Set<Type> getTypes() {
+        return types;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setTypes(Set<Type> types) {
+        this.types = types;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public Set<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(Set<Photo> photos) {
+        this.photos = photos;
     }
 }

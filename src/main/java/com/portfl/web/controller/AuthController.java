@@ -67,6 +67,7 @@ public class AuthController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(UserForm userForm) {
+        System.out.println("4");
         return REGISTRATION_PAGE;
     }
 
@@ -86,12 +87,17 @@ public class AuthController {
             return REGISTRATION_PAGE;
         }
         User user = new User();
+        System.out.println("1");
         user.setFirstName(userForm.getFirstName());
         user.setLastName(userForm.getLastName());
         user.setEmail(email);
         user.setUsername(username);
         user.setPassword(userForm.getPassword());
         user.setEnabled(false);
+        user.setBirthday(userForm.getBirthday());
+        user.setWieght(userForm.getWeight());
+        user.setHeight(userForm.getHeight());
+        System.out.println("2");
         userService.save(user);
         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, request.getLocale(), UrlUtils.getAppUrl(request)));
         return LOGIN_PAGE;
@@ -105,23 +111,11 @@ public class AuthController {
         return TO_HOME;
     }
 
-    @RequestMapping(value = "/isExistUsername", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    boolean isExistUsername(@RequestParam String username) {
-        if (userService.isExistUsername(username)) {
-            return true;
-        }
-        return false;
+    public boolean isExistUsername(@RequestParam String username) {
+        return userService.isExistUsername(username);
     }
 
-    @RequestMapping(value = "/isExistEmail", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    boolean isExistEmail(@RequestParam String email) {
-        if (userService.isExistEmail(email)) {
-            return true;
-        }
-        return false;
+    public boolean isExistEmail(@RequestParam String email) {
+        return userService.isExistEmail(email);
     }
 }
