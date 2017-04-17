@@ -1,20 +1,103 @@
 package com.portfl.service;
 
 import com.portfl.model.User;
+import com.portfl.model.VerificationToken;
+import com.portfl.repository.GenderRepository;
+import com.portfl.repository.TokenRepository;
+import com.portfl.repository.UserRepository;
+import com.portfl.utils.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-public interface UserService {
+import java.util.Objects;
 
-    void save(User user);
+@Service
+public class UserService {
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private GenderRepository genderRepository;
+    @Autowired
+    private TokenRepository tokenRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    boolean isAccountEnabled(String username);
+    public User findOne(Long userId) {
+        return this.userRepository.findOne(userId);
+    }
 
-    User findByUsername(String username);
+    public Iterable<User> findAll() {
+        return this.userRepository.findAll();
+    }
 
-    void createVerificationToken(String token, User user);
+    @Transactional
+    public void create(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        this.userRepository.save(user);
+    }
 
-    boolean enableAccount(String token);
+    @Transactional
+    public void update(User user) {
+        User entity = this.userRepository.findOne(user.getId());
 
-    boolean isExistUsername(String username);
+        if (Objects.nonNull(entity)) {
+            entity.setUsername(user.getUsername());
+            entity.setEmail(user.getEmail());
+            entity.setRole(user.getRole());
 
-    boolean isExistEmail(String email);
+            if (Objects.nonNull(user.getPassword())) {
+                entity.setPassword(user.getPassword());
+            }
+
+            this.userRepository.save(entity);
+        }
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        this.userRepository.delete(id);
+    }
+
+    public boolean isAccountEnabled(String username) {
+        return findByUsername(username).isEnabled();
+    }
+
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    public void createVerificationToken(String token, User user) {
+        VerificationToken verificationToken = new VerificationToken();
+        verificationToken.setUser(user);
+        verificationToken.setToken(token);
+        verificationToken.setDateExpired(DateUtils.getNextDayDate());
+        tokenRepository.save(verificationToken);
+    }
+
+    public boolean enableAccount(String token) {
+        try {
+            VerificationToken verificationToken = tokenRepository.findByToken(token);
+            User user = verificationToken.getUser();
+            user.setEnabled(true);
+            userRepository.save(user);
+            return true;
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean isExistUsername(String username) {
+        if (userRepository.findByUsername(username) != null)
+            return true;
+        return false;
+    }
+
+    public boolean isExistEmail(String email) {
+        if (userRepository.findByEmail(email) != null)
+            return true;
+        return false;
+    }
 }

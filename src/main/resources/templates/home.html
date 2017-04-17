@@ -106,27 +106,5 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-
-<p></p>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12 well" style="background:#eee">
-
-            <h4 class="text-center">Most popular photo</h4>
-            <table class="table table-hover">
-                <tbody>
-                <tr th:each="site,iterStat : ${sites}" class="clickable-row" th:onclick="'siteRedirect(\''  + ${site.username+'/'+site.id}+'\')'">
-                    <td th:text="${iterStat.index}+1">
-                    </td>
-                    <td th:text="${site.username}">
-                    </td>
-                    <td th:text="${site.siteName}">
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
 </body>
 </html>

@@ -1,14 +1,8 @@
 package com.portfl.model;
 
 import org.hibernate.validator.constraints.Email;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.time.Instant;
-import java.util.Date;
 import java.util.Set;
 
 /**
@@ -40,10 +34,8 @@ public class User {
 
     private Long birthday;
 
-    @ManyToMany
-    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
     @ManyToMany
     @JoinTable(name = "user_types", joinColumns = @JoinColumn(name = "user_id"),
@@ -137,12 +129,12 @@ public class User {
         this.birthday = birthday;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public UserRole getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     public Set<Type> getTypes() {
