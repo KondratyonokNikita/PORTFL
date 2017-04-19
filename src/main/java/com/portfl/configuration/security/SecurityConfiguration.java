@@ -28,20 +28,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/api/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/auth/login")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll()
-                .and()
-                .exceptionHandling().accessDeniedPage("/403");
+//        http
+//                .csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/api/**").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("/auth/login")
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .permitAll()
+//                .and()
+//                .exceptionHandling().accessDeniedPage("/403");
+        http.authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/profile").access("hasRole('ROLE_USER')")
+                .and().formLogin().loginPage("/auth/login").permitAll()
+                .and().logout().permitAll()
+                .and().exceptionHandling().accessDeniedPage("/403");
     }
 
     @Autowired
