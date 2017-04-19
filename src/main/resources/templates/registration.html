@@ -6,14 +6,18 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Registration</title>
-    <link rel="stylesheet"
-          href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../css/navbar-fixed-top.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/registration-form.css"/>
 </head>
 <body>
 <div th:replace="header :: header">
 </div>
-<!--/*@thymesVar id="userForm" type="com.portfl.web.dto.UserForm"*/-->
-<form class="form-horizontal" th:object="${userForm}" th:action="@{/registration}" th:method="post">
+<!--@thymesVar id="user" type="com.portfl.model.User"-->
+<form class="form-horizontal" action="#"
+      th:object="${user}" th:action="@{/auth/registration}" method="post">
+    <input type="hidden" th:field="*{id}"/>
     <fieldset>
 
         <!-- Form Name -->
@@ -24,77 +28,77 @@
             <label class="col-md-4 control-label" th:text="#{user.form.username}"></label>
             <div class="col-md-4">
                 <input id="username" type="text" class="form-control input-md" required=""
-                       th:value="${session[username]}" th:placeholder="#{user.form.username}"
+                       th:placeholder="#{user.form.username}"
                        th:field="*{username}" autofocus=""/>
             </div>
         </div>
 
         <!-- Password -->
         <div class="form-group">
-            <label class="col-md-4 control-label">Password</label>
+            <label class="col-md-4 control-label" th:text="#{user.form.password}"></label>
             <div class="col-md-4">
                 <input id="password" type="password" class="form-control input-md" required=""
-                       th:value="${session[password]}" th:placeholder="#{user.form.password}"
+                       th:placeholder="#{user.form.password}"
                        th:field="*{password}"/>
             </div>
         </div>
 
         <!-- First name -->
         <div class="form-group">
-            <label class="col-md-4 control-label">First name</label>
+            <label class="col-md-4 control-label" th:text="#{user.form.firstname}"></label>
             <div class="col-md-4">
                 <input id="firstname" type="text" class="form-control input-md" required=""
-                       th:value="${session[firstname]}" th:placeholder="#{user.form.firstname}"
+                       th:placeholder="#{user.form.firstname}"
                        th:field="*{firstName}"/>
             </div>
         </div>
 
         <!-- Last name -->
         <div class="form-group">
-            <label class="col-md-4 control-label">Email</label>
+            <label class="col-md-4 control-label" th:text="#{user.form.lastname}"></label>
             <div class="col-md-4">
                 <input id="lastname" type="text" class="form-control input-md" required=""
-                       th:value="${session[lastname]}" th:placeholder="#{user.form.lastname}"
+                       th:placeholder="#{user.form.lastname}"
                        th:field="*{lastName}"/>
             </div>
         </div>
 
         <!-- Email -->
         <div class="form-group">
-            <label class="col-md-4 control-label">Email</label>
+            <label class="col-md-4 control-label" th:text="#{user.form.email}"></label>
             <div class="col-md-4">
                 <input id="email" type="text" class="form-control input-md" required=""
-                       th:value="${session[email]}" th:placeholder="#{user.form.email}"
+                       th:placeholder="#{user.form.email}"
                        th:field="*{email}"/>
             </div>
         </div>
 
         <!-- Weight -->
         <div class="form-group">
-            <label class="col-md-4 control-label">Weight</label>
+            <label class="col-md-4 control-label" th:text="#{user.form.weight}"></label>
             <div class="col-md-4">
                 <input id="weight" type="number" class="form-control input-md" required=""
-                       th:value="${session[weight]}" th:placeholder="#{user.form.weight}"
+                       th:placeholder="#{user.form.weight}"
                        th:field="*{weight}"/>
             </div>
         </div>
 
         <!-- Height -->
         <div class="form-group">
-            <label class="col-md-4 control-label">Height</label>
+            <label class="col-md-4 control-label" th:text="#{user.form.height}"></label>
             <div class="col-md-4">
                 <input id="height" type="number" class="form-control input-md" required=""
-                       th:value="${session[height]}" th:placeholder="#{user.form.height}"
+                       th:placeholder="#{user.form.height}"
                        th:field="*{height}"/>
             </div>
         </div>
 
         <!--Birthday -->
         <div class="form-group">
-            <label class="col-md-4 control-label">Birthday</label>
+            <label class="col-md-4 control-label" th:text="#{user.form.birthyear}"></label>
             <div class="col-md-4">
                 <input id="birthday" type="number" min="1900" max="2100" class="form-control input-md" required=""
-                       th:value="${session[birthday]}" th:placeholder="#{user.form.birthday}"
+                       th:placeholder="#{user.form.birthyear}"
                        th:field="*{birthday}"/>
             </div>
         </div>
@@ -103,7 +107,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="submit"></label>
             <div class="col-md-4">
-                <button id="submit" name="submit" class="btn btn-primary">SUBMIT</button>
+                <button id="submit" name="submit" class="btn btn-primary" th:text="#{user.form.register}">SUBMIT</button>
             </div>
         </div>
 

@@ -62,14 +62,14 @@ public class AuthController {
         System.out.println(user.toString());
         userService.create(user);
         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, request.getLocale(), UrlUtils.getAppUrl(request)));
-        return "login";
+        return "redirect:/auth/login";
     }
 
     @GetMapping(value = "/registrationConfirm.html")
     public String registrationConfirm(@RequestParam("token") String token) {
         if (userService.enableAccount(token)) {
-            return "profile";
+            return "redirect:/profile";
         }
-        return "home";
+        return "redirect:/home";
     }
 }

@@ -1,8 +1,9 @@
 package com.portfl.service;
 
+import com.portfl.model.Gender;
 import com.portfl.model.User;
+import com.portfl.model.UserRole;
 import com.portfl.model.VerificationToken;
-import com.portfl.repository.GenderRepository;
 import com.portfl.repository.TokenRepository;
 import com.portfl.repository.UserRepository;
 import com.portfl.utils.DateUtils;
@@ -17,8 +18,6 @@ import java.util.Objects;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private GenderRepository genderRepository;
     @Autowired
     private TokenRepository tokenRepository;
     @Autowired
@@ -35,6 +34,8 @@ public class UserService {
     @Transactional
     public void create(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(UserRole.ROLE_USER);
+        user.setGender(Gender.MAN);
         this.userRepository.save(user);
     }
 
@@ -73,7 +74,9 @@ public class UserService {
         verificationToken.setUser(user);
         verificationToken.setToken(token);
         verificationToken.setDateExpired(DateUtils.getNextDayDate());
+        System.out.println(verificationToken.toString());
         tokenRepository.save(verificationToken);
+        System.out.println(verificationToken.toString());
     }
 
     public boolean enableAccount(String token) {

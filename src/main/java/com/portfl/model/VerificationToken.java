@@ -23,6 +23,16 @@ public class VerificationToken {
 
     private Date dateExpired;
 
+    @Override
+    public String toString() {
+        return "VerificationToken{" +
+                "id=" + id +
+                ", token='" + token + '\'' +
+                ", user=" + user.toString() +
+                ", dateExpired=" + dateExpired.getTime() +
+                '}';
+    }
+
     public Long getId() {
         return id;
     }

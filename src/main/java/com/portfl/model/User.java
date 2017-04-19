@@ -28,7 +28,7 @@ public class User {
 
     private boolean enabled;
 
-    private Long wieght;
+    private Long weight;
 
     private Long height;
 
@@ -42,8 +42,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "type_id"))
     private Set<Type> types;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gender_id")
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -51,6 +50,23 @@ public class User {
 
     public Long getId() {
         return id;
+    }
+
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", enabled=" + enabled +
+                ", weight=" + weight +
+                ", height=" + height +
+                ", birthday=" + birthday +
+                ", role=" + role +
+                ", gender=" + gender +
+                '}';
     }
 
     public void setId(Long id) {
@@ -105,12 +121,12 @@ public class User {
         this.enabled = enabled;
     }
 
-    public Long getWieght() {
-        return wieght;
+    public Long getWeight() {
+        return weight;
     }
 
-    public void setWieght(Long wieght) {
-        this.wieght = wieght;
+    public void setWeight(Long weight) {
+        this.weight = weight;
     }
 
     public Long getHeight() {
