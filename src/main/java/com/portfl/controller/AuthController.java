@@ -35,7 +35,7 @@ public class AuthController {
     @GetMapping(value = "/logout")
     public String logout() {
         SecurityContextHolder.clearContext();
-        return "home";
+        return "redirect:/";
     }
 
     @GetMapping(value = "/login")

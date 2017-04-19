@@ -18,6 +18,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="/" th:text="#{header.home}"/></li>
                 <li><a href="/profile" th:text="#{header.account}"/></li>
+                <li><h2 th:text="${'Hello, ' + principal}"></h2></li>
             </ul>
             <form class="navbar-form navbar-left">
                 <div class="input-group">
@@ -30,7 +31,7 @@
                 </div>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li sec:authorize="isAuthenticated()"><a href="/auth/login"><span class="glyphicon glyphicon-log-in" th:text="#{common.logout}"/></a></li>
+                <li sec:authorize="isAuthenticated()"><a href="/auth/logout"><span class="glyphicon glyphicon-log-in" th:text="#{common.logout}"/></a></li>
                 <li sec:authorize="isAnonymous()"><a href="/auth/login"><span class="glyphicon glyphicon-log-out" th:text="#{common.login}"/></a></li>
                 <li><a href="?lang=ru"><span class="glyphicon"></span>ru</a></li>
                 <li><a href="?lang=en"><span class="glyphicon"></span>en</a></li>

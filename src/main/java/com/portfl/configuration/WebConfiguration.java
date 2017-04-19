@@ -22,14 +22,6 @@ import java.util.Locale;
 @Configuration
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 
-    @Override
-    public void addViewControllers(org.springframework.web.servlet.config.annotation.ViewControllerRegistry registry) {
-        registry.addViewController("/home").setViewName("home");
-        registry.addViewController("/").setViewName("home");
-        //registry.addViewController("/auth/login").setViewName("login");
-        registry.addViewController("/profile").setViewName("profile");
-    }
-
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();

@@ -19,18 +19,21 @@ public class AdviceController {
 
     @ModelAttribute("principal")
     public String getPrincipal(){
+        System.out.println("get principal1");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (Objects.nonNull(authentication)) {
+            System.out.println("get principal2");
             Object principal = authentication.getPrincipal();
 
             if (principal instanceof UserDetails) {
+                System.out.println("get principal3");
                 return ((UserDetails) principal).getUsername();
             }
-
+            System.out.println("get principal4");
             return principal.toString();
         }
-
+        System.out.println("get principal5");
         return "";
     }
 
