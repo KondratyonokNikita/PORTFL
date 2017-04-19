@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 @Service
@@ -36,6 +37,8 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(UserRole.ROLE_USER);
         user.setGender(Gender.MAN);
+        user.setTypes(new ArrayList<>());
+        user.setPhotos(new ArrayList<>());
         this.userRepository.save(user);
     }
 
@@ -69,20 +72,21 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    @Transactional
     public void createVerificationToken(String token, User user) {
         VerificationToken verificationToken = new VerificationToken();
-        verificationToken.setUser(user);
+        verificationToken.setUserId(user.getId());
         verificationToken.setToken(token);
-        verificationToken.setDateExpired(DateUtils.getNextDayDate());
         System.out.println(verificationToken.toString());
         tokenRepository.save(verificationToken);
         System.out.println(verificationToken.toString());
     }
 
+    @Transactional
     public boolean enableAccount(String token) {
         try {
             VerificationToken verificationToken = tokenRepository.findByToken(token);
-            User user = verificationToken.getUser();
+            User user = userRepository.findOne(verificationToken.getUserId());
             user.setEnabled(true);
             userRepository.save(user);
             return true;

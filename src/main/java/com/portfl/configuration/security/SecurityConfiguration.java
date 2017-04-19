@@ -28,7 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /*http
+        http
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/**").permitAll()
@@ -41,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll()
                 .and()
-                .exceptionHandling().accessDeniedPage("/403");*/
+                .exceptionHandling().accessDeniedPage("/403");
     }
 
     @Autowired

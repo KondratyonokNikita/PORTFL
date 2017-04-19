@@ -1,7 +1,9 @@
 package com.portfl.controller;
 
-import com.portfl.listeners.OnRegistrationCompleteEvent;
+import com.portfl.model.LoginForm;
 import com.portfl.model.User;
+import com.portfl.service.RegistrationService;
+import com.portfl.service.SecurityService;
 import com.portfl.service.UserService;
 import com.portfl.utils.UrlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
@@ -27,16 +26,36 @@ import javax.validation.Valid;
 @RequestMapping("/auth")
 public class AuthController {
     @Autowired
-    public ApplicationEventPublisher eventPublisher;
+    public RegistrationService registrationService;
     @Autowired
     private UserService userService;
     @Autowired
-    private MessageSource messageSource;
+    private SecurityService securityService;
 
     @GetMapping(value = "/logout")
     public String logout() {
         SecurityContextHolder.clearContext();
         return "home";
+    }
+
+    @GetMapping(value = "/login")
+    public String loginPage(Model model) {
+        LoginForm loginForm = new LoginForm();
+        model.addAttribute("loginform", loginForm);
+        return "login";
+    }
+
+    @PostMapping(value = "/login")
+    public String loginSubmit(@ModelAttribute LoginForm form, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "login";
+        }
+        if (userService.isAccountEnabled(form.getUsername())) {
+            securityService.autoLogin(form.getUsername(), form.getPassword());
+            return "redirect:/";
+        }
+        model.addAttribute("enabled", true);
+        return "redirect:/";
     }
 
     @GetMapping(value = "/registration")
@@ -61,7 +80,7 @@ public class AuthController {
         }
         System.out.println(user.toString());
         userService.create(user);
-        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, request.getLocale(), UrlUtils.getAppUrl(request)));
+        registrationService.confirmRegistration(user, request.getLocale(), UrlUtils.getAppUrl(request));
         return "redirect:/auth/login";
     }
 

@@ -16,7 +16,6 @@ import java.util.Properties;
  */
 
 @Configuration
-@ComponentScan(Constants.Packages.LISTENERS)
 @PropertySource("classpath:email.properties")
 public class MailConfiguration {
 

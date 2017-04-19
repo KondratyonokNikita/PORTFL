@@ -3,6 +3,7 @@ package com.portfl.model;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -40,13 +41,13 @@ public class User {
     @ManyToMany
     @JoinTable(name = "user_types", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "type_id"))
-    private Set<Type> types;
+    private List<Type> types;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<Photo> photos;
+    private List<Photo> photos;
 
     public Long getId() {
         return id;
@@ -153,11 +154,11 @@ public class User {
         this.role = role;
     }
 
-    public Set<Type> getTypes() {
+    public List<Type> getTypes() {
         return types;
     }
 
-    public void setTypes(Set<Type> types) {
+    public void setTypes(List<Type> types) {
         this.types = types;
     }
 
@@ -169,11 +170,11 @@ public class User {
         this.gender = gender;
     }
 
-    public Set<Photo> getPhotos() {
+    public List<Photo> getPhotos() {
         return photos;
     }
 
-    public void setPhotos(Set<Photo> photos) {
+    public void setPhotos(List<Photo> photos) {
         this.photos = photos;
     }
 }

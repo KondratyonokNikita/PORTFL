@@ -7,8 +7,8 @@ import java.util.Date;
  * Created by Vlad on 22.03.17.
  */
 
-@Table(name = "verificationToken")
 @Entity
+@Table(name = "verification_tokens")
 public class VerificationToken {
 
     @Id
@@ -17,20 +17,15 @@ public class VerificationToken {
 
     private String token;
 
-    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "user_id")
-    private User user;
-
-    private Date dateExpired;
+    private Long userId;
 
     @Override
     public String toString() {
         return "VerificationToken{" +
                 "id=" + id +
                 ", token='" + token + '\'' +
-                ", user=" + user.toString() +
-                ", dateExpired=" + dateExpired.getTime() +
-                '}';
+                ", user=" + userId +
+                "}";
     }
 
     public Long getId() {
@@ -49,19 +44,11 @@ public class VerificationToken {
         this.token = token;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Date getDateExpired() {
-        return dateExpired;
-    }
-
-    public void setDateExpired(Date dateExpired) {
-        this.dateExpired = dateExpired;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

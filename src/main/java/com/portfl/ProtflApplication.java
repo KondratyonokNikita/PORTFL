@@ -10,11 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories
 public class ProtflApplication extends SpringBootServletInitializer {
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(ProtflApplication.class);
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(ProtflApplication.class, args);
     }
