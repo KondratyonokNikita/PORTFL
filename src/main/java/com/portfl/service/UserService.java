@@ -8,6 +8,9 @@ import com.portfl.repository.TokenRepository;
 import com.portfl.repository.UserRepository;
 import com.portfl.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -106,5 +109,19 @@ public class UserService {
         if (userRepository.findByEmail(email) != null)
             return true;
         return false;
+    }
+
+    public User getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (Objects.nonNull(authentication)) {
+            Object principal = authentication.getPrincipal();
+
+            if (principal instanceof UserDetails) {
+                return findByUsername(((UserDetails) principal).getUsername());
+            }
+            return null;
+        }
+        return null;
     }
 }

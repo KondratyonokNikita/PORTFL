@@ -31,7 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http//.csrf().csrfTokenRepository(crmTokerRepository)
+        http.csrf().disable()//.csrf().csrfTokenRepository(crmTokerRepository)
                 /*.and()*/.authorizeRequests()
                     .antMatchers("/").permitAll()
                     //.antMatchers("/profile").access("hasRole('ROLE_USER')")

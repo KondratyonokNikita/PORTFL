@@ -138,12 +138,15 @@
     document.getElementById("upload_widget_opener").addEventListener("click", function() {
         cloudinary.openUploadWidget({ cloud_name: 'kondrat', upload_preset: 'tduqgmt1', sources: ['local', 'url'], keep_widget_open: false},
             function(error, result) {
-                var xhr = new XMLHttpRequest();
-
-                var body = 'result=' + JSON.stringify(result[0]);
-                console.log(body);
-                xhr.open("POST", '/../load', true);
-                xhr.send(body);
+                if (result != undefined) {
+                    $.ajax({
+                        url: "/setTest",
+                        data: JSON.stringify(result),
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json"
+                    });
+                }
                 console.log(error, result)
             }
         );

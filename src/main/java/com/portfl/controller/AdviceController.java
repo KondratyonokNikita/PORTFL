@@ -25,7 +25,7 @@ public class AdviceController {
 
     @ModelAttribute("principal")
     public String getPrincipal(){
-        User user = getUser();
+        User user = userService.getUser();
         if(user != null) {
             return user.getUsername();
         } else {
@@ -35,7 +35,7 @@ public class AdviceController {
 
     @ModelAttribute("current_user_id")
     public Long getCurrentUser(){
-        User user = getUser();
+        User user = userService.getUser();
         if(user != null) {
             return user.getId();
         } else {
@@ -45,26 +45,12 @@ public class AdviceController {
 
     @ModelAttribute("current_user_name")
     public String getCurrentName(){
-        User user = getUser();
+        User user = userService.getUser();
         if(user != null) {
             return user.getFirstName() + " " + user.getLastName();
         } else {
             return "";
         }
-    }
-
-    private User getUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (Objects.nonNull(authentication)) {
-            Object principal = authentication.getPrincipal();
-
-            if (principal instanceof UserDetails) {
-                return userService.findByUsername(((UserDetails) principal).getUsername());
-            }
-            return null;
-        }
-        return null;
     }
 
     @GetMapping(value = "/403")
