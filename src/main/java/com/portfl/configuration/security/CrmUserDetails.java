@@ -17,6 +17,7 @@ public class CrmUserDetails implements UserDetails {
     private Set<SimpleGrantedAuthority> authorities;
 
     public CrmUserDetails(User user) {
+        System.out.println(user.toString());
         this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();

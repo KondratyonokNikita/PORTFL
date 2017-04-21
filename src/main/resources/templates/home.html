@@ -20,7 +20,7 @@
 <div class="jumbotron text-center">
     <h1>PORTFL</h1>
     <p>Website where you can find any model you want.</p>
-    <h2 th:text="${'Hello, ' + principal}"></h2>
+    <h2 sec:authorize="isAuthenticated()" th:text="${'Hello, ' + current_user_name}"/>
 </div>
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -34,21 +34,6 @@
 
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
-        <!--<div class="item active">-->
-            <!--<img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"/>-->
-        <!--</div>-->
-
-        <!--<div class="item">-->
-            <!--<img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"/>-->
-        <!--</div>-->
-
-        <!--<div class="item">-->
-            <!--<img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"/>-->
-        <!--</div>-->
-
-        <!--<div class="item">-->
-            <!--<img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"/>-->
-        <!--</div>-->
         <div class="item active">
             <img src="image/img10.jpg" class="img-responsive" style="width:100%" alt="Image"/>
         </div>

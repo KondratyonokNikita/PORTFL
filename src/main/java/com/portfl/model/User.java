@@ -49,6 +49,10 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Photo> photos;
 
+    public User() {
+        this.enabled = false;
+    }
+
     public Long getId() {
         return id;
     }

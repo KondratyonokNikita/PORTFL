@@ -1,5 +1,6 @@
 package com.portfl.configuration.security;
 
+import com.portfl.repository.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private final CrmUserDetailsService crmUserDetailsService;
+    //@Autowired
+    //private CrmTokerRepository crmTokerRepository;
 
     public SecurityConfiguration(CrmUserDetailsService crmUserDetailsService) {
         this.crmUserDetailsService = crmUserDetailsService;
@@ -28,23 +31,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers("/api/**").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                .loginPage("/auth/login")
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .permitAll()
-//                .and()
-//                .exceptionHandling().accessDeniedPage("/403");
-        http.authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/profile").access("hasRole('ROLE_USER')")
+        http//.csrf().csrfTokenRepository(crmTokerRepository)
+                /*.and()*/.authorizeRequests()
+                    .antMatchers("/").permitAll()
+                    //.antMatchers("/profile").access("hasRole('ROLE_USER')")
                 .and().formLogin().loginPage("/auth/login").permitAll()
                 .and().logout().permitAll()
                 .and().exceptionHandling().accessDeniedPage("/403");

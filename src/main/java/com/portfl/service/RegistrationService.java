@@ -39,6 +39,6 @@ public class RegistrationService {
         email.setTo(recipientAddress);
         email.setSubject(subject);
         email.setText(messageSource.getMessage("reg.go.url", null, locale) + confirmationUrl);
-        mailSender.send(email);
+        //mailSender.send(email);
     }
 }

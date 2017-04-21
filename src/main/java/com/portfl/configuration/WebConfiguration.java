@@ -37,6 +37,12 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
         return messageSource;
     }
 
+    @Override
+    public void addViewControllers(org.springframework.web.servlet.config.annotation.ViewControllerRegistry registry) {
+        registry.addViewController("/home").setViewName("home");
+        registry.addViewController("/").setViewName("home");
+        registry.addViewController("/auth/login").setViewName("login");
+    }
 
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {

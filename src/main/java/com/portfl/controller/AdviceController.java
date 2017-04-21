@@ -1,5 +1,9 @@
 package com.portfl.controller;
 
+import com.portfl.model.User;
+import com.portfl.repository.UserRepository;
+import com.portfl.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,25 +20,51 @@ import java.util.Objects;
 @SessionAttributes("principal")
 @RequestMapping("/")
 public class AdviceController {
+    @Autowired
+    private UserService userService;
 
     @ModelAttribute("principal")
     public String getPrincipal(){
-        System.out.println("get principal1");
+        User user = getUser();
+        if(user != null) {
+            return user.getUsername();
+        } else {
+            return "";
+        }
+    }
+
+    @ModelAttribute("current_user_id")
+    public Long getCurrentUser(){
+        User user = getUser();
+        if(user != null) {
+            return user.getId();
+        } else {
+            return -1L;
+        }
+    }
+
+    @ModelAttribute("current_user_name")
+    public String getCurrentName(){
+        User user = getUser();
+        if(user != null) {
+            return user.getFirstName() + " " + user.getLastName();
+        } else {
+            return "";
+        }
+    }
+
+    private User getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (Objects.nonNull(authentication)) {
-            System.out.println("get principal2");
             Object principal = authentication.getPrincipal();
 
             if (principal instanceof UserDetails) {
-                System.out.println("get principal3");
-                return ((UserDetails) principal).getUsername();
+                return userService.findByUsername(((UserDetails) principal).getUsername());
             }
-            System.out.println("get principal4");
-            return principal.toString();
+            return null;
         }
-        System.out.println("get principal5");
-        return "";
+        return null;
     }
 
     @GetMapping(value = "/403")
