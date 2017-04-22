@@ -111,9 +111,6 @@
             <div class="overlay" data-toggle="collapse" href="#sidebar" aria-expanded="false" aria-controls="sidebar">
             </div>
             <div class="col-lg-10 col-lg-offset-2 main">
-                <p class="pull-right visible-xs">
-                    <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-                </p>
                 <h1 class="page-header" th:text="#{profile.header}"></h1>
                 <div class="panel-group" id="accordion">
                     <!--Main info-->
@@ -171,10 +168,12 @@
                         </div>
                         <!--@thymesVar id="types" type="java.util.List<String>"-->
                         <div id="collapse2" class="panel-collapse collapse">
-                            <div class="panel-body" th:each="type:${types}">
-                                <div class="col-sm-2">
-                                    <div class="metrics text-info">
-                                        <span th:text="${type}"/>
+                            <div class="panel-body">
+                                <div class="container" th:each="type:${types}">
+                                    <div class="col-sm-2">
+                                        <div class="metrics text-info">
+                                            <span th:text="${type}"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
