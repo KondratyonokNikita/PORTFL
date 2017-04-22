@@ -55,13 +55,21 @@ body {
 
 @media (min-width: 1200px) {
   .sidebar.in + .overlay {
-    display: none; } }
+    display: none;
+  }
+}
 
 @media (max-width: 1200px) {
-  .sidebar {
-    width: 50px; }
-  .menu-name {
-    opacity: 0; } }
+    .search {
+        display: none;
+    }
+    .sidebar {
+        width: 50px;
+    }
+    .menu-name {
+        opacity: 0;
+    }
+}
 
 /* Sidebar navigation */
 .nav-sidebar {
@@ -427,4 +435,9 @@ li
 }
 .div4 {
   background-color: #DC7018;
+}
+
+.search {
+    margin-right: 13px;
+    margin-left: 13px;
 }
