@@ -1,14 +1,9 @@
 package com.portfl.model;
 
 import org.hibernate.validator.constraints.Email;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.time.Instant;
-import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -34,31 +29,49 @@ public class User {
 
     private boolean enabled;
 
-    private Long wieght;
+    private Long weight;
 
     private Long height;
 
     private Long birthday;
 
-    @ManyToMany
-    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
     @ManyToMany
     @JoinTable(name = "user_types", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "type_id"))
-    private Set<Type> types;
+    private List<Type> types;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gender_id")
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<Photo> photos;
+    private List<Photo> photos;
+
+    public User() {
+        this.enabled = false;
+    }
 
     public Long getId() {
         return id;
+    }
+
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", enabled=" + enabled +
+                ", weight=" + weight +
+                ", height=" + height +
+                ", birthday=" + birthday +
+                ", role=" + role +
+                ", gender=" + gender +
+                '}';
     }
 
     public void setId(Long id) {
@@ -113,12 +126,12 @@ public class User {
         this.enabled = enabled;
     }
 
-    public Long getWieght() {
-        return wieght;
+    public Long getWeight() {
+        return weight;
     }
 
-    public void setWieght(Long wieght) {
-        this.wieght = wieght;
+    public void setWeight(Long weight) {
+        this.weight = weight;
     }
 
     public Long getHeight() {
@@ -137,19 +150,19 @@ public class User {
         this.birthday = birthday;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public UserRole getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
-    public Set<Type> getTypes() {
+    public List<Type> getTypes() {
         return types;
     }
 
-    public void setTypes(Set<Type> types) {
+    public void setTypes(List<Type> types) {
         this.types = types;
     }
 
@@ -161,11 +174,11 @@ public class User {
         this.gender = gender;
     }
 
-    public Set<Photo> getPhotos() {
+    public List<Photo> getPhotos() {
         return photos;
     }
 
-    public void setPhotos(Set<Photo> photos) {
+    public void setPhotos(List<Photo> photos) {
         this.photos = photos;
     }
 }

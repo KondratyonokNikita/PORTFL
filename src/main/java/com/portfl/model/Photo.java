@@ -7,8 +7,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import javax.print.DocFlavor;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
@@ -21,7 +21,12 @@ public class Photo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String url;
+    private String path;
+    private Integer height;
+    private Integer width;
+    private Integer bytes;
+    private String originalFilename;
+    private Instant createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -30,21 +35,63 @@ public class Photo {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "photo")
     private Set<Commentary> commentaries;
 
-    @CreatedDate
-    @Type(type = "java.time.Instant")
-    private Instant created;
-
-    @LastModifiedDate
-    @Type(type = "java.time.Instant")
     private Instant updated;
 
-    @Column(name = "CREATED_BY_ID")
-    @CreatedBy
-    private Long createdBy;
+    public Long getId() {
+        return id;
+    }
 
-    @Column(name = "UPDATED_BY_ID")
-    @LastModifiedBy
-    private Long updatedBy;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
+
+    public Integer getWidth() {
+        return width;
+    }
+
+    public void setWidth(Integer width) {
+        this.width = width;
+    }
+
+    public Integer getBytes() {
+        return bytes;
+    }
+
+    public void setBytes(Integer bytes) {
+        this.bytes = bytes;
+    }
+
+    public String getOriginalFilename() {
+        return originalFilename;
+    }
+
+    public void setOriginalFilename(String original_filename) {
+        this.originalFilename = original_filename;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant created_at) {
+        this.createdAt = created_at;
+    }
 
     public User getUser() {
         return user;
@@ -62,51 +109,11 @@ public class Photo {
         this.commentaries = commentaries;
     }
 
-    public Instant getCreated() {
-        return created;
-    }
-
-    public void setCreated(Instant created) {
-        this.created = created;
-    }
-
     public Instant getUpdated() {
         return updated;
     }
 
     public void setUpdated(Instant updated) {
         this.updated = updated;
-    }
-
-    public Long getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(Long createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Long getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(Long updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 }
