@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<body>
+    <nav th:fragment="header" class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">PORTFL</a>
+            </div>
+        </div>
+    </nav>
+    <div th:fragment="menu" class="col-lg-2 sidebar sidebar-offcanvas" id="sidebar">
+        <div class="collapse-menu-button expand hidden-lg" data-toggle="collapse" href="#sidebar" aria-expanded="false"
+             aria-controls="sidebar"><span class="glyphicon glyphicon-circle-arrow-right"></span></div>
+        <div class="collapse-menu-button collapse hidden-lg" data-toggle="collapse" href="#sidebar" aria-expanded="false"
+             aria-controls="sidebar"><span class="glyphicon glyphicon-circle-arrow-left"></span></div>
+        <!--Menu-->
+        <ul class="nav nav-sidebar">
+            <li>
+                <a href="/">
+                    <span class="glyphicon glyphicon-home"></span>
+                    <span class="menu-name" th:text="#{navbar.home}"></span>
+                </a>
+            </li>
+            <!--@thymesVar id="current_user_id" type="java.lang.String"-->
+            <li sec:authorize="isAuthenticated()">
+                <a th:href="${'/profile/' + current_user_id}">
+                    <span class="glyphicon glyphicon-user"></span>
+                    <span class="menu-name" th:text="#{navbar.profile}"></span>
+                </a>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <a id="upload_widget_opener">
+                    <span class="glyphicon glyphicon-cloud-upload"></span>
+                    <span class="menu-name" th:text="#{navbar.upload}"></span>
+                </a>
+            </li>
+            <li sec:authorize="isAnonymous()">
+                <a href="/auth/login">
+                    <span class="glyphicon glyphicon-log-in"></span>
+                    <span class="menu-name" th:text="#{navbar.login}"></span>
+                </a>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <a href="/auth/logout">
+                    <span class="glyphicon glyphicon-log-out"></span>
+                    <span class="menu-name" th:text="#{navbar.logout}"></span>
+                </a>
+            </li>
+            <li sec:authorize="isAnonymous()">
+                <a href="/auth/registration">
+                    <span class="glyphicon glyphicon-save-file"></span>
+                    <span class="menu-name" th:text="#{navbar.register}"></span>
+                </a>
+            </li>
+        </ul>
+        <!--Languages-->
+        <ul class="nav nav-sidebar">
+            <li><a href="?lang=ru"><span class="menu-name" th:text="#{navbar.language.russian}"></span></a></li>
+            <li><a href="?lang=en"><span class="menu-name" th:text="#{navbar.language.english}"></span></a></li>
+        </ul>
+        <!--Admin-->
+        <ul class="nav nav-sidebar" sec:authorize="hasRole('ROLE_ADMIN')">
+            <li>
+                <a href="#">
+                    <span class="glyphicon glyphicon-th-list"></span>
+                    <span class="manu-name" th:text="#{navbar.admin.users}"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
