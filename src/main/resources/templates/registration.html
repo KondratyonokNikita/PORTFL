@@ -19,7 +19,8 @@
     <link type="text/css" rel="stylesheet" href="../css/bootstrap.css"/>
     <link type="text/css" rel="stylesheet" href="../css/styles.css"/>
     <link type="text/css" rel="stylesheet" href="../css/gallery.css"/>
-    <link type='text/css' rel="stylesheet" href="../css/simplelightbox.min.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/simplelightbox.min.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/jquery.easyselect.min.css"/>
 
     <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'/>
 
@@ -114,79 +115,94 @@
                 <!--@thymesVar id="user" type="com.portfl.model.User"-->
                 <form class="form-horizontal" action="#"
                       th:object="${user}" th:action="@{/auth/registration}" method="post">
-                    <input type="hidden" th:field="*{id}"/>
                     <fieldset>
-                        <!-- Username-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{registration.username}"></label>
-                            <div class="col-md-4">
-                                <input id="username" type="text" class="form-control input-md" required=""
-                                       th:placeholder="#{registration.username}" th:field="*{username}" autofocus=""/>
+                        <div class="col-lg-6">
+                            <input type="hidden" th:field="*{id}"/>
+                            <!-- Username-->
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" th:text="#{registration.username}"></label>
+                                <div class="col-md-8">
+                                    <input id="username" type="text" class="form-control input-md" required=""
+                                           th:placeholder="#{registration.username}" th:field="*{username}" autofocus=""/>
+                                </div>
+                            </div>
+                            <!-- Password -->
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" th:text="#{registration.password}"></label>
+                                <div class="col-md-8">
+                                    <input id="password" type="password" class="form-control input-md" required=""
+                                           th:placeholder="#{registration.password}" th:field="*{password}"/>
+                                </div>
+                            </div>
+                            <!-- First name -->
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" th:text="#{registration.firstname}"></label>
+                                <div class="col-md-8">
+                                    <input id="firstname" type="text" class="form-control input-md" required=""
+                                           th:placeholder="#{registration.firstname}" th:field="*{firstName}"/>
+                                </div>
+                            </div>
+                            <!-- Last name -->
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" th:text="#{registration.lastname}"></label>
+                                <div class="col-md-8">
+                                    <input id="lastname" type="text" class="form-control input-md" required=""
+                                           th:placeholder="#{registration.lastname}" th:field="*{lastName}"/>
+                                </div>
+                            </div>
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" th:text="#{registration.email}"></label>
+                                <div class="col-md-8">
+                                    <input id="email" type="text" class="form-control input-md" required=""
+                                           th:placeholder="#{registration.email}" th:field="*{email}"/>
+                                </div>
+                            </div>
+                            <!-- Weight -->
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" th:text="#{registration.weight}"></label>
+                                <div class="col-md-8">
+                                    <input id="weight" type="number" class="form-control input-md" required=""
+                                           th:placeholder="#{registration.weight}" th:field="*{weight}"/>
+                                </div>
+                            </div>
+                            <!-- Height -->
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" th:text="#{registration.height}"></label>
+                                <div class="col-md-8">
+                                    <input id="height" type="number" class="form-control input-md" required=""
+                                           th:placeholder="#{registration.height}" th:field="*{height}"/>
+                                </div>
+                            </div>
+                            <!--Birthday -->
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" th:text="#{registration.birthyear}"></label>
+                                <div class="col-md-8">
+                                    <input id="birthday" type="number" min="1900" max="2100" class="form-control input-md" required=""
+                                           th:placeholder="#{registration.birthyear}" th:field="*{birthday}"/>
+                                </div>
+                            </div>
+                            <!-- Buttons -->
+                            <div class="form-group">
+                                <label class="col-md-3 control-label"></label>
+                                <div class="col-md-8">
+                                    <button type="submit" class="btn btn-success" th:text="#{registration.submit}"/>
+                                    <button type="reset" class="btn btn-danger" th:text="#{registration.reset}"/>
+                                </div>
                             </div>
                         </div>
-                        <!-- Password -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{registration.password}"></label>
-                            <div class="col-md-4">
-                                <input id="password" type="password" class="form-control input-md" required=""
-                                       th:placeholder="#{registration.password}" th:field="*{password}"/>
-                            </div>
-                        </div>
-                        <!-- First name -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{registration.firstname}"></label>
-                            <div class="col-md-4">
-                                <input id="firstname" type="text" class="form-control input-md" required=""
-                                       th:placeholder="#{registration.firstname}" th:field="*{firstName}"/>
-                            </div>
-                        </div>
-                        <!-- Last name -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{registration.lastname}"></label>
-                            <div class="col-md-4">
-                                <input id="lastname" type="text" class="form-control input-md" required=""
-                                       th:placeholder="#{registration.lastname}" th:field="*{lastName}"/>
-                            </div>
-                        </div>
-                        <!-- Email -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{registration.email}"></label>
-                            <div class="col-md-4">
-                                <input id="email" type="text" class="form-control input-md" required=""
-                                       th:placeholder="#{registration.email}" th:field="*{email}"/>
-                            </div>
-                        </div>
-                        <!-- Weight -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{registration.weight}"></label>
-                            <div class="col-md-4">
-                                <input id="weight" type="number" class="form-control input-md" required=""
-                                       th:placeholder="#{registration.weight}" th:field="*{weight}"/>
-                            </div>
-                        </div>
-                        <!-- Height -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{registration.height}"></label>
-                            <div class="col-md-4">
-                                <input id="height" type="number" class="form-control input-md" required=""
-                                       th:placeholder="#{registration.height}" th:field="*{height}"/>
-                            </div>
-                        </div>
-                        <!--Birthday -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{registration.birthyear}"></label>
-                            <div class="col-md-4">
-                                <input id="birthday" type="number" min="1900" max="2100" class="form-control input-md" required=""
-                                       th:placeholder="#{registration.birthyear}" th:field="*{birthday}"/>
-                            </div>
-                        </div>
-                        <!-- Buttons -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label"></label>
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-success" th:text="#{registration.submit}"/>
-                                <button type="reset" class="btn btn-danger" th:text="#{registration.reset}"/>
-                            </div>
+                        <div class="col-lg-6">
+                            <select id="languages" multiple="">
+                                <option value="01">English</option>
+                                <option value="02" selected="">German</option>
+                                <option value="03" selected="">Italian</option>
+                                <option value="04">Japan</option>
+                                <option value="05">Portuguese</option>
+                                <option value="06">Romanian</option>
+                                <option value="07">Russian</option>
+                                <option value="08">Spanish</option>
+                                <option value="09">Turkish</option>
+                            </select>
                         </div>
                     </fieldset>
                 </form>
@@ -198,7 +214,7 @@
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/simple-lightbox.js"></script>
 
-    <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../js/all.js"></script>
     <!-- cloudinary -->
     <script type="text/javascript">
         document.getElementById("upload_widget_opener").addEventListener("click", function() {
@@ -217,6 +233,13 @@
                 }
             );
         }, false);
+    </script>
+
+    <script type="text/javascript" src="../js/jquery.easyselect.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#languages').easySelect();
+        });
     </script>
 </body>
 </html>
