@@ -4,6 +4,8 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>PORTFL</title>
+    <link rel="shortcut icon" href="/image/ic_portfl.png" type="image/png"/>
+
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="description" content=""/>
@@ -28,7 +30,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">PORTFL</a>
+                <a class="navbar-brand" href="/">PORTFL</a>
             </div>
         </div>
     </nav>
@@ -119,12 +121,11 @@
                         <div id="collapse1" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <div class="container">
-                                    <!--th:each="tag:${tags}"-->
-                                    <div class="col-sm-2">
-                                        <div class="metrics text-info">
-                                            <span th:text="${tag}"/>
-                                        </div>
-                                    </div>
+                                    <!--<div class="col-sm-2" th:each="tag:${tags}">-->
+                                    <!--<div class="metrics text-info">-->
+                                    <!--<span th:text="${tag}"/>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
                                 </div>
                             </div>
                         </div>
@@ -139,9 +140,11 @@
                             <div class="panel-body">
                                 <div class="container">
                                     <div class="gallery">
-                                        <!--th:each="photo:${photos}"-->
-                                        <!--<a href="../image/img1.jpg" class="big"><img src="../image/img1.jpg" alt="" title="Beautiful Image" /></a>-->
-                                        <!--<div class="clear"></div>-->
+                                        <!--<a th:each="photo:${user.photos}"-->
+                                        <!--th:href="#{cloudinary.href.gallery.carousel(${photo.path})}">-->
+                                        <!--<img th:src="#{cloudinary.href.gallery.tile(${photo.path})}"-->
+                                        <!--alt="" th:title="${photo.path}" />-->
+                                        <!--</a>-->
                                     </div>
                                 </div>
                             </div>

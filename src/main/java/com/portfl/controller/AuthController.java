@@ -44,7 +44,6 @@ public class AuthController {
     private ApplicationEventPublisher eventPublisher;
     @Autowired
     private TypeRepository typeRepository;
-
     @GetMapping(value="/logout")
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
