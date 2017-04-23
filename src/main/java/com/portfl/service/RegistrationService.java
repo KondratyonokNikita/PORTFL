@@ -28,9 +28,7 @@ public class RegistrationService {
 
     public void confirmRegistration(User user, Locale locale, String appUrl) {
         String token = UUID.randomUUID().toString();
-        System.out.println("confirm registration");
         userService.createVerificationToken(token, user);
-        System.out.println("confirm registration");
         String recipientAddress = user.getEmail();
         String subject = messageSource.getMessage("reg.confirm", null, locale);
         String confirmationUrl = appUrl + "/auth/registrationConfirm.html?token=" + token;

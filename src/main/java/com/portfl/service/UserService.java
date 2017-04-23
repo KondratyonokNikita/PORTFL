@@ -79,9 +79,7 @@ public class UserService {
         VerificationToken verificationToken = new VerificationToken();
         verificationToken.setUserId(user.getId());
         verificationToken.setToken(token);
-        System.out.println(verificationToken.toString());
         tokenRepository.save(verificationToken);
-        System.out.println(verificationToken.toString());
     }
 
     @Transactional

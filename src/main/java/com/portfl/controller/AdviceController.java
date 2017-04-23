@@ -26,8 +26,6 @@ import java.util.Objects;
 public class AdviceController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private TypeRepository typeRepository;
 
     @ModelAttribute("principal")
     public String getPrincipal(){
@@ -57,11 +55,6 @@ public class AdviceController {
         } else {
             return "";
         }
-    }
-
-    @ModelAttribute("photosession_types")
-    public List<Type> getTypes(){
-        return typeRepository.findAll();
     }
 
     @GetMapping(value = "/403")

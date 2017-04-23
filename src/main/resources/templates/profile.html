@@ -169,8 +169,8 @@
                         <!--@thymesVar id="types" type="java.util.List<String>"-->
                         <div id="collapse2" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <div class="container" th:each="type:${types}">
-                                    <div class="col-sm-2">
+                                <div class="container">
+                                    <div class="col-sm-2" th:each="type:${user.types}">
                                         <div class="metrics text-info">
                                             <span th:text="${type}"/>
                                         </div>
@@ -188,9 +188,13 @@
                         <div id="collapse3" class="panel-collapse collapse in">
                             <div class="panel-body">
                                 <div class="container">
-                                    <div class="gallery" th:each="photo:${photos}">
-                                        <!--<a href="../image/img1.jpg" class="big"><img src="../image/img1.jpg" alt="" title="Beautiful Image" /></a>-->
-                                        <!--<div class="clear"></div>-->
+                                    <div class="gallery">
+                                        <!--http://res.cloudinary.com/kondrat/image/upload/photo.path-->
+                                        <a th:each="photo:${user.photos}"
+                                           th:href="#{href.cloudinary(${photo.path})}">
+                                            <img th:src="#{href.cloudinary(${'w_400,h_400/' + photo.path})}"
+                                                 alt="" th:title="${photo.path}" />
+                                        </a>
                                     </div>
                                 </div>
                             </div>

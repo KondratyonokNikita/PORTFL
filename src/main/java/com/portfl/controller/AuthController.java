@@ -1,9 +1,7 @@
 package com.portfl.controller;
 
-import com.portfl.model.Gender;
-import com.portfl.model.LoginForm;
-import com.portfl.model.User;
-import com.portfl.model.UserRole;
+import com.portfl.model.*;
+import com.portfl.repository.TypeRepository;
 import com.portfl.service.RegistrationService;
 import com.portfl.service.SecurityService;
 import com.portfl.service.UserService;
@@ -25,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -43,6 +42,8 @@ public class AuthController {
     private SecurityService securityService;
     @Autowired
     private ApplicationEventPublisher eventPublisher;
+    @Autowired
+    private TypeRepository typeRepository;
 
     @GetMapping(value="/logout")
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
@@ -62,7 +63,6 @@ public class AuthController {
 
     @PostMapping(value = "/registration")
     public String registrationSubmit(@Valid User user, BindingResult result, WebRequest request, Model model) {
-        System.out.println("new " + user.toString());
         if (result.hasErrors()) {
             return "registration";
         }
@@ -90,5 +90,10 @@ public class AuthController {
     @ModelAttribute("genders")
     public Map<Gender, String> initializeRoles() {
         return Arrays.stream(Gender.values()).collect(Collectors.toMap(value -> value, Gender::getLabel));
+    }
+
+    @ModelAttribute("photosession_types")
+    public List<Type> getTypes(){
+        return typeRepository.findAll();
     }
 }
