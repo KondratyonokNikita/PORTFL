@@ -1,6 +1,9 @@
 package com.portfl.controller;
 
+import com.portfl.model.Gender;
+import com.portfl.model.Type;
 import com.portfl.model.User;
+import com.portfl.repository.TypeRepository;
 import com.portfl.repository.UserRepository;
 import com.portfl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -22,6 +26,8 @@ import java.util.Objects;
 public class AdviceController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private TypeRepository typeRepository;
 
     @ModelAttribute("principal")
     public String getPrincipal(){
@@ -51,6 +57,11 @@ public class AdviceController {
         } else {
             return "";
         }
+    }
+
+    @ModelAttribute("photosession_types")
+    public List<Type> getTypes(){
+        return typeRepository.findAll();
     }
 
     @GetMapping(value = "/403")

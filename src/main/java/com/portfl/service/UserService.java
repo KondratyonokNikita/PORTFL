@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 
 @Service
@@ -39,8 +40,6 @@ public class UserService {
     public void create(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(UserRole.ROLE_USER);
-        user.setGender(Gender.MAN);
-        user.setTypes(new ArrayList<>());
         user.setPhotos(new ArrayList<>());
         this.userRepository.save(user);
     }

@@ -2,14 +2,14 @@
 
 	"use strict";
 
-	$.easySelect = function(element, options) {
+	$.easySelect = function(element, placeholder, options) {
 
 		var plugin = this,
 			$element = $(element),
 			$options = $element.children('option'),
 			$container = $('<div class="easyselect-container"></div>'),
 			$field_wrapper = $('<div class="easyselect-field-wrapper"></div>'),
-			$field = $('<input class="easyselect-field" type="text">'),
+			$field = $('<input class="form-control input-md" type="text" placeholder="' + placeholder + '"/>'),
 			$box = $('<div class="easyselect-box"></div>'),
 			$list = $('<ul class="easyselect-list"></ul>'),
 			$list_wrapper = $('<div class="easyselect-list-wrapper"></div>'),
@@ -223,7 +223,7 @@
 			// create & style the stuff
 			$container.append($field_wrapper, $box);
 			$element.hide().after($container);
-			$field_wrapper.append($field).css('width',$field.outerWidth());
+			$field_wrapper.append($field);
 			$field_wrapper.append($list_wrapper.append($list));
 			list.generate();
 

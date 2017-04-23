@@ -120,7 +120,7 @@
                             <input type="hidden" th:field="*{id}"/>
                             <!-- Username-->
                             <div class="form-group">
-                                <label class="col-md-3 control-label" th:text="#{registration.username}"></label>
+                                <label class="col-md-4 control-label" th:text="#{registration.username}"></label>
                                 <div class="col-md-8">
                                     <input id="username" type="text" class="form-control input-md" required=""
                                            th:placeholder="#{registration.username}" th:field="*{username}" autofocus=""/>
@@ -128,7 +128,7 @@
                             </div>
                             <!-- Password -->
                             <div class="form-group">
-                                <label class="col-md-3 control-label" th:text="#{registration.password}"></label>
+                                <label class="col-md-4 control-label" th:text="#{registration.password}"></label>
                                 <div class="col-md-8">
                                     <input id="password" type="password" class="form-control input-md" required=""
                                            th:placeholder="#{registration.password}" th:field="*{password}"/>
@@ -136,7 +136,7 @@
                             </div>
                             <!-- First name -->
                             <div class="form-group">
-                                <label class="col-md-3 control-label" th:text="#{registration.firstname}"></label>
+                                <label class="col-md-4 control-label" th:text="#{registration.firstname}"></label>
                                 <div class="col-md-8">
                                     <input id="firstname" type="text" class="form-control input-md" required=""
                                            th:placeholder="#{registration.firstname}" th:field="*{firstName}"/>
@@ -144,7 +144,7 @@
                             </div>
                             <!-- Last name -->
                             <div class="form-group">
-                                <label class="col-md-3 control-label" th:text="#{registration.lastname}"></label>
+                                <label class="col-md-4 control-label" th:text="#{registration.lastname}"></label>
                                 <div class="col-md-8">
                                     <input id="lastname" type="text" class="form-control input-md" required=""
                                            th:placeholder="#{registration.lastname}" th:field="*{lastName}"/>
@@ -152,15 +152,30 @@
                             </div>
                             <!-- Email -->
                             <div class="form-group">
-                                <label class="col-md-3 control-label" th:text="#{registration.email}"></label>
+                                <label class="col-md-4 control-label" th:text="#{registration.email}"></label>
                                 <div class="col-md-8">
                                     <input id="email" type="text" class="form-control input-md" required=""
                                            th:placeholder="#{registration.email}" th:field="*{email}"/>
                                 </div>
                             </div>
+                            <!-- Gender -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" th:text="#{registration.gender}"></label>
+                                <div class="col-md-8">
+                                    <!--@thymesVar id="genders" type="java.util.Map<com.portfl.model.Gender, java.lang.String>"-->
+                                    <select id="genders" class="form-control input-md" th:field="*{gender}"
+                                            th:placeholder="#{registration.gender}">
+                                        <option th:each="genderOption : ${genders}"
+                                                th:value="${genderOption.key}"
+                                                th:text="${genderOption.value}"/>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
                             <!-- Weight -->
                             <div class="form-group">
-                                <label class="col-md-3 control-label" th:text="#{registration.weight}"></label>
+                                <label class="col-md-4 control-label" th:text="#{registration.weight}"></label>
                                 <div class="col-md-8">
                                     <input id="weight" type="number" class="form-control input-md" required=""
                                            th:placeholder="#{registration.weight}" th:field="*{weight}"/>
@@ -168,41 +183,40 @@
                             </div>
                             <!-- Height -->
                             <div class="form-group">
-                                <label class="col-md-3 control-label" th:text="#{registration.height}"></label>
+                                <label class="col-md-4 control-label" th:text="#{registration.height}"></label>
                                 <div class="col-md-8">
                                     <input id="height" type="number" class="form-control input-md" required=""
                                            th:placeholder="#{registration.height}" th:field="*{height}"/>
                                 </div>
                             </div>
-                            <!--Birthday -->
+                            <!-- Birthday -->
                             <div class="form-group">
-                                <label class="col-md-3 control-label" th:text="#{registration.birthyear}"></label>
+                                <label class="col-md-4 control-label" th:text="#{registration.birthyear}"></label>
                                 <div class="col-md-8">
                                     <input id="birthday" type="number" min="1900" max="2100" class="form-control input-md" required=""
                                            th:placeholder="#{registration.birthyear}" th:field="*{birthday}"/>
                                 </div>
                             </div>
-                            <!-- Buttons -->
+                            <!-- Photosession types -->
                             <div class="form-group">
-                                <label class="col-md-3 control-label"></label>
+                                <label class="col-md-4 control-label" th:text="#{registration.types}"></label>
                                 <div class="col-md-8">
-                                    <button type="submit" class="btn btn-success" th:text="#{registration.submit}"/>
-                                    <button type="reset" class="btn btn-danger" th:text="#{registration.reset}"/>
+                                    <!--@thymesVar id="photosession_types" type="java.util.List<com.portfl.model.Type>"-->
+                                    <select id="types" class="form-control input-md" multiple=""
+                                            th:placeholder="#{registration.types}" th:field="*{types}">
+                                        <option th:each="type:${photosession_types}"
+                                                th:value="${type.id}" th:text="${type.name}">Photo type</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <select id="languages" multiple="">
-                                <option value="01">English</option>
-                                <option value="02" selected="">German</option>
-                                <option value="03" selected="">Italian</option>
-                                <option value="04">Japan</option>
-                                <option value="05">Portuguese</option>
-                                <option value="06">Romanian</option>
-                                <option value="07">Russian</option>
-                                <option value="08">Spanish</option>
-                                <option value="09">Turkish</option>
-                            </select>
+                        <!-- Buttons -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label"></label>
+                            <div class="col-md-8">
+                                <button type="submit" class="btn btn-success" th:text="#{registration.submit}"/>
+                                <button type="reset" class="btn btn-danger" th:text="#{registration.reset}"/>
+                            </div>
                         </div>
                     </fieldset>
                 </form>
@@ -235,11 +249,14 @@
         }, false);
     </script>
 
-    <script type="text/javascript" src="../js/jquery.easyselect.min.js"></script>
-    <script type="text/javascript">
+    <script type="text/javascript" src="../js/jquery.easyselect.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var placeholder = /*[[#{registration.types}]]*/ 'Types';
         $(document).ready(function() {
-            $('#languages').easySelect();
+            $('#types').easySelect(placeholder);
         });
+        /*]]>*/
     </script>
 </body>
 </html>

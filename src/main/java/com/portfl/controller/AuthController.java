@@ -1,7 +1,9 @@
 package com.portfl.controller;
 
+import com.portfl.model.Gender;
 import com.portfl.model.LoginForm;
 import com.portfl.model.User;
+import com.portfl.model.UserRole;
 import com.portfl.service.RegistrationService;
 import com.portfl.service.SecurityService;
 import com.portfl.service.UserService;
@@ -18,9 +20,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.persistence.GeneratedValue;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by Vlad on 22.03.17.
@@ -56,6 +62,7 @@ public class AuthController {
 
     @PostMapping(value = "/registration")
     public String registrationSubmit(@Valid User user, BindingResult result, WebRequest request, Model model) {
+        System.out.println("new " + user.toString());
         if (result.hasErrors()) {
             return "registration";
         }
@@ -67,7 +74,6 @@ public class AuthController {
             model.addAttribute("existEmail", true);
             return "registration";
         }
-
         userService.create(user);
         registrationService.confirmRegistration(user, request.getLocale(), UrlUtils.getAppUrl(request));
         return "redirect:/auth/login";
@@ -79,5 +85,10 @@ public class AuthController {
             return "redirect:/profile";
         }
         return "redirect:/home";
+    }
+
+    @ModelAttribute("genders")
+    public Map<Gender, String> initializeRoles() {
+        return Arrays.stream(Gender.values()).collect(Collectors.toMap(value -> value, Gender::getLabel));
     }
 }

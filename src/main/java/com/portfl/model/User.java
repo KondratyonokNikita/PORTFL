@@ -3,6 +3,7 @@ package com.portfl.model;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -38,10 +39,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_types", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "type_id"))
-    private List<Type> types;
+    private Set<Type> types;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -57,6 +58,7 @@ public class User {
         return id;
     }
 
+    @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
@@ -70,8 +72,18 @@ public class User {
                 ", height=" + height +
                 ", birthday=" + birthday +
                 ", role=" + role +
+                ", types=" + toString(types) +
                 ", gender=" + gender +
+                ", photos=" + photos +
                 '}';
+    }
+
+    private String toString(Set<Type> list) {
+        StringBuilder builder = new StringBuilder("{");
+        for(Object object: list) {
+            builder.append(object.toString() + ",");
+        }
+        return builder.append("}").toString();
     }
 
     public void setId(Long id) {
@@ -158,11 +170,11 @@ public class User {
         this.role = role;
     }
 
-    public List<Type> getTypes() {
+    public Set<Type> getTypes() {
         return types;
     }
 
-    public void setTypes(List<Type> types) {
+    public void setTypes(Set<Type> types) {
         this.types = types;
     }
 
