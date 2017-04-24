@@ -121,4 +121,16 @@ public class UserService {
         }
         return null;
     }
+
+    public void makeAdmin(Long profileId) {
+        User user = userRepository.findOne(profileId);
+        user.setRole(UserRole.ROLE_ADMIN);
+        userRepository.save(user);
+    }
+
+    public void makeUser(Long profileId) {
+        User user = userRepository.findOne(profileId);
+        user.setRole(UserRole.ROLE_USER);
+        userRepository.save(user);
+    }
 }

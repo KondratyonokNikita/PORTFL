@@ -40,10 +40,6 @@ public class AuthController {
     @Autowired
     private UserService userService;
     @Autowired
-    private SecurityService securityService;
-    @Autowired
-    private ApplicationEventPublisher eventPublisher;
-    @Autowired
     private TypeRepository typeRepository;
 
     @GetMapping(value = "/registration")
@@ -132,6 +128,31 @@ public class AuthController {
         }
         userService.update(user);
         return "redirect:/profile/" + user.getId();
+    }
+
+    @GetMapping(value = "/makeAdmin/{profileId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String makeAdmin(@PathVariable Long profileId) {
+        userService.makeAdmin(profileId);
+        return "redirect:/users";
+    }
+
+    @GetMapping(value = "/makeUser/{profileId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String makeUser(@PathVariable Long profileId) {
+        userService.makeUser(profileId);
+        return "redirect:/users";
+    }
+
+    @GetMapping(value = "/delete/{profileId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String delete(@PathVariable Long profileId) {
+        if (profileId == userService.getUser().getId()) {
+            return "redirect:/users";
+        } else {
+            userService.delete(profileId);
+            return "redirect:/users";
+        }
     }
 
     @ModelAttribute("genders")

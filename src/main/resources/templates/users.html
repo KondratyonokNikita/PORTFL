@@ -92,7 +92,7 @@
             <!--Admin-->
             <ul class="nav nav-sidebar" sec:authorize="hasRole('ROLE_ADMIN')">
                 <li class="active">
-                    <a href="#">
+                    <a href="/users">
                         <span class="glyphicon glyphicon-th-list"></span>
                         <span class="manu-name" th:text="#{navbar.admin.users}"></span>
                     </a>
@@ -125,25 +125,46 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th th:text="#{profile.person_name}"/>
-                        <th th:text="#{profile.email}"/>
-                        <th th:text="#{profile.gender}"/>
-                        <th th:text="#{profile.height}"/>
-                        <th th:text="#{profile.weight}"/>
-                        <th th:text="#{profile.birthyear}"/>
+                        <th th:text="#{users.person_name}"/>
+                        <th th:text="#{users.email}"/>
+                        <th th:text="#{users.gender}"/>
+                        <th th:text="#{users.height}"/>
+                        <th th:text="#{users.weight}"/>
+                        <th th:text="#{users.birthyear}"/>
                         <th th:text="#{users.controls}"/>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="user:${users}">
-                        <th th:text="${user.id}"></th>
-                        <th th:text="${user.firstName + ' ' + user.lastName}"/>
-                        <th th:text="${user.email}"/>
-                        <th th:text="${user.gender.label}"/>
-                        <th th:text="${user.height}"/>
-                        <th th:text="${user.weight}"/>
-                        <th th:text="${user.birthday}"/>
-                        <th></th>
+                        <td th:text="${user.id}"/>
+                        <td th:text="${user.firstName + ' ' + user.lastName}"/>
+                        <td th:text="${user.email}"/>
+                        <td th:text="${user.gender.label}"/>
+                        <td th:text="${user.height}"/>
+                        <td th:text="${user.weight}"/>
+                        <td th:text="${user.birthday}"/>
+                        <td>
+                            <a class="btn btn-default btn-sm" th:alt="#{users.edit}"
+                               th:href="${'/auth/edit/' + user.id}">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a th:if="${user.role.label == 'Admin'}" th:alt="#{users.make_admin}"
+                               th:href="${'/auth/makeUser/' + user.id}"
+                               class="btn btn-success btn-sm">
+                                <span class="glyphicon glyphicon-star"/>
+                            </a>
+                            <a th:if="${user.role.label == 'User'}" th:alt="#{users.make_user}"
+                               th:href="${'/auth/makeAdmin/' + user.id}"
+                               class="btn btn-success btn-sm">
+                                <span class="glyphicon glyphicon-star-empty"/>
+                            </a>
+                            <!--@thymesVar id="current_user_id" type="java.lang.Long"-->
+                            <a th:if="${user.id != current_user_id}" th:alt="#{users.delete}"
+                               th:href="${'/auth/delete/' + user.id}"
+                               class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
