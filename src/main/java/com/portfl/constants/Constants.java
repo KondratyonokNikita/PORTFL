@@ -4,15 +4,6 @@ package com.portfl.constants;
  * Created by Vlad on 06.03.17.
  */
 public class Constants {
-
-    public static final class cloud {
-        public static final String CLOUD_PUBLIC_ID = "public_id";
-        public static final String CLOUD_FILE = "temp.jpg";
-        public static final String CLOUD_NAME = "cloud_name";
-        public static final String CLOUD_API_KEY="api_key";
-        public static final String CLOUD_API_SECRET="api_secret";
-    }
-
     public static final class Views {
         public static final String HOME_PAGE = "home";
         public static final String LOGIN_PAGE = "login";
@@ -26,10 +17,10 @@ public class Constants {
     }
 
     public static final class Packages {
-        public static final String CONTROLLERS = "com.pashkevich.app.web.controller";
-        public static final String SERVICES = "com.pashkevich.app.service";
-        public static final String DAO = "com.pashkevich.app.dao";
-        public static final String LISTENERS = "com.pashkevich.app.listeners";
+        public static final String CONTROLLERS = "com.portfl.controller";
+        public static final String SERVICES = "com.portfl.service";
+        public static final String DAO = "com.portfl.repository";
+        public static final String LISTENERS = "com.portfl.listeners";
     }
 
     public static final class Regex {
