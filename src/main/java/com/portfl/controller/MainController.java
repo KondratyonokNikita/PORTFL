@@ -5,6 +5,7 @@ import com.portfl.model.User;
 import com.portfl.service.PhotoService;
 import com.portfl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -45,16 +46,17 @@ public class MainController {
         }
     }
 
-    @RequestMapping(value="/setTest", method=RequestMethod.POST, consumes="application/json")
+    @PostMapping(value = "/loadPhoto", consumes = "application/json")
     public @ResponseBody
-    String setTest(@RequestBody List<Map<String, Object>> photos, ModelMap map) {
+    String loadPhoto(@RequestBody List<Map<String, Object>> photos, ModelMap map) {
         photoService.addPhotos(photos);
         return "saved";
     }
 
-    @PostMapping(value = "/loadPhoto")
-    public String loadPhoto(Map<String, Object>[] result) {
-        System.out.println(result.toString());
-        return "redirect:/";
+    @GetMapping(value = "/users")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String getAllUsers(Model model) {
+        model.addAttribute("users", userService.findAll());
+        return "users";
     }
 }

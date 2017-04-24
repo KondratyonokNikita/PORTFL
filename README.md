@@ -12,7 +12,7 @@
 - [ ] Add photo stars
 - [ ] Add smart crop for gallery
 - [ ] Add controller security
-- [ ] Make profile edit
+- [x] Make profile edit
 - [ ] Make photo edit
 - [ ] Add drag&drop for gallery
 - [ ] Add order of photos
