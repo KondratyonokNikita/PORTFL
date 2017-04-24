@@ -57,6 +57,12 @@
                         </a>
                     </li>
                     <li sec:authorize="isAuthenticated()">
+                        <a href="/auth/edit">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            <span class="menu-name" th:text="#{navbar.edit}"></span>
+                        </a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
                         <a id="upload_widget_opener">
                             <span class="glyphicon glyphicon-cloud-upload"></span>
                             <span class="menu-name" th:text="#{navbar.upload}"></span>
@@ -161,7 +167,7 @@
 
     <script src="js/all.js" type="text/javascript"></script>
     <!-- cloudinary -->
-    <script type="text/javascript">
+    <script sec:authorize="isAuthenticated()" type="text/javascript">
         document.getElementById("upload_widget_opener").addEventListener("click", function() {
             cloudinary.openUploadWidget({ cloud_name: 'kondrat', upload_preset: 'tduqgmt1', sources: ['local', 'url'], keep_widget_open: false},
                 function(error, result) {

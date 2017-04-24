@@ -59,6 +59,12 @@
                         </a>
                     </li>
                     <li sec:authorize="isAuthenticated()">
+                        <a href="/auth/edit">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            <span class="menu-name" th:text="#{navbar.edit}"></span>
+                        </a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
                         <a id="upload_widget_opener">
                             <span class="glyphicon glyphicon-cloud-upload"></span>
                             <span class="menu-name" th:text="#{navbar.upload}"></span>

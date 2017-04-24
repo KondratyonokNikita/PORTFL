@@ -9,6 +9,7 @@ import com.portfl.utils.UrlUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -44,14 +45,6 @@ public class AuthController {
     private ApplicationEventPublisher eventPublisher;
     @Autowired
     private TypeRepository typeRepository;
-    @GetMapping(value="/logout")
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-        return "redirect:/auth/login";
-    }
 
     @GetMapping(value = "/registration")
     public String registration(Model model) {
@@ -84,6 +77,61 @@ public class AuthController {
             return "redirect:/profile";
         }
         return "redirect:/home";
+    }
+
+    @GetMapping(value = "/edit/{profileId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String editAdmin(@PathVariable Long profileId, Model model) {
+        User user = userService.findOne(profileId);
+        model.addAttribute("user", user);
+        return "edit";
+    }
+
+    @GetMapping(value = "/edit")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public String edit(Model model) {
+        User user = userService.getUser();
+        model.addAttribute("user", user);
+        return "edit";
+    }
+
+    @PostMapping(value = "/edit")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public String editSubmit(@Valid User user, BindingResult result, WebRequest request, Model model) {
+        if (user.getId() != userService.getUser().getId()) {
+            return "redirect:/";
+        }
+        if (result.hasErrors()) {
+            return "edit";
+        }
+        if (userService.isExistUsername(user.getUsername())) {
+            model.addAttribute("existUsername", true);
+            return "edit";
+        }
+        if (userService.isExistEmail(user.getEmail())) {
+            model.addAttribute("existEmail", true);
+            return "edit";
+        }
+        userService.update(user);
+        return "redirect:/profile/" + user.getId();
+    }
+
+    @PostMapping(value = "/edit/{profileId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String editSubmitAdmin(@Valid User user, BindingResult result, WebRequest request, Model model) {
+        if (result.hasErrors()) {
+            return "edit";
+        }
+        if (userService.isExistUsername(user.getUsername())) {
+            model.addAttribute("existUsername", true);
+            return "edit";
+        }
+        if (userService.isExistEmail(user.getEmail())) {
+            model.addAttribute("existEmail", true);
+            return "edit";
+        }
+        userService.update(user);
+        return "redirect:/profile/" + user.getId();
     }
 
     @ModelAttribute("genders")
