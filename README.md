@@ -2,20 +2,18 @@
 
 ## TODO
 
-- [x] Add russian language
-- [x] Add genders
-- [ ] Add photosession types
+- [ ] __Add error messages__
 - [ ] Rebuild database
-- [x] Add logo
 - [ ] Add new role for unconfirmed users
 - [ ] Add tags
 - [ ] Add photo stars
 - [ ] Add smart crop for gallery
-- [ ] Add controller security
-- [x] Make profile edit
 - [ ] Make photo edit
 - [ ] Add drag&drop for gallery
 - [ ] Add order of photos
+- [ ] Make photo comments
+- [ ] Make 403 and 404 pages
+- [ ] Add account activation
 
 ## Properties files
 

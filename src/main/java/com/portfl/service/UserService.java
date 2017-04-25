@@ -77,7 +77,7 @@ public class UserService {
     @Transactional
     public void createVerificationToken(String token, User user) {
         VerificationToken verificationToken = new VerificationToken();
-        verificationToken.setUserId(user.getId());
+        verificationToken.setUser(user);
         verificationToken.setToken(token);
         tokenRepository.save(verificationToken);
     }
@@ -86,7 +86,7 @@ public class UserService {
     public boolean enableAccount(String token) {
         try {
             VerificationToken verificationToken = tokenRepository.findByToken(token);
-            User user = userRepository.findOne(verificationToken.getUserId());
+            User user = verificationToken.getUser();
             user.setEnabled(true);
             userRepository.save(user);
             return true;

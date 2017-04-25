@@ -1,5 +1,6 @@
 package com.portfl.controller;
 
+import com.portfl.event.OnRegistrationCompleteEvent;
 import com.portfl.model.*;
 import com.portfl.repository.TypeRepository;
 import com.portfl.service.RegistrationService;
@@ -28,6 +29,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.portfl.utils.UrlUtils.getAppUrl;
+
 /**
  * Created by Vlad on 22.03.17.
  */
@@ -41,6 +44,8 @@ public class AuthController {
     private UserService userService;
     @Autowired
     private TypeRepository typeRepository;
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
 
     @GetMapping(value = "/registration")
     public String registration(Model model) {
@@ -63,7 +68,7 @@ public class AuthController {
             return "registration";
         }
         userService.create(user);
-        registrationService.confirmRegistration(user, request.getLocale(), UrlUtils.getAppUrl(request));
+        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, request.getLocale(), getAppUrl(request)));
         return "redirect:/auth/login";
     }
 
