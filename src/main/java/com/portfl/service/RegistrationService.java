@@ -43,7 +43,9 @@ public class RegistrationService implements ApplicationListener<OnRegistrationCo
         email.setTo(recipientAddress);
         email.setSubject(subject);
         email.setText(messageSource.getMessage("reg.go.url", null, locale) + confirmationUrl);
-        mailSender.send(email);
+        System.out.println(email);
+        System.out.println(email.toString());
+        //mailSender.send(email);
     }
 
     @Override

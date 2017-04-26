@@ -96,7 +96,7 @@
                 <li>
                     <a href="/users">
                         <span class="glyphicon glyphicon-th-list"></span>
-                        <span class="manu-name" th:text="#{navbar.admin.users}"></span>
+                        <span class="menu-name" th:text="#{navbar.admin.users}"></span>
                     </a>
                 </li>
             </ul>
@@ -135,15 +135,6 @@
                                 <input id="username" type="text" class="form-control input-md" required=""
                                        th:value="${user.username}" th:placeholder="#{edit.username}"
                                        th:field="*{username}" autofocus=""/>
-                            </div>
-                        </div>
-                        <!-- Password -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{edit.password}"></label>
-                            <div class="col-md-8">
-                                <input id="password" type="password" class="form-control input-md" required=""
-                                       th:value="${user.password}" th:placeholder="#{edit.password}"
-                                       th:field="*{password}"/>
                             </div>
                         </div>
                         <!-- First name -->

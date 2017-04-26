@@ -50,19 +50,20 @@ public class UserService {
 
         if (Objects.nonNull(entity)) {
             entity.setUsername(user.getUsername());
+            entity.setFirstName(user.getFirstName());
+            entity.setLastName(user.getLastName());
+            entity.setGender(user.getGender());
             entity.setEmail(user.getEmail());
-            entity.setRole(user.getRole());
-
-            if (Objects.nonNull(user.getPassword())) {
-                entity.setPassword(user.getPassword());
-            }
-
+            entity.setHeight(user.getHeight());
+            entity.setWeight(user.getWeight());
+            entity.setTypes(user.getTypes());
             this.userRepository.save(entity);
         }
     }
 
     @Transactional
     public void delete(Long id) {
+        this.tokenRepository.deleteByUserId(id);
         this.userRepository.delete(id);
     }
 

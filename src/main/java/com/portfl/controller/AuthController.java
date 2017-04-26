@@ -75,9 +75,9 @@ public class AuthController {
     @GetMapping(value = "/registrationConfirm.html")
     public String registrationConfirm(@RequestParam("token") String token) {
         if (userService.enableAccount(token)) {
-            return "redirect:/profile";
+            return "redirect:/auth/login";
         }
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     @GetMapping(value = "/edit/{profileId}")
@@ -105,14 +105,7 @@ public class AuthController {
         if (result.hasErrors()) {
             return "edit";
         }
-        if (userService.isExistUsername(user.getUsername())) {
-            model.addAttribute("existUsername", true);
-            return "edit";
-        }
-        if (userService.isExistEmail(user.getEmail())) {
-            model.addAttribute("existEmail", true);
-            return "edit";
-        }
+        System.out.println(user.toString());
         userService.update(user);
         return "redirect:/profile/" + user.getId();
     }

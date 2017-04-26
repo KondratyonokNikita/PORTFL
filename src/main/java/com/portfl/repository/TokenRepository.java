@@ -24,6 +24,8 @@ public interface TokenRepository extends JpaRepository<VerificationToken, Long>{
 
     void deleteByExpiryDateLessThan(Date now);
 
+    void deleteByUserId(Long userId);
+
     @Modifying
     @Query("delete from VerificationToken t where t.expiryDate <= ?1")
     void deleteAllExpiredSince(Date now);

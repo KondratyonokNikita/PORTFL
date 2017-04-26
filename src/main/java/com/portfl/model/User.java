@@ -58,34 +58,6 @@ public class User {
         return id;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", enabled=" + enabled +
-                ", weight=" + weight +
-                ", height=" + height +
-                ", birthday=" + birthday +
-                ", role=" + role +
-                ", types=" + toString(types) +
-                ", gender=" + gender +
-                ", photos=" + photos +
-                '}';
-    }
-
-    private String toString(Set<Type> list) {
-        StringBuilder builder = new StringBuilder("{");
-        for(Object object: list) {
-            builder.append(object.toString() + ",");
-        }
-        return builder.append("}").toString();
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
