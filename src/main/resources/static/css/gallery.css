@@ -1,6 +1,5 @@
 /* line 1, ../sass/demo.scss */
 html, body {
-    font-family: 'Slabo 27px', serif;
     margin: 0;
     background: #ffffff;
 }
@@ -35,7 +34,7 @@ a {
 .container .gallery a img {
     float: left;
     width: 20%;
-    height: weight;
+    min-width: 100px;
     border: 2px solid #fff;
     -webkit-transition: -webkit-transform .15s ease;
     -moz-transition: -moz-transform .15s ease;
