@@ -56,20 +56,4 @@ public class AdviceController {
             return "";
         }
     }
-
-    @GetMapping(value = "/403")
-    public ModelAndView accessDenied(Principal user) {
-        ModelAndView model = new ModelAndView();
-
-        if (Objects.nonNull(user)) {
-            model.addObject("msg", "Hi " + user.getName()
-                    + ", you do not have permission to access this page!");
-        } else {
-            model.addObject("msg",
-                    "You do not have permission to access this page!");
-        }
-
-        model.setViewName("403");
-        return model;
-    }
 }

@@ -42,6 +42,12 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
         registry.addViewController("/home").setViewName("home");
         registry.addViewController("/").setViewName("home");
         registry.addViewController("/auth/login").setViewName("login");
+        registry.addViewController("/400").setViewName("errors/400");
+        registry.addViewController("/403").setViewName("errors/403");
+        registry.addViewController("/404").setViewName("errors/404");
+        registry.addViewController("/500").setViewName("errors/500");
+        registry.addViewController("/502").setViewName("errors/502");
+        registry.addViewController("/503").setViewName("errors/503");
     }
 
     @Bean
