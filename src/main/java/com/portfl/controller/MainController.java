@@ -4,6 +4,7 @@ import com.portfl.model.Commentary;
 import com.portfl.model.Photo;
 import com.portfl.model.User;
 import com.portfl.service.CommentaryService;
+import com.portfl.service.LukasiService;
 import com.portfl.service.PhotoService;
 import com.portfl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -32,6 +34,8 @@ public class MainController {
     private PhotoService photoService;
     @Autowired
     private CommentaryService commentaryService;
+    @Autowired
+    private LukasiService lukasiService;
 
     @GetMapping(value = "/")
     public String homePage() {
@@ -67,6 +71,7 @@ public class MainController {
         model.addAttribute("user", photo.getUser());
         model.addAttribute("currentUser", userService.getUser());
         model.addAttribute("comments", commentaryService.findAll());
+        model.addAttribute("lukasi", lukasiService.getAllLukas(photoId));
         return "photo";
     }
 
@@ -94,5 +99,21 @@ public class MainController {
     public String getAllUsers(Model model) {
         model.addAttribute("users", userService.findAll());
         return "users";
+    }
+
+    @RequestMapping(value="/lukas", method = RequestMethod.POST)
+    public @ResponseBody Integer lukas(@RequestParam Long photoId) throws IOException {
+        if(userService.getUser().getId()!=null){
+            lukasiService.addLukas(photoId, userService.getUser().getId());
+        }
+        return lukasiService.getAllLukas(photoId);
+    }
+
+    @RequestMapping(value="/dizlukas", method = RequestMethod.POST)
+    public @ResponseBody Integer dizlukas(@RequestParam Long photoId) throws IOException {
+        if(userService.getUser().getId()!=null){
+            lukasiService.addDizLukas(photoId, userService.getUser().getId());
+        }
+        return lukasiService.getAllLukas(photoId);
     }
 }

@@ -163,9 +163,39 @@
                         </div>
                     </div>
                 </div>
+                <button><span onclick="lukas()" class="glyphicon glyphicon-thumbs-up"/></button>
+                <p id="lukas" th:text="${lukasi}"></p>
+                <button onclick="dizlukas()"><span class="glyphicon glyphicon-thumbs-down"/></button>
             </div>
         </div>
     </div>
 </main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script th:inline="javascript">
+    function lukas() {
+        $.ajax({
+            type: 'POST',
+            url: '/lukas',
+            data: ({
+                "photoId": [[${photo.id}]]
+            }),
+            success:function (likes) {
+                $("#lukas").text(likes);
+            }
+        });
+    }
+    function dizlukas() {
+        $.ajax({
+            type: 'POST',
+            url: '/dizlukas',
+            data: ({
+                "photoId": [[${photo.id}]]
+            }),
+            success:function (likes) {
+                $("#lukas").text(likes);
+            }
+        });
+    }
+</script>
 </body>
 </html>

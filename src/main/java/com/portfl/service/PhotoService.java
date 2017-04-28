@@ -24,6 +24,9 @@ public class PhotoService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private LukasiService lukasiService;
+
     public Photo findOne(Long photoId) {
         return this.photoRepository.findOne(photoId);
     }
@@ -44,5 +47,10 @@ public class PhotoService {
             userPhotos.add(photo);
         }
         userService.update(user);
+        for(Map<String, Object> info: photos) {
+            String string=(String)info.get("path");
+            Photo photo=photoRepository.findByPath(string).get(0);
+            lukasiService.initialiseLukas(photo.getId());
+        }
     }
 }
