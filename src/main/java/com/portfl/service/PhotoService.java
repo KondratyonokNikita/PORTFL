@@ -2,6 +2,7 @@ package com.portfl.service;
 
 import com.portfl.model.Photo;
 import com.portfl.model.User;
+import com.portfl.repository.PhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,19 @@ import java.util.Map;
  */
 @Service
 public class PhotoService {
+
+    @Autowired
+    private PhotoRepository photoRepository;
+
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private LukasiService lukasiService;
+
+    public Photo findOne(Long photoId) {
+        return this.photoRepository.findOne(photoId);
+    }
 
     public void addPhotos(List<Map<String, Object>> photos) {
         User user = userService.getUser();
@@ -35,5 +47,10 @@ public class PhotoService {
             userPhotos.add(photo);
         }
         userService.update(user);
+        for(Map<String, Object> info: photos) {
+            String string=(String)info.get("path");
+            Photo photo=photoRepository.findByPath(string).get(0);
+            lukasiService.initialiseLukas(photo.getId());
+        }
     }
 }
