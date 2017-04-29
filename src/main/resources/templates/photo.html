@@ -24,7 +24,9 @@
     <link type='text/css' rel="stylesheet" href="../css/simplelightbox.min.css"/>
     <link type='text/css' rel="stylesheet" href="../css/comments.css"/>
 
-    <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/themes/fontawesome-stars-o.css"/>
+
 </head>
 
 <body>
@@ -122,51 +124,73 @@
         </div>
         <div class="col-lg-10 col-lg-offset-2 main">
             <h1 class="page-header" th:text="#{photo.header}"></h1>
-            <div class="panel-group" id="accordion">
-                <!--Main info-->
-                <!--@thymesVar id="user" type="com.portfl.model.User"-->
-                <div class="col-sm-6">
-                    <div class="metrics text-primary" href="#" role="tab" data-toggle="tab">
-                        <img th:src="#{cloudinary.href.gallery.tile(${photo.path})}"/>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <div class="panel panel-primary shadow">
-                        <div class="panel-heading" style="background-color: #5EAD2A">
-                            <span class="glyphicon glyphicon-comment"></span>Commentary
-                        </div>
-                        <div class="panel-body chat-panel-body">
-                            <ul class="chat">
-                                <div th:each="comment : ${comments}">
-                                    <li class="left clearfix" th:if="${comment.photo==photo}">
-                                        <div class="chat-body clearfix">
-                                            <div class="header">
-                                                <strong class="primary-font">
-                                                    <a th:href="${'/profile/' + comment.createdBy}">
-                                                        <p th:text="${comment.sender}"></p>
-                                                    </a>
-                                                </strong>
-                                            </div>
-                                            <p class="" th:text="${comment.text}"></p>
-                                        </div>
-                                    </li>
-                                </div>
-                            </ul>
-                        </div>
-                        <div class="panel-footer">
-                            <form action="#" th:object="${commentary}" th:action="${'/photo/' + photo.id}" method="post" style="margin: 0">
-                                <input id="btn-input" type="text" class="form-control input-lg" th:field="*{text}" placeholder="Type message here..."/>
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary btn-lg" type="submit" id="btn-chat">Send</button>
-                                </span>
-                            </form>
+            <div class="col-lg-6">
+                <div class="metrics text-primary" href="#" role="tab" data-toggle="tab">
+                    <img class="comment-image" src="../image/img9.jpg"/>
+                    <!--<img class="comment-image" th:src="#{cloudinary.href.gallery.comments(${photo.path})}"/>-->
+                    <div class="star-ratings">
+                        <div class="stars stars-example-fontawesome-o">
+                            <select id="example-fontawesome-o" name="rating" data-current-rating="5.6"
+                                    autocomplete="off">
+                                <option value=""></option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <span class="title current-rating">
+                            Current rating: <span class="value"></span>
+                        </span>
+                            <span class="title your-rating hidden">
+                            Your rating: <span class="value"></span>&nbsp;
+                            <a href="#" class="clear-rating"><i class="fa fa-times-circle"></i></a>
+                        </span>
                         </div>
                     </div>
                 </div>
-                <button><span onclick="lukas()" class="glyphicon glyphicon-thumbs-up"/></button>
-                <p id="lukas" th:text="${lukasi}"></p>
-                <button onclick="dizlukas()"><span class="glyphicon glyphicon-thumbs-down"/></button>
             </div>
+            <div class="col-lg-6">
+                <div class="panel panel-primary shadow">
+                    <div class="panel-body chat-panel-body">
+                        <ul class="chat">
+                            <li class="clearfix" th:each="comment : ${comments}">
+                                <div class="chat-body clearfix">
+                                    <div class="header">
+                                        <strong class="primary-font">
+                                            <a th:href="${'/profile/' + comment.createdBy}">
+                                                <p th:text="${comment.sender}"></p>
+                                            </a>
+                                        </strong>
+                                    </div>
+                                    <p th:text="${comment.text}"></p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <form class="form-inline row">
+                            <div class="col-lg-9 text-left">
+                                <label class="sr-only" for="inlineFormInput">Name</label>
+                                <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" style="width: 100%;"
+                                       id="inlineFormInput" placeholder="Jane Doe"/>
+                            </div>
+                            <div class="col-lg-3 text-right">
+                                <button type="submit" class="btn btn-success" style="width: 100%">Submit</button>
+                            </div>
+                        </form>
+                        <!--<form action="#" th:object="${commentary}" th:action="${'/photo/' + photo.id}" method="post" style="margin: 0">-->
+                        <!--<input id="btn-input" type="text" class="form-control input-lg" th:field="*{text}" placeholder="Type message here..."/>-->
+                        <!--<span class="input-group-btn">-->
+                        <!--<button class="btn btn-primary btn-lg" type="submit" id="btn-chat">Send</button>-->
+                        <!--</span>-->
+                        <!--</form>-->
+                    </div>
+                </div>
+            </div>
+            <!--<button><span onclick="lukas()" class="glyphicon glyphicon-thumbs-up"/></button>-->
+            <!--<p id="lukas" th:text="${lukasi}"></p>-->
+            <!--<button onclick="dizlukas()"><span class="glyphicon glyphicon-thumbs-down"/></button>-->
         </div>
     </div>
 </main>
@@ -196,6 +220,52 @@
             }
         });
     }
+</script>
+<script src="../js/jquery.barrating.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var currentRating = $('#example-fontawesome-o').data('current-rating');
+
+        $('.stars-example-fontawesome-o .current-rating')
+            .find('span')
+            .html(currentRating);
+
+        $('.stars-example-fontawesome-o .clear-rating').on('click', function (event) {
+            event.preventDefault();
+
+            $('#example-fontawesome-o')
+                .barrating('clear');
+        });
+
+        $('#example-fontawesome-o').barrating({
+            theme: 'fontawesome-stars-o',
+            showSelectedRating: false,
+            initialRating: currentRating,
+            onSelect: function (value, text) {
+                if (!value) {
+                    $('#example-fontawesome-o')
+                        .barrating('clear');
+                } else {
+                    console.log(value);
+                    $('.stars-example-fontawesome-o .current-rating')
+                        .addClass('hidden');
+
+                    $('.stars-example-fontawesome-o .your-rating')
+                        .removeClass('hidden')
+                        .find('span')
+                        .html(value);
+                }
+            },
+            onClear: function (value, text) {
+                $('.stars-example-fontawesome-o')
+                    .find('.current-rating')
+                    .removeClass('hidden')
+                    .end()
+                    .find('.your-rating')
+                    .addClass('hidden');
+            }
+        });
+    });
 </script>
 </body>
 </html>

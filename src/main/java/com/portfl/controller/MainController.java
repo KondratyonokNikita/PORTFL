@@ -106,7 +106,8 @@ public class MainController {
     }
 
     @RequestMapping(value="/lukas", method = RequestMethod.POST)
-    public @ResponseBody Integer lukas(@RequestParam Long photoId) throws IOException {
+    public @ResponseBody
+    Long lukas(@RequestParam Long photoId) throws IOException {
         if(userService.getUser().getId()!=null){
             lukasiService.addLukas(photoId, userService.getUser().getId());
         }
@@ -114,7 +115,8 @@ public class MainController {
     }
 
     @RequestMapping(value="/dizlukas", method = RequestMethod.POST)
-    public @ResponseBody Integer dizlukas(@RequestParam Long photoId) throws IOException {
+    public @ResponseBody
+    Long dizlukas(@RequestParam Long photoId) throws IOException {
         if(userService.getUser().getId()!=null){
             lukasiService.addDizLukas(photoId, userService.getUser().getId());
         }

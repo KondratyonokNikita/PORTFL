@@ -56,7 +56,7 @@ public class LukasiService {
         return true;
     }
 
-    public int getAllLukas(Long photoId) {
+    public Long getAllLukas(Long photoId) {
         return lukasiRepository.sumByLukas(photoId);
     }
 

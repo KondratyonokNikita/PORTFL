@@ -16,5 +16,5 @@ public interface LukasiRepository extends JpaRepository<Lukasi, Long> {
     Lukasi findOneByPhotoIdAndUserId(Long photoId, Long userId);
 
     @Query("SELECT SUM(lukas) FROM Lukasi lukasi where lukasi.photoId = :photoId")
-    int sumByLukas(@Param("photoId") Long photoId);
+    Long sumByLukas(@Param("photoId") Long photoId);
 }
