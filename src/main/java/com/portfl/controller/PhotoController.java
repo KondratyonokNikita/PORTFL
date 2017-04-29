@@ -1,9 +1,6 @@
 package com.portfl.controller;
 
-import com.portfl.model.Commentary;
-import com.portfl.model.Photo;
-import com.portfl.model.Rate;
-import com.portfl.model.User;
+import com.portfl.model.*;
 import com.portfl.service.CommentaryService;
 import com.portfl.service.PhotoService;
 import com.portfl.service.RateService;
@@ -42,9 +39,20 @@ public class PhotoController {
             return "redirect:/";
         } else {
             model.addAttribute("user", user);
-            model.addAttribute("photos", user.getPhotoInfo());
             return "photo";
         }
+    }
+
+    @GetMapping(value = "/get/photos/{profileId}")
+    public @ResponseBody
+    Iterable<PhotoInfo> getPhotos(@PathVariable Long profileId) {
+        return userService.findOne(profileId).getPhotoInfo();
+    }
+
+    @GetMapping(value = "/get/comment/{photoId}")
+    public @ResponseBody
+    Iterable<Commentary> getComments(@PathVariable Long photoId) {
+        return commentaryService.findAllByPhotoId(photoId);
     }
 
     @PostMapping(value = "/comment/{photoId}")

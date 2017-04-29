@@ -25,4 +25,8 @@ public class CommentaryService {
     public Iterable<Commentary> findAll() {
         return this.commentaryRepository.findAll();
     }
+
+    public Iterable<Commentary> findAllByPhotoId(Long photoId) {
+        return this.commentaryRepository.findAllByPhotoId(photoId);
+    }
 }

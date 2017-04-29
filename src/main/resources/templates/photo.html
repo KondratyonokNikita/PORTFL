@@ -186,99 +186,15 @@
         </div>
     </div>
 </main>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-<script th:inline="javascript">
-    var photos = /*[[${photos}]]*/ [];
-    var cur = 0;
-    var img_holder = document.getElementById("current_photo");
-    var comment_textfield = document.getElementById("comment_text");
-    var comment_holder = document.getElementById("comment_holder");
-    img_holder.setAttribute('src', 'http://res.cloudinary.com/kondrat/image/upload/' + photos[cur].path);
 
-    var update_all = function () {
-        $.ajax({
-            type: 'GET',
-            url: '/photo/rating/' + photos[cur].id,
-            success: function (response) {
-                console.log('rating', response);
-                $('.value').html(response);
-            }
-        });
-        $.ajax({
-            type: 'GET',
-            url: '/photo/rating/' + photos[cur].id + '/my',
-            success: function (response) {
-                $('#example-fontawesome-o').barrating('set', response);
-                $('.stars-example-fontawesome-o .clear-rating')
-                    .removeClass('hidden');
-                console.log('my', response);
-            }
-        });
-    }
-
-    var comment = function () {
-        $.ajax({
-            type: 'POST',
-            url: '/photo/comment/' + photos[cur].id,
-            data: ({
-                "text": comment_textfield.value
-            }),
-            success: function () {
-                comment_textfield.value = '';
-                update_comment();
-            }
-        });
-    }
-
-    var rate = function (value) {
-        console.log('text', value)
-        $.ajax({
-            type: 'POST',
-            url: '/photo/rate/' + photos[cur].id,
-            data: ({
-                "rate": value
-            }),
-            success: function () {
-                update_all();
-            }
-        });
-    }
-</script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <script src="../js/jquery.barrating.min.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $('.stars-example-fontawesome-o .clear-rating').on('click', function (event) {
-            event.preventDefault();
-
-            $('#example-fontawesome-o')
-                .barrating('clear');
-        });
-
-        $('#example-fontawesome-o').barrating({
-            theme: 'fontawesome-stars-o',
-            showSelectedRating: false,
-            initialRating: 0,
-            silent: true,
-            onSelect: function (value, text) {
-                if (!value) {
-                    $('#example-fontawesome-o')
-                        .barrating('clear');
-                    rate(-1);
-                } else {
-                    $('.stars-example-fontawesome-o .clear-rating')
-                        .removeClass('hidden');
-                    rate(value);
-                }
-            },
-            onClear: function (value, text) {
-                $('.stars-example-fontawesome-o .clear-rating')
-                    .addClass('hidden');
-                rate(-1);
-            }
-        });
-
-        update_all();
-    });
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var cur_id = /*[[${user.id}]]*/ 0;
+    /*]]>*/
 </script>
+<script src="../js/rate-comment.js"></script>
 </body>
 </html>
