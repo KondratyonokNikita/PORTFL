@@ -126,7 +126,7 @@
             <h1 class="page-header" th:text="#{photo.header}"></h1>
             <div class="col-lg-6">
                 <div class="metrics text-primary" href="#" role="tab" data-toggle="tab">
-                    <img class="comment-image" id="current_photo" src="../image/img9.jpg"/>
+                    <img class="comment-image" id="current_photo" onclick="next_photo();"/>
                     <div class="star-ratings">
                         <div class="stars stars-example-fontawesome-o">
                             <select id="example-fontawesome-o" name="rating" data-current-rating="0"
@@ -154,18 +154,6 @@
                 <div class="panel panel-primary shadow">
                     <div class="panel-body chat-panel-body">
                         <ul class="chat" id="comment_holder">
-                            <!--<li class="clearfix" th:each="comment : ${comments}">-->
-                            <!--<div class="chat-body clearfix">-->
-                            <!--<div class="header">-->
-                            <!--<strong class="primary-font">-->
-                            <!--<a th:href="${'/profile/' + comment.createdBy}">-->
-                            <!--<p th:text="${comment.sender}"></p>-->
-                            <!--</a>-->
-                            <!--</strong>-->
-                            <!--</div>-->
-                            <!--<p th:text="${comment.text}"></p>-->
-                            <!--</div>-->
-                            <!--</li>-->
                         </ul>
                     </div>
                     <div class="panel-footer">

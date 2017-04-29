@@ -17,7 +17,7 @@ var get_photos = function () {
             img_holder.setAttribute('src', 'http://res.cloudinary.com/kondrat/image/upload/' + photos[cur].path);
             setInterval(function () {
                 update_all();
-            }, 3000);
+            }, 30000);
         }
     });
 }
@@ -49,6 +49,7 @@ var update_all = function () {
         type: 'GET',
         url: '/photo/get/comment/' + photos[cur].id,
         success: function (response) {
+            comment_holder.innerHTML = '';
             response.forEach(function (item, i, response) {
                 var li = document.createElement('li');
                 li.className = 'clearfix';
