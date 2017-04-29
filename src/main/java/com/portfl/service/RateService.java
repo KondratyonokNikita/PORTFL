@@ -1,10 +1,16 @@
 package com.portfl.service;
 
+import com.portfl.model.Photo;
 import com.portfl.model.Rate;
+import com.portfl.repository.PhotoRepository;
 import com.portfl.repository.RateRepository;
-import javafx.beans.binding.DoubleExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by User on 27.04.2017.
@@ -15,6 +21,8 @@ public class RateService {
     private RateRepository rateRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PhotoService photoService;
 
     public void addRate(Long photoId, Long rate) {
         if (userService.getUser() == null)
@@ -36,7 +44,7 @@ public class RateService {
     public Double getRate(Long photoId) {
         Double rate = rateRepository.getRateByPhotoId(photoId);
         Double count = rateRepository.countAllByPhotoId(photoId);
-        if (count.equals(0)) {
+        if ((count.equals(0)) || (rate == null)) {
             return Double.valueOf(0);
         } else {
             return rate / count;
@@ -45,5 +53,17 @@ public class RateService {
 
     public Rate getMyRate(Long photoId) {
         return rateRepository.findOneByPhotoIdAndUserId(photoId, userService.getUser().getId());
+    }
+
+    public List<Photo> getTopPhotos(int count) {
+        photoService.updateRate();
+        List<Photo> photos = photoService.findAll();
+        Collections.sort(photos, Comparator.comparing(Photo::getRate));
+        Collections.reverse(photos);
+        if (photos.size() < count) {
+            return photos;
+        } else {
+            return photos.subList(0, count);
+        }
     }
 }

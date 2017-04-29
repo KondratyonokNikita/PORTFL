@@ -28,6 +28,7 @@ public class Photo {
     private Integer bytes;
     private String originalFilename;
     private Instant createdAt;
+    private Double rate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -37,6 +38,14 @@ public class Photo {
     private Set<Commentary> commentaries;
 
     private Instant updated;
+
+    public Double getRate() {
+        return rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
+    }
 
     public Long getId() {
         return id;

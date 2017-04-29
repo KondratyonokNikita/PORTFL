@@ -46,4 +46,16 @@ public class PhotoService {
         }
         userService.update(user);
     }
+
+    public void updateRate() {
+        List<Photo> photos = photoRepository.findAll();
+        for (Photo photo : photos) {
+            photo.setRate(rateService.getRate(photo.getId()));
+        }
+        photoRepository.save(photos);
+    }
+
+    public List<Photo> findAll() {
+        return photoRepository.findAll();
+    }
 }

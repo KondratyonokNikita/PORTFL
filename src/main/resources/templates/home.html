@@ -141,16 +141,16 @@
                              href="#collapse2">
                             <span th:text="#{home.best_photos}"/>
                         </div>
-                        <!--@thymesVar id="photos" type="java.util.List<com.portfl.model.Photo>"-->
+                        <!--@thymesVar id="top_photos" type="java.util.List<com.portfl.model.Photo>"-->
                         <div id="collapse2" class="panel-collapse collapse in">
                             <div class="panel-body">
                                 <div class="container">
                                     <div class="gallery">
-                                        <!--<a th:each="photo:${user.photos}"-->
-                                        <!--th:href="#{cloudinary.href.gallery.carousel(${photo.path})}">-->
-                                        <!--<img th:src="#{cloudinary.href.gallery.tile(${photo.path})}"-->
-                                        <!--alt="" th:title="${photo.path}" />-->
-                                        <!--</a>-->
+                                        <a th:each="photo:${top_photos}"
+                                           th:href="#{cloudinary.href.gallery.carousel(${photo.path})}">
+                                            <img th:src="#{cloudinary.href.gallery.tile(${photo.path})}"
+                                                 alt="" th:title="${photo.user.firstName + ' ' + photo.user.lastName}"/>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

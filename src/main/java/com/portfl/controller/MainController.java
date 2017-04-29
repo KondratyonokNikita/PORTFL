@@ -36,7 +36,8 @@ public class MainController {
     private RateService rateService;
 
     @GetMapping(value = "/")
-    public String homePage() {
+    public String homePage(Model model) {
+        model.addAttribute("top_photos", rateService.getTopPhotos(5));
         return "home";
     }
 

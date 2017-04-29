@@ -126,6 +126,6 @@ $(function () {
             rate(-1);
         }
     });
-});
 
-get_photos();
+    get_photos();
+});

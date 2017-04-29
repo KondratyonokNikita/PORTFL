@@ -200,7 +200,7 @@
                                         <a th:each="photo:${user.photos}"
                                            th:href="#{cloudinary.href.gallery.carousel(${photo.path})}">
                                             <img th:src="#{cloudinary.href.gallery.tile(${photo.path})}"
-                                                 alt="" th:title="${'&lt;h1&gt;' + photo.path}"/>
+                                                 alt="" th:title="${photo.user.firstName + ' ' + photo.user.lastName}"/>
                                         </a>
                                     </div>
                                 </div>
