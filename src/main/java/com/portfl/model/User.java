@@ -54,6 +54,14 @@ public class User {
         this.enabled = false;
     }
 
+    public List<PhotoInfo> getPhotoInfo() {
+        List<PhotoInfo> info = new ArrayList<>();
+        for (Photo photo : photos) {
+            info.add(new PhotoInfo(photo));
+        }
+        return info;
+    }
+
     public Long getId() {
         return id;
     }

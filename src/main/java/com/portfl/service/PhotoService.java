@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +23,7 @@ public class PhotoService {
     private UserService userService;
 
     @Autowired
-    private LukasiService lukasiService;
+    private RateService rateService;
 
     public Photo findOne(Long photoId) {
         return this.photoRepository.findOne(photoId);
@@ -47,10 +45,5 @@ public class PhotoService {
             userPhotos.add(photo);
         }
         userService.update(user);
-        for(Map<String, Object> info: photos) {
-            String string=(String)info.get("path");
-            Photo photo=photoRepository.findByPath(string).get(0);
-            lukasiService.initialiseLukas(photo.getId());
-        }
     }
 }

@@ -1,42 +1,32 @@
 package com.portfl.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Type;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-
 import javax.persistence.*;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
- * Created by Samsung on 13.04.2017.
+ * Created by Samsung on 29.04.2017.
  */
-@Entity
-@Table(name = "photos")
-public class Photo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PhotoInfo {
     private Long id;
-
     private String path;
     private Integer height;
     private Integer width;
     private Integer bytes;
     private String originalFilename;
     private Instant createdAt;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "photo")
-    private Set<Commentary> commentaries;
-
     private Instant updated;
+
+    public PhotoInfo(Photo photo) {
+        this.id = photo.getId();
+        this.path = photo.getPath();
+        this.height = photo.getHeight();
+        this.width = photo.getWidth();
+        this.bytes = photo.getBytes();
+        this.originalFilename = photo.getOriginalFilename();
+        this.createdAt = photo.getCreatedAt();
+        this.createdAt = photo.getCreatedAt();
+    }
 
     public Long getId() {
         return id;
@@ -82,32 +72,16 @@ public class Photo {
         return originalFilename;
     }
 
-    public void setOriginalFilename(String original_filename) {
-        this.originalFilename = original_filename;
+    public void setOriginalFilename(String originalFilename) {
+        this.originalFilename = originalFilename;
     }
 
     public Instant getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Instant created_at) {
-        this.createdAt = created_at;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Set<Commentary> getCommentaries() {
-        return commentaries;
-    }
-
-    public void setCommentaries(Set<Commentary> commentaries) {
-        this.commentaries = commentaries;
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Instant getUpdated() {

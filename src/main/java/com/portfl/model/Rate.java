@@ -6,17 +6,17 @@ import javax.persistence.*;
  * Created by Pokemon on 27.04.2017.
  */
 @Entity
-@Table(name = "lukasi")
-public class Lukasi {
+@Table(name = "rates")
+public class Rate {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Long photoId;
 
     private Long userId;
 
-    private int lukas;
+    private Long rate;
 
     public Long getId() {
         return id;
@@ -42,11 +42,11 @@ public class Lukasi {
         this.userId = userId;
     }
 
-    public int getLukas() {
-        return lukas;
+    public Long getRate() {
+        return rate;
     }
 
-    public void setLukas(int lukas) {
-        this.lukas = lukas;
+    public void setRate(Long rate) {
+        this.rate = rate;
     }
 }

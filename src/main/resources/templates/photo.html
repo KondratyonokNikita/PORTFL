@@ -30,8 +30,6 @@
 </head>
 
 <body>
-<!--https://res.cloudinary.com/kondrat/image/upload/v1492353314/vjwsmigj5oymkkrbwzkv.jpg-->
-<!--https://712789228774171:LmYagMKQ3CWZyXjmUcXrAGG_mzU@api.cloudinary.com/v1_1/kondrat/resources/image-->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -43,9 +41,11 @@
 <main class="container-fluid" id="main">
     <div class="row">
         <div class="col-lg-2 sidebar sidebar-offcanvas" id="sidebar">
-            <div class="collapse-menu-button expand hidden-lg" data-toggle="collapse" href="#sidebar" aria-expanded="false"
+            <div class="collapse-menu-button expand hidden-lg" data-toggle="collapse" href="#sidebar"
+                 aria-expanded="false"
                  aria-controls="sidebar"><span class="glyphicon glyphicon-circle-arrow-right"></span></div>
-            <div class="collapse-menu-button collapse hidden-lg" data-toggle="collapse" href="#sidebar" aria-expanded="false"
+            <div class="collapse-menu-button collapse hidden-lg" data-toggle="collapse" href="#sidebar"
+                 aria-expanded="false"
                  aria-controls="sidebar"><span class="glyphicon glyphicon-circle-arrow-left"></span></div>
             <!--Menu-->
             <ul class="nav nav-sidebar">
@@ -126,11 +126,10 @@
             <h1 class="page-header" th:text="#{photo.header}"></h1>
             <div class="col-lg-6">
                 <div class="metrics text-primary" href="#" role="tab" data-toggle="tab">
-                    <img class="comment-image" src="../image/img9.jpg"/>
-                    <!--<img class="comment-image" th:src="#{cloudinary.href.gallery.comments(${photo.path})}"/>-->
+                    <img class="comment-image" id="current_photo" src="../image/img9.jpg"/>
                     <div class="star-ratings">
                         <div class="stars stars-example-fontawesome-o">
-                            <select id="example-fontawesome-o" name="rating" data-current-rating="5.6"
+                            <select id="example-fontawesome-o" name="rating" data-current-rating="0"
                                     autocomplete="off">
                                 <option value=""></option>
                                 <option value="1">1</option>
@@ -140,12 +139,13 @@
                                 <option value="5">5</option>
                             </select>
                             <span class="title current-rating">
-                            Current rating: <span class="value"></span>
-                        </span>
-                            <span class="title your-rating hidden">
-                            Your rating: <span class="value"></span>&nbsp;
-                            <a href="#" class="clear-rating"><i class="fa fa-times-circle"></i></a>
-                        </span>
+                                <div th:text="#{photo.rating}" style="display: inline;"/>
+                                <span class="value">0</span>
+                                &nbsp;
+                                <a href="#" class="clear-rating hidden">
+                                    <i class="fa fa-times-circle"></i>
+                                </a>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -153,70 +153,93 @@
             <div class="col-lg-6">
                 <div class="panel panel-primary shadow">
                     <div class="panel-body chat-panel-body">
-                        <ul class="chat">
-                            <li class="clearfix" th:each="comment : ${comments}">
-                                <div class="chat-body clearfix">
-                                    <div class="header">
-                                        <strong class="primary-font">
-                                            <a th:href="${'/profile/' + comment.createdBy}">
-                                                <p th:text="${comment.sender}"></p>
-                                            </a>
-                                        </strong>
-                                    </div>
-                                    <p th:text="${comment.text}"></p>
-                                </div>
-                            </li>
+                        <ul class="chat" id="comment_holder">
+                            <!--<li class="clearfix" th:each="comment : ${comments}">-->
+                            <!--<div class="chat-body clearfix">-->
+                            <!--<div class="header">-->
+                            <!--<strong class="primary-font">-->
+                            <!--<a th:href="${'/profile/' + comment.createdBy}">-->
+                            <!--<p th:text="${comment.sender}"></p>-->
+                            <!--</a>-->
+                            <!--</strong>-->
+                            <!--</div>-->
+                            <!--<p th:text="${comment.text}"></p>-->
+                            <!--</div>-->
+                            <!--</li>-->
                         </ul>
                     </div>
                     <div class="panel-footer">
-                        <form class="form-inline row">
+                        <form class="form-inline row" onsubmit="comment();return false">
                             <div class="col-lg-9 text-left">
-                                <label class="sr-only" for="inlineFormInput">Name</label>
+                                <label class="sr-only" for="comment_text"></label>
                                 <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" style="width: 100%;"
-                                       id="inlineFormInput" placeholder="Jane Doe"/>
+                                       id="comment_text" th:placeholder="#{photo.comment}"/>
                             </div>
                             <div class="col-lg-3 text-right">
-                                <button type="submit" class="btn btn-success" style="width: 100%">Submit</button>
+                                <button type="submit" class="btn btn-success" style="width: 100%"
+                                        th:text="#{photo.submit}"></button>
                             </div>
                         </form>
-                        <!--<form action="#" th:object="${commentary}" th:action="${'/photo/' + photo.id}" method="post" style="margin: 0">-->
-                        <!--<input id="btn-input" type="text" class="form-control input-lg" th:field="*{text}" placeholder="Type message here..."/>-->
-                        <!--<span class="input-group-btn">-->
-                        <!--<button class="btn btn-primary btn-lg" type="submit" id="btn-chat">Send</button>-->
-                        <!--</span>-->
-                        <!--</form>-->
                     </div>
                 </div>
             </div>
-            <!--<button><span onclick="lukas()" class="glyphicon glyphicon-thumbs-up"/></button>-->
-            <!--<p id="lukas" th:text="${lukasi}"></p>-->
-            <!--<button onclick="dizlukas()"><span class="glyphicon glyphicon-thumbs-down"/></button>-->
         </div>
     </div>
 </main>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script th:inline="javascript">
-    function lukas() {
+    var photos = /*[[${photos}]]*/ [];
+    var cur = 0;
+    var img_holder = document.getElementById("current_photo");
+    var comment_textfield = document.getElementById("comment_text");
+    var comment_holder = document.getElementById("comment_holder");
+    img_holder.setAttribute('src', 'http://res.cloudinary.com/kondrat/image/upload/' + photos[cur].path);
+
+    var update_all = function () {
         $.ajax({
-            type: 'POST',
-            url: '/lukas',
-            data: ({
-                "photoId": [[${photo.id}]]
-            }),
-            success:function (likes) {
-                $("#lukas").text(likes);
+            type: 'GET',
+            url: '/photo/rating/' + photos[cur].id,
+            success: function (response) {
+                console.log('rating', response);
+                $('.value').html(response);
+            }
+        });
+        $.ajax({
+            type: 'GET',
+            url: '/photo/rating/' + photos[cur].id + '/my',
+            success: function (response) {
+                $('#example-fontawesome-o').barrating('set', response);
+                $('.stars-example-fontawesome-o .clear-rating')
+                    .removeClass('hidden');
+                console.log('my', response);
             }
         });
     }
-    function dizlukas() {
+
+    var comment = function () {
         $.ajax({
             type: 'POST',
-            url: '/dizlukas',
+            url: '/photo/comment/' + photos[cur].id,
             data: ({
-                "photoId": [[${photo.id}]]
+                "text": comment_textfield.value
             }),
-            success:function (likes) {
-                $("#lukas").text(likes);
+            success: function () {
+                comment_textfield.value = '';
+                update_comment();
+            }
+        });
+    }
+
+    var rate = function (value) {
+        console.log('text', value)
+        $.ajax({
+            type: 'POST',
+            url: '/photo/rate/' + photos[cur].id,
+            data: ({
+                "rate": value
+            }),
+            success: function () {
+                update_all();
             }
         });
     }
@@ -224,12 +247,6 @@
 <script src="../js/jquery.barrating.min.js"></script>
 <script type="text/javascript">
     $(function () {
-        var currentRating = $('#example-fontawesome-o').data('current-rating');
-
-        $('.stars-example-fontawesome-o .current-rating')
-            .find('span')
-            .html(currentRating);
-
         $('.stars-example-fontawesome-o .clear-rating').on('click', function (event) {
             event.preventDefault();
 
@@ -240,31 +257,27 @@
         $('#example-fontawesome-o').barrating({
             theme: 'fontawesome-stars-o',
             showSelectedRating: false,
-            initialRating: currentRating,
+            initialRating: 0,
+            silent: true,
             onSelect: function (value, text) {
                 if (!value) {
                     $('#example-fontawesome-o')
                         .barrating('clear');
+                    rate(-1);
                 } else {
-                    console.log(value);
-                    $('.stars-example-fontawesome-o .current-rating')
-                        .addClass('hidden');
-
-                    $('.stars-example-fontawesome-o .your-rating')
-                        .removeClass('hidden')
-                        .find('span')
-                        .html(value);
+                    $('.stars-example-fontawesome-o .clear-rating')
+                        .removeClass('hidden');
+                    rate(value);
                 }
             },
             onClear: function (value, text) {
-                $('.stars-example-fontawesome-o')
-                    .find('.current-rating')
-                    .removeClass('hidden')
-                    .end()
-                    .find('.your-rating')
+                $('.stars-example-fontawesome-o .clear-rating')
                     .addClass('hidden');
+                rate(-1);
             }
         });
+
+        update_all();
     });
 </script>
 </body>
