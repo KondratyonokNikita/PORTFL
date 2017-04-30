@@ -1,7 +1,7 @@
 package com.portfl.model;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by User on 29.04.2017.
@@ -20,18 +20,21 @@ public class SearchForm {
     Integer birthyearMin;
     Integer birthyearMax;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "user_types", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "type_id"))
+    private Set<Type> types;
+
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    public String getTypes() {
+    public Set<Type> getTypes() {
         return types;
     }
 
-    public void setTypes(String types) {
+    public void setTypes(Set<Type> types) {
         this.types = types;
     }
-
-    String types;
 
     public Long getId() {
         return id;

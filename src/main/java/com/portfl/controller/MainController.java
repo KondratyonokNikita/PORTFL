@@ -1,9 +1,7 @@
 package com.portfl.controller;
 
-import com.portfl.model.Commentary;
-import com.portfl.model.Photo;
-import com.portfl.model.SearchForm;
-import com.portfl.model.User;
+import com.portfl.model.*;
+import com.portfl.repository.TypeRepository;
 import com.portfl.service.CommentaryService;
 import com.portfl.service.LukasiService;
 import com.portfl.service.PhotoService;
@@ -20,6 +18,7 @@ import org.springframework.web.context.request.WebRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.portfl.model.Gender.*;
 
@@ -36,6 +35,8 @@ public class MainController {
     private CommentaryService commentaryService;
     @Autowired
     private LukasiService lukasiService;
+    @Autowired
+    private TypeRepository typeRepository;
 
     @GetMapping(value = "/")
     public String homePage() {
@@ -128,5 +129,15 @@ public class MainController {
     public String searchByParamSubmit(@Valid SearchForm searchForm, BindingResult result, WebRequest request, Model model) {
         model.addAttribute("users",userService.getUsersByParam(searchForm));
         return "searchUsers";
+    }
+
+    @ModelAttribute("genders")
+    public Map<Gender, String> initializeRoles() {
+        return Arrays.stream(Gender.values()).collect(Collectors.toMap(value -> value, Gender::getLabel));
+    }
+
+    @ModelAttribute("photosession_types")
+    public List<Type> getTypes(){
+        return typeRepository.findAll();
     }
 }
