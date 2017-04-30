@@ -2,6 +2,7 @@ package com.portfl.controller;
 
 import com.portfl.model.Commentary;
 import com.portfl.model.Photo;
+import com.portfl.model.SearchForm;
 import com.portfl.model.User;
 import com.portfl.service.CommentaryService;
 import com.portfl.service.LukasiService;
@@ -9,9 +10,6 @@ import com.portfl.service.PhotoService;
 import com.portfl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -22,6 +20,8 @@ import org.springframework.web.context.request.WebRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.*;
+
+import static com.portfl.model.Gender.*;
 
 /**
  * Created by Samsung on 19.04.2017.
@@ -115,5 +115,18 @@ public class MainController {
             lukasiService.addDizLukas(photoId, userService.getUser().getId());
         }
         return lukasiService.getAllLukas(photoId);
+    }
+
+    @GetMapping(value = "/searchByParam")
+    public String searchByParam(Model model) {
+        SearchForm searchForm = new SearchForm();
+        model.addAttribute("searchForm", searchForm);
+        return "searchByParam";
+    }
+
+    @PostMapping(value = "/searchByParam")
+    public String searchByParamSubmit(@Valid SearchForm searchForm, BindingResult result, WebRequest request, Model model) {
+        model.addAttribute("users",userService.getUsersByParam(searchForm));
+        return "searchUsers";
     }
 }

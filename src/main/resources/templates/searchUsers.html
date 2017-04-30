@@ -137,40 +137,21 @@
                         <th th:text="#{users.height}"/>
                         <th th:text="#{users.weight}"/>
                         <th th:text="#{users.birthyear}"/>
-                        <th th:text="#{users.controls}"/>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="user:${users}">
                         <td th:text="${user.id}"/>
-                        <td th:text="${user.firstName + ' ' + user.lastName}"/>
+                        <td>
+                            <a th:href="${'/profile/' + user.id}">
+                                <p th:text="${user.firstName + ' ' + user.lastName}"></p>
+                            </a>
+                        </td>
                         <td th:text="${user.email}"/>
                         <td th:text="${user.gender.label}"/>
                         <td th:text="${user.height}"/>
                         <td th:text="${user.weight}"/>
                         <td th:text="${user.birthday}"/>
-                        <td>
-                            <a class="btn btn-default btn-sm" th:alt="#{users.edit}"
-                               th:href="${'/auth/edit/' + user.id}">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </a>
-                            <a th:if="${user.role.label == 'Admin'}" th:alt="#{users.make_admin}"
-                               th:href="${'/auth/makeUser/' + user.id}"
-                               class="btn btn-success btn-sm">
-                                <span class="glyphicon glyphicon-star"/>
-                            </a>
-                            <a th:if="${user.role.label == 'User'}" th:alt="#{users.make_user}"
-                               th:href="${'/auth/makeAdmin/' + user.id}"
-                               class="btn btn-success btn-sm">
-                                <span class="glyphicon glyphicon-star-empty"/>
-                            </a>
-                            <!--@thymesVar id="current_user_id" type="java.lang.Long"-->
-                            <a th:if="${user.id != current_user_id}" th:alt="#{users.delete}"
-                               th:href="${'/auth/delete/' + user.id}"
-                               class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </a>
-                        </td>
                     </tr>
                     </tbody>
                 </table>

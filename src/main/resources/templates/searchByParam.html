@@ -18,11 +18,11 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <link type="text/css" rel="stylesheet" href="../../css/bootstrap.css"/>
-    <link type="text/css" rel="stylesheet" href="../../css/styles.css"/>
-    <link type="text/css" rel="stylesheet" href="../../css/gallery.css"/>
-    <link type="text/css" rel="stylesheet" href="../../css/simplelightbox.min.css"/>
-    <link type="text/css" rel="stylesheet" href="../../css/jquery.easyselect.min.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/styles.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/gallery.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/simplelightbox.min.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/jquery.easyselect.min.css"/>
 
     <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'/>
 
@@ -60,7 +60,7 @@
                         <span class="menu-name" th:text="#{navbar.profile}"></span>
                     </a>
                 </li>
-                <li class="active" sec:authorize="isAuthenticated()">
+                <li sec:authorize="isAuthenticated()">
                     <a href="/auth/edit">
                         <span class="glyphicon glyphicon-edit"></span>
                         <span class="menu-name" th:text="#{navbar.edit}"></span>
@@ -70,12 +70,6 @@
                     <a id="upload_widget_opener">
                         <span class="glyphicon glyphicon-cloud-upload"></span>
                         <span class="menu-name" th:text="#{navbar.upload}"></span>
-                    </a>
-                </li>
-                <li sec:authorize="isAuthenticated()">
-                    <a href="/searchByParam">
-                        <span class="glyphicon glyphicon glyphicon-search"></span>
-                        <span class="menu-name" th:text="#{navbar.searchByParam}"></span>
                     </a>
                 </li>
                 <li sec:authorize="isAnonymous()">
@@ -90,7 +84,7 @@
                         <span class="menu-name" th:text="#{navbar.logout}"></span>
                     </a>
                 </li>
-                <li sec:authorize="isAnonymous()">
+                <li class="active" sec:authorize="isAnonymous()">
                     <a href="/auth/registration">
                         <span class="glyphicon glyphicon-save-file"></span>
                         <span class="menu-name" th:text="#{navbar.register}"></span>
@@ -127,65 +121,36 @@
         <div class="overlay" data-toggle="collapse" href="#sidebar" aria-expanded="false" aria-controls="sidebar">
         </div>
         <div class="col-lg-10 col-lg-offset-2 main">
-            <h1 class="page-header" th:text="#{edit.header}"></h1>
-            <!--@thymesVar id="user" type="com.portfl.model.User"-->
+            <h1 class="page-header" th:text="#{searchByParam.header}"></h1>
+            <!--@thymesVar id="user" type="com.portfl.model.SearchForm"-->
             <form class="form-horizontal" action="#"
-                  th:object="${user}" th:action="@{/auth/edit}" method="post">
+                  th:object="${searchForm}" th:action="@{searchByParam}" method="post">
                 <fieldset>
                     <div class="col-lg-6">
                         <input type="hidden" th:field="*{id}"/>
-                        <!-- Username-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{edit.username}"></label>
-                            <div class="col-md-8">
-                                <input id="username" type="text" class="form-control input-md" required=""
-                                       th:value="${user.username}" th:placeholder="#{edit.username}"
-                                       th:field="*{username}" autofocus=""/>
-                            </div>
-                        </div>
-                        <!-- Password -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{edit.password}"></label>
-                            <div class="col-md-8">
-                                <input id="password" type="password" class="form-control input-md" required=""
-                                       th:value="${user.password}" th:placeholder="#{edit.password}"
-                                       th:field="*{password}"/>
-                            </div>
-                        </div>
                         <!-- First name -->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{edit.firstname}"></label>
+                            <label class="col-md-4 control-label" th:text="#{registration.firstname}"></label>
                             <div class="col-md-8">
-                                <input id="firstname" type="text" class="form-control input-md" required=""
-                                       th:value="${user.firstName}" th:placeholder="#{edit.firstname}"
-                                       th:field="*{firstName}"/>
+                                <input id="firstname" type="text" class="form-control input-md"
+                                       th:placeholder="#{registration.firstname}" th:field="*{firstName}"/>
                             </div>
                         </div>
                         <!-- Last name -->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{edit.lastname}"></label>
+                            <label class="col-md-4 control-label" th:text="#{registration.lastname}"></label>
                             <div class="col-md-8">
-                                <input id="lastname" type="text" class="form-control input-md" required=""
-                                       th:value="${user.lastName}" th:placeholder="#{edit.lastname}"
-                                       th:field="*{lastName}"/>
-                            </div>
-                        </div>
-                        <!-- Email -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{edit.email}"></label>
-                            <div class="col-md-8">
-                                <input id="email" type="text" class="form-control input-md" required=""
-                                       th:value="${user.email}" th:placeholder="#{edit.email}"
-                                       th:field="*{email}"/>
+                                <input id="lastname" type="text" class="form-control input-md"
+                                       th:placeholder="#{registration.lastname}" th:field="*{lastName}"/>
                             </div>
                         </div>
                         <!-- Gender -->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{edit.gender}"></label>
+                            <label class="col-md-4 control-label" th:text="#{searchByParam.gender}"></label>
                             <div class="col-md-8">
                                 <!--@thymesVar id="genders" type="java.util.Map<com.portfl.model.Gender, java.lang.String>"-->
                                 <select id="genders" class="form-control input-md" th:field="*{gender}"
-                                        th:value="${user.gender}" th:placeholder="#{edit.gender}">
+                                        th:placeholder="#{searchByParam.gender}">
                                     <option th:each="genderOption : ${genders}"
                                             th:value="${genderOption.key}"
                                             th:text="${genderOption.value}"/>
@@ -196,66 +161,87 @@
                     <div class="col-lg-6">
                         <!-- Weight -->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{edit.weight}"></label>
-                            <div class="col-md-8">
-                                <input id="weight" type="number" class="form-control input-md" required=""
-                                       th:value="${user.weight}" th:placeholder="#{edit.weight}"
-                                       th:field="*{weight}"/>
+                            <label class="col-md-4 control-label" th:text="#{searchByParam.weightMin}"></label>
+                            <div class="col-md-3">
+                                <input id="weightMin" type="number" min="0" class="form-control input-md"
+                                       th:placeholder="#{searchByParam.Min}" th:field="*{weightMin}"/>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="control-label" th:text="#{searchByParam.weightMax}"></label>
+                            </div>
+                            <div class="col-md-3">
+                                <input id="weightMax" type="number" min="0" class="form-control input-md"
+                                       th:placeholder="#{searchByParam.Max}" th:field="*{weightMax}"/>
                             </div>
                         </div>
                         <!-- Height -->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{edit.height}"></label>
-                            <div class="col-md-8">
-                                <input id="height" type="number" class="form-control input-md" required=""
-                                       th:value="${user.height}" th:placeholder="#{edit.height}"
-                                       th:field="*{height}"/>
+                            <label class="col-md-4 control-label" th:text="#{searchByParam.heightMin}"></label>
+                            <div class="col-md-3">
+                                <input id="heightMin" type="number" min="0" class="form-control input-md"
+                                       th:placeholder="#{searchByParam.Min}" th:field="*{heightMin}"/>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="control-label" th:text="#{searchByParam.heightMax}"></label>
+                            </div>
+                            <div class="col-md-3">
+                                <input id="heightMax" type="number" min="0" class="form-control input-md"
+                                       th:placeholder="#{searchByParam.Max}" th:field="*{heightMax}"/>
                             </div>
                         </div>
                         <!-- Birthday -->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{edit.birthyear}"></label>
-                            <div class="col-md-8">
-                                <input id="birthday" type="number" min="1900" max="2100" class="form-control input-md"
-                                       required=""
-                                       th:value="${user.birthday}" th:placeholder="#{edit.birthyear}"
-                                       th:field="*{birthday}"/>
+                            <label class="col-md-4 control-label" th:text="#{searchByParam.birthyearMin}"></label>
+                            <div class="col-md-3">
+                                <input id="birthdayMin" type="number" min="1900" max="2100" class="form-control input-md"
+                                       th:placeholder="#{searchByParam.Min}" th:field="*{birthyearMin}"/>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="control-label" th:text="#{searchByParam.birthyearMax}"></label>
+                            </div>
+                            <div class="col-md-3">
+                                <input id="birthdayMax" type="number" min="1900" max="2100" class="form-control input-md"
+                                       th:placeholder="#{searchByParam.Max}" th:field="*{birthyearMax}"/>
                             </div>
                         </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
                         <!-- Photosession types -->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" th:text="#{edit.types}"></label>
+                            <label class="col-md-4 control-label" th:text="#{registration.types}"></label>
                             <div class="col-md-8">
                                 <!--@thymesVar id="photosession_types" type="java.util.List<com.portfl.model.Type>"-->
                                 <select id="types" class="form-control input-md" multiple=""
-                                        th:value="${user.types}" th:placeholder="#{edit.types}"
-                                        th:field="*{types}">
+                                        th:placeholder="#{registration.types}" th:field="*{types}">
                                     <option th:each="type:${photosession_types}"
-                                            th:value="${type.id}" th:text="${type.name}">Photo type
-                                    </option>
+                                            th:value="${type.id}" th:text="${type.name}">Photo type</option>
                                 </select>
                             </div>
                         </div>
-                    </div>
-                    <!-- Buttons -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label"></label>
-                        <div class="col-md-8">
-                            <button type="submit" class="btn btn-success" th:text="#{edit.submit}"/>
-                            <button type="reset" class="btn btn-danger" th:text="#{edit.reset}"/>
+                        <!-- Buttons -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label"></label>
+                            <div class="col-md-8">
+                                <button type="submit" class="btn btn-success" th:text="#{searchByParam.submit}"/>
+                                <button type="reset" class="btn btn-danger" th:text="#{searchByParam.reset}"/>
+                            </div>
                         </div>
                     </div>
+                    <div class="col-lg-3"></div>
                 </fieldset>
             </form>
         </div>
     </div>
 </main>
 
-<script type="text/javascript" src="../../js/jquery.min.js"></script>
-<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../js/simple-lightbox.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/simple-lightbox.js"></script>
 
-<script type="text/javascript" src="../../js/all.js"></script>
+<script type="text/javascript" src="../js/all.js"></script>
 <!-- cloudinary -->
 <script type="text/javascript">
     document.getElementById("upload_widget_opener").addEventListener("click", function () {
@@ -281,7 +267,7 @@
     }, false);
 </script>
 
-<script type="text/javascript" src="../../js/jquery.easyselect.js"></script>
+<script type="text/javascript" src="../js/jquery.easyselect.js"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
     var placeholder = /*[[#{registration.types}]]*/ 'Types';

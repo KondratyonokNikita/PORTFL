@@ -1,12 +1,10 @@
 package com.portfl.service;
 
-import com.portfl.model.Gender;
-import com.portfl.model.User;
-import com.portfl.model.UserRole;
-import com.portfl.model.VerificationToken;
+import com.portfl.model.*;
 import com.portfl.repository.TokenRepository;
 import com.portfl.repository.UserRepository;
 import com.portfl.utils.DateUtils;
+import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,9 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -33,6 +29,10 @@ public class UserService {
     }
 
     public Iterable<User> findAll() {
+        return this.userRepository.findAll();
+    }
+
+    public List<User> findAllInList() {
         return this.userRepository.findAll();
     }
 
@@ -133,4 +133,143 @@ public class UserService {
         user.setRole(UserRole.ROLE_USER);
         userRepository.save(user);
     }
+
+    private void findByParamFirstName(String firstName, List<User> userList) {
+        Iterator<User> userIterator = userList.iterator();
+        while (userIterator.hasNext()) {
+            if (!userIterator.next().getFirstName().equals(firstName) && firstName != "") {
+                userIterator.remove();
+            }
+        }
+    }
+
+    private void findByParamLastName(String lastName, List<User> userList) {
+        Iterator<User> userIterator = userList.iterator();
+        while (userIterator.hasNext()) {
+            if (!userIterator.next().getLastName().equals(lastName) && lastName != "") {
+                userIterator.remove();
+            }
+        }
+    }
+
+    private void findByParamWeight(Integer weightMin, Integer weightMax, List<User> userList) {
+        Iterator<User> userIterator = userList.iterator();
+        while (userIterator.hasNext()) {
+            User user = userIterator.next();
+            if (weightMin != null && user.getWeight() < weightMin) {
+                userIterator.remove();
+            }
+            else {
+                if (weightMax != null && user.getWeight() > weightMax) {
+                    userIterator.remove();
+                }
+            }
+        }
+    }
+
+    private void findByParamHeight(Integer heightMin, Integer heightMax, List<User> userList) {
+        Iterator<User> userIterator = userList.iterator();
+        while (userIterator.hasNext()) {
+            User user = userIterator.next();
+            if (heightMin != null && user.getHeight() < heightMin) {
+                userIterator.remove();
+            }
+            else {
+                if (heightMax != null && user.getHeight() > heightMax) {
+                    userIterator.remove();
+                }
+            }
+        }
+    }
+
+    private void findByParamBirthyear(Integer birthyearMin, Integer birthyearMax, List<User> userList) {
+        Iterator<User> userIterator = userList.iterator();
+        while (userIterator.hasNext()) {
+            User user = userIterator.next();
+            if (birthyearMin != null && user.getBirthday() < birthyearMin) {
+                userIterator.remove();
+            }
+            else {
+                if (birthyearMax != null && user.getBirthday() > birthyearMax) {
+                    userIterator.remove();
+                }
+            }
+        }
+    }
+
+    private void findByParamGender(Gender gender, List<User> userList) {
+        Iterator<User> userIterator = userList.iterator();
+        while (userIterator.hasNext()) {
+            if (!userIterator.next().getGender().equals(gender) && gender != null) {
+                userIterator.remove();
+            }
+        }
+    }
+
+    public List<User> getUsersByParam(SearchForm searchForm) {
+        List<User> userList = findAllInList();
+        findByParamFirstName(searchForm.getFirstName(), userList);
+        findByParamLastName(searchForm.getLastName(), userList);
+        findByParamWeight(searchForm.getWeightMin(), searchForm.getWeightMax(), userList);
+        findByParamHeight(searchForm.getHeightMin(), searchForm.getHeightMax(), userList);
+        findByParamBirthyear(searchForm.getBirthyearMin(), searchForm.getBirthyearMax(), userList);
+        findByParamGender(searchForm.getGender(), userList);
+        return userList;
+    }
+
+//    public List<User> getUsersByParam(SearchForm searchForm){
+//        List<User> userList = findAllInList();
+//        Iterator<User> userIterator=userList.iterator();
+//        while (userIterator.hasNext()){
+//            User user = userIterator.next();
+//            if(searchForm.getFirstName()!=""){
+//                if(!user.getFirstName().equals(searchForm.getFirstName())){
+//                    userIterator.remove();
+//                }
+//            }
+//
+//            if(searchForm.getLastName()!=""){
+//                if(!user.getLastName().equals(searchForm.getLastName())){
+//                    userIterator.remove();
+//                }
+//            }
+//
+//            if(searchForm.getWeightMin()!=null){
+//                if(user.getWeight()<searchForm.getWeightMin()){
+//                    userIterator.remove();
+//                }
+//            }
+//
+//            if(searchForm.getWeightMax()!=null){
+//                if(user.getWeight()>searchForm.getWeightMax()){
+//                    userIterator.remove();
+//                }
+//            }
+//
+//            if(searchForm.getHeightMin()!=null){
+//                if(user.getHeight()<searchForm.getHeightMin()){
+//                    userIterator.remove();
+//                }
+//            }
+//
+//            if(searchForm.getHeightMax()!=null){
+//                if(user.getHeight()>searchForm.getHeightMax()){
+//                    userIterator.remove();
+//                }
+//            }
+//
+//            if(searchForm.getBirthyearMin()!=null){
+//                if(user.getBirthday()<searchForm.getBirthyearMin()){
+//                    userIterator.remove();
+//                }
+//            }
+//
+//            if(searchForm.getBirthyearMax()!=null){
+//                if(user.getBirthday()>searchForm.getBirthyearMax()){
+//                    userIterator.remove();
+//                }
+//            }
+//        }
+//        return userList;
+//    }
 }

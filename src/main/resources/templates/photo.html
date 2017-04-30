@@ -22,7 +22,7 @@
     <link type="text/css" rel="stylesheet" href="../css/styles.css"/>
     <link type="text/css" rel="stylesheet" href="../css/gallery.css"/>
     <link type='text/css' rel="stylesheet" href="../css/simplelightbox.min.css"/>
-    <link type='text/css' rel="stylesheet" href="../css/comments.css"/>
+    <!--<link type='text/css' rel="stylesheet" href="../css/comments.css"/>-->
 
     <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'/>
 </head>
@@ -70,6 +70,12 @@
                     <a id="upload_widget_opener">
                         <span class="glyphicon glyphicon-cloud-upload"></span>
                         <span class="menu-name" th:text="#{navbar.upload}"></span>
+                    </a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a href="/searchByParam">
+                        <span class="glyphicon glyphicon glyphicon-search"></span>
+                        <span class="menu-name" th:text="#{navbar.searchByParam}"></span>
                     </a>
                 </li>
                 <li sec:authorize="isAnonymous()">

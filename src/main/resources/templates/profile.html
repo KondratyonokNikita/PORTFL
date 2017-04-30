@@ -70,6 +70,12 @@
                             <span class="menu-name" th:text="#{navbar.upload}"></span>
                         </a>
                     </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <a href="/searchByParam">
+                            <span class="glyphicon glyphicon glyphicon-search"></span>
+                            <span class="menu-name" th:text="#{navbar.searchByParam}"></span>
+                        </a>
+                    </li>
                     <li sec:authorize="isAnonymous()">
                         <a href="/auth/login">
                             <span class="glyphicon glyphicon-log-in"></span>
