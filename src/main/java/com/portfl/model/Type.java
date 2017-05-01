@@ -16,7 +16,7 @@ public class Type {
 
     private String name;
 
-    @ManyToMany(mappedBy = "types")
+    @ManyToMany(mappedBy = "types", fetch = FetchType.LAZY)
     private Set<User> users;
 
     public Type() {

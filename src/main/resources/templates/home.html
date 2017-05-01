@@ -19,11 +19,9 @@
     <![endif]-->
 
     <link type="text/css" rel="stylesheet" href="css/bootstrap.css"/>
-    <link type="text/css" rel="stylesheet" href="css/styles.css"/>
     <link type="text/css" rel="stylesheet" href="css/gallery.css"/>
     <link type='text/css' rel="stylesheet" href="css/simplelightbox.min.css"/>
-
-    <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'/>
+    <link type="text/css" rel="stylesheet" href="css/styles.css"/>
 </head>
 
 <body>
@@ -63,9 +61,15 @@
                         </a>
                     </li>
                     <li sec:authorize="isAuthenticated()">
-                        <a id="upload_widget_opener">
+                        <a href="#" id="upload_widget_opener">
                             <span class="glyphicon glyphicon-cloud-upload"></span>
                             <span class="menu-name" th:text="#{navbar.upload}"></span>
+                        </a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <a href="/searchByParam">
+                            <span class="glyphicon glyphicon glyphicon-search"></span>
+                            <span class="menu-name" th:text="#{navbar.searchByParam}"></span>
                         </a>
                     </li>
                     <li sec:authorize="isAnonymous()">
@@ -92,7 +96,7 @@
                     <li>
                         <a href="/users">
                             <span class="glyphicon glyphicon-th-list"></span>
-                            <span class="manu-name" th:text="#{navbar.admin.users}"></span>
+                            <span class="menu-name" th:text="#{navbar.admin.users}"></span>
                         </a>
                     </li>
                 </ul>
@@ -120,7 +124,8 @@
                 <div class="panel-group" id="accordion">
                     <!--Tags-->
                     <div class="panel panel-default">
-                        <div class="metrics text-info" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                        <div class="metrics hoverable text-info" data-toggle="collapse" data-parent="#accordion"
+                             href="#collapse1">
                             <span th:text="#{home.tags}"/>
                         </div>
                         <!--@thymesVar id="tags" type="java.util.List<String>"-->
@@ -138,19 +143,20 @@
                     </div>
                     <!--Best photos-->
                     <div class="panel panel-default">
-                        <div class="metrics text-info" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                        <div class="metrics hoverable text-info" data-toggle="collapse" data-parent="#accordion"
+                             href="#collapse2">
                             <span th:text="#{home.best_photos}"/>
                         </div>
-                        <!--@thymesVar id="photos" type="java.util.List<com.portfl.model.Photo>"-->
+                        <!--@thymesVar id="top_photos" type="java.util.List<com.portfl.model.Photo>"-->
                         <div id="collapse2" class="panel-collapse collapse in">
                             <div class="panel-body">
                                 <div class="container">
                                     <div class="gallery">
-                                        <!--<a th:each="photo:${user.photos}"-->
-                                        <!--th:href="#{cloudinary.href.gallery.carousel(${photo.path})}">-->
-                                        <!--<img th:src="#{cloudinary.href.gallery.tile(${photo.path})}"-->
-                                        <!--alt="" th:title="${photo.path}" />-->
-                                        <!--</a>-->
+                                        <a th:each="photo:${top_photos}"
+                                           th:href="#{cloudinary.href.gallery.carousel(${photo.path})}">
+                                            <img th:src="#{cloudinary.href.gallery.tile(${photo.path})}"
+                                                 alt="" th:title="${photo.user.firstName + ' ' + photo.user.lastName}"/>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -167,43 +173,8 @@
 
     <script src="js/all.js" type="text/javascript"></script>
     <!-- cloudinary -->
-    <script sec:authorize="isAuthenticated()" type="text/javascript">
-        document.getElementById("upload_widget_opener").addEventListener("click", function() {
-            cloudinary.openUploadWidget({ cloud_name: 'kondrat', upload_preset: 'tduqgmt1', sources: ['local', 'url'], keep_widget_open: false},
-                function(error, result) {
-                    if (result != undefined) {
-                        $.ajax({
-                            url: "/loadPhoto",
-                            data: JSON.stringify(result),
-                            type: "POST",
-                            dataType: "json",
-                            contentType: "application/json"
-                        });
-                    }
-                    console.log(error, result)
-                }
-            );
-        }, false);
-    </script>
+    <script src="js/cloudinary.js" type="text/javascript"></script>
     <!-- gallery -->
-    <script type="text/javascript">
-        $(function(){
-            var $gallery = $('.gallery a').simpleLightbox();
-            $gallery
-                .on('show.simplelightbox', function(){console.log('Requested for showing');})
-                .on('shown.simplelightbox', function(){console.log('Shown');})
-                .on('close.simplelightbox', function(){console.log('Requested for closing');})
-                .on('closed.simplelightbox', function(){console.log('Closed');})
-                .on('change.simplelightbox', function(){console.log('Requested for change');})
-                .on('next.simplelightbox', function(){console.log('Requested for next');})
-                .on('prev.simplelightbox', function(){console.log('Requested for prev');})
-                .on('nextImageLoaded.simplelightbox', function(){console.log('Next image loaded');})
-                .on('prevImageLoaded.simplelightbox', function(){console.log('Prev image loaded');})
-                .on('changed.simplelightbox', function(){console.log('Image changed');})
-                .on('nextDone.simplelightbox', function(){console.log('Image changed to next');})
-                .on('prevDone.simplelightbox', function(){console.log('Image changed to prev');})
-                .on('error.simplelightbox', function(e){console.log('No image found, go to the next/prev');console.log(e);});
-        });
-    </script>
+    <script src="js/gallery.js" type="text/javascript"></script>
 </body>
 </html>

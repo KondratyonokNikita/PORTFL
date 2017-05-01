@@ -19,11 +19,9 @@
     <![endif]-->
 
     <link type="text/css" rel="stylesheet" href="../css/bootstrap.css"/>
-    <link type="text/css" rel="stylesheet" href="../css/styles.css"/>
     <link type="text/css" rel="stylesheet" href="../css/gallery.css"/>
     <link type='text/css' rel="stylesheet" href="../css/simplelightbox.min.css"/>
-
-    <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'/>
+    <link type="text/css" rel="stylesheet" href="../css/styles.css"/>
 </head>
 <body>
 <!--https://res.cloudinary.com/kondrat/image/upload/v1492353314/vjwsmigj5oymkkrbwzkv.jpg-->
@@ -35,7 +33,7 @@
             </div>
         </div>
     </nav>
-
+<!--@thymesVar id="user" type="com.portfl.model.User"-->
     <main class="container-fluid" id="main">
         <div class="row">
             <div class="col-lg-2 sidebar sidebar-offcanvas" id="sidebar">
@@ -58,6 +56,12 @@
                             <span class="menu-name" th:text="#{navbar.profile}"></span>
                         </a>
                     </li>
+                    <li>
+                        <a th:href="${'/photo/' + user.id}">
+                            <span class="glyphicon glyphicon-comment"></span>
+                            <span class="menu-name" th:text="#{navbar.comments}"></span>
+                        </a>
+                    </li>
                     <li sec:authorize="isAuthenticated()">
                         <a href="/auth/edit">
                             <span class="glyphicon glyphicon-edit"></span>
@@ -65,9 +69,15 @@
                         </a>
                     </li>
                     <li sec:authorize="isAuthenticated()">
-                        <a id="upload_widget_opener">
+                        <a href="#" id="upload_widget_opener">
                             <span class="glyphicon glyphicon-cloud-upload"></span>
                             <span class="menu-name" th:text="#{navbar.upload}"></span>
+                        </a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <a href="/searchByParam">
+                            <span class="glyphicon glyphicon glyphicon-search"></span>
+                            <span class="menu-name" th:text="#{navbar.searchByParam}"></span>
                         </a>
                     </li>
                     <li sec:authorize="isAnonymous()">
@@ -94,7 +104,7 @@
                     <li>
                         <a href="/users">
                             <span class="glyphicon glyphicon-th-list"></span>
-                            <span class="manu-name" th:text="#{navbar.admin.users}"></span>
+                            <span class="menu-name" th:text="#{navbar.admin.users}"></span>
                         </a>
                     </li>
                 </ul>
@@ -122,28 +132,31 @@
                 <h1 class="page-header" th:text="#{profile.header}"></h1>
                 <div class="panel-group" id="accordion">
                     <!--Main info-->
-                    <!--@thymesVar id="user" type="com.portfl.model.User"-->
                     <div class="panel panel-default">
-                        <div class="metrics text-info" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                        <div class="metrics hoverable text-info" data-toggle="collapse" data-parent="#accordion"
+                             href="#collapse1">
                             <span th:text="#{profile.main_info}"/>
                             <div class="description" th:text="${user.username}"/>
                         </div>
                         <div id="collapse1" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <div class="col-sm-6">
-                                    <div class="metrics text-muted" href="#" aria-controls="map1" role="tab" data-toggle="tab">
+                                    <div class="metrics text-success" href="#" aria-controls="map1" role="tab"
+                                         data-toggle="tab">
                                         <span th:text="${user.firstName + ' ' + user.lastName}"/>
                                         <div class="description" th:text="#{profile.person_name}"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="metrics text-primary" href="#" aria-controls="map1" role="tab" data-toggle="tab">
+                                    <div class="metrics text-success" href="#" aria-controls="map1" role="tab"
+                                         data-toggle="tab">
                                         <span th:text="${user.email}"/>
                                         <div class="description" th:text="#{profile.email}"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
-                                    <div class="metrics text-danger" href="#map3" aria-controls="map3" role="tab" data-toggle="tab">
+                                    <div class="metrics text-success" href="#map3" aria-controls="map3" role="tab"
+                                         data-toggle="tab">
                                         <span th:text="${user.gender.getLabel()}"/>
                                         <div class="description" th:text="#{profile.gender}"></div>
                                     </div>
@@ -155,13 +168,13 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
-                                    <div class="metrics text-info">
+                                    <div class="metrics text-success">
                                         <span th:text="${user.height}"/>
                                         <div class="description" th:text="#{profile.height}"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
-                                    <div class="metrics text-warning">
+                                    <div class="metrics text-success">
                                         <span th:text="${user.birthday}"/>
                                         <div class="description" th:text="#{profile.birthyear}"></div>
                                     </div>
@@ -171,17 +184,16 @@
                     </div>
                     <!--Photosession types-->
                     <div class="panel panel-default">
-                        <div class="metrics text-info" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                        <div class="metrics hoverable text-info" data-toggle="collapse" data-parent="#accordion"
+                             href="#collapse2">
                             <span th:text="#{profile.photosession_types}"/>
                         </div>
-                        <!--@thymesVar id="types" type="java.util.List<String>"-->
+                        <!--@thymesVar id="types" type="java.util.List<com.portfl.model.Type>"-->
                         <div id="collapse2" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <div class="container">
-                                    <div class="col-sm-2" th:each="type:${user.types}">
-                                        <div class="metrics text-info">
-                                            <span th:text="${type}"/>
-                                        </div>
+                                <div class="col-sm-2" th:each="type:${user.types}">
+                                    <div class="metrics text-info">
+                                        <span th:text="${type.name}"/>
                                     </div>
                                 </div>
                             </div>
@@ -189,7 +201,8 @@
                     </div>
                     <!--Photos-->
                     <div class="panel panel-default">
-                        <div class="metrics text-info" data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                        <div class="metrics hoverable text-info" data-toggle="collapse" data-parent="#accordion"
+                             href="#collapse3">
                             <span th:text="#{profile.photos}"/>
                         </div>
                         <!--@thymesVar id="photos" type="java.util.List<com.portfl.model.Photo>"-->
@@ -201,7 +214,7 @@
                                         <a th:each="photo:${user.photos}"
                                            th:href="#{cloudinary.href.gallery.carousel(${photo.path})}">
                                             <img th:src="#{cloudinary.href.gallery.tile(${photo.path})}"
-                                                 alt="" th:title="${photo.path}" />
+                                                 alt="" th:title="${photo.user.firstName + ' ' + photo.user.lastName}"/>
                                         </a>
                                     </div>
                                 </div>
@@ -219,43 +232,8 @@
 
     <script src="../js/all.js" type="text/javascript"></script>
     <!-- cloudinary -->
-    <script type="text/javascript">
-        document.getElementById("upload_widget_opener").addEventListener("click", function() {
-            cloudinary.openUploadWidget({ cloud_name: 'kondrat', upload_preset: 'tduqgmt1', sources: ['local', 'url'], keep_widget_open: false},
-                function(error, result) {
-                    if (result != undefined) {
-                        $.ajax({
-                            url: "/loadPhoto",
-                            data: JSON.stringify(result),
-                            type: "POST",
-                            dataType: "json",
-                            contentType: "application/json"
-                        });
-                    }
-                    console.log(error, result)
-                }
-            );
-        }, false);
-    </script>
+<script src="../js/cloudinary.js" type="text/javascript"></script>
     <!-- gallery -->
-    <script type="text/javascript">
-        $(function(){
-            var $gallery = $('.gallery a').simpleLightbox();
-            $gallery
-                .on('show.simplelightbox', function(){console.log('Requested for showing');})
-                .on('shown.simplelightbox', function(){console.log('Shown');})
-                .on('close.simplelightbox', function(){console.log('Requested for closing');})
-                .on('closed.simplelightbox', function(){console.log('Closed');})
-                .on('change.simplelightbox', function(){console.log('Requested for change');})
-                .on('next.simplelightbox', function(){console.log('Requested for next');})
-                .on('prev.simplelightbox', function(){console.log('Requested for prev');})
-                .on('nextImageLoaded.simplelightbox', function(){console.log('Next image loaded');})
-                .on('prevImageLoaded.simplelightbox', function(){console.log('Prev image loaded');})
-                .on('changed.simplelightbox', function(){console.log('Image changed');})
-                .on('nextDone.simplelightbox', function(){console.log('Image changed to next');})
-                .on('prevDone.simplelightbox', function(){console.log('Image changed to prev');})
-                .on('error.simplelightbox', function(e){console.log('No image found, go to the next/prev');console.log(e);});
-        });
-    </script>
+<script src="../js/gallery.js" type="text/javascript"></script>
 </body>
 </html>

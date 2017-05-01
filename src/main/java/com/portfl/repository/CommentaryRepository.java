@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RepositoryRestResource(path = "commentaries", collectionResourceRel = "commentaries")
 public interface CommentaryRepository extends JpaRepository<Commentary, Long> {
+    Iterable<Commentary> findAllByPhotoId(Long photoId);
 }

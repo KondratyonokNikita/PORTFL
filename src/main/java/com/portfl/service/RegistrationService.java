@@ -1,7 +1,9 @@
 package com.portfl.service;
 
+import com.portfl.event.OnRegistrationCompleteEvent;
 import com.portfl.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
@@ -15,7 +17,7 @@ import java.util.UUID;
  * Created by Vlad on 21.03.17.
  */
 @Component
-public class RegistrationService {
+public class RegistrationService implements ApplicationListener<OnRegistrationCompleteEvent> {
 
     @Autowired
     private JavaMailSender mailSender;
@@ -26,9 +28,13 @@ public class RegistrationService {
     @Autowired
     private MessageSource messageSource;
 
-    public void confirmRegistration(User user, Locale locale, String appUrl) {
-        String token = UUID.randomUUID().toString();
+    public void confirmRegistration(OnRegistrationCompleteEvent event) {
+        final User user = event.getUser();
+        final String token = UUID.randomUUID().toString();
+        final Locale locale = event.getLocale();
+        final String appUrl = event.getAppUrl();
         userService.createVerificationToken(token, user);
+
         String recipientAddress = user.getEmail();
         String subject = messageSource.getMessage("reg.confirm", null, locale);
         String confirmationUrl = appUrl + "/auth/registrationConfirm.html?token=" + token;
@@ -37,6 +43,13 @@ public class RegistrationService {
         email.setTo(recipientAddress);
         email.setSubject(subject);
         email.setText(messageSource.getMessage("reg.go.url", null, locale) + confirmationUrl);
+        System.out.println(email);
+        System.out.println(email.toString());
         //mailSender.send(email);
+    }
+
+    @Override
+    public void onApplicationEvent(OnRegistrationCompleteEvent onRegistrationCompleteEvent) {
+        this.confirmRegistration(onRegistrationCompleteEvent);
     }
 }

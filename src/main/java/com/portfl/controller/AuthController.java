@@ -1,5 +1,6 @@
 package com.portfl.controller;
 
+import com.portfl.event.OnRegistrationCompleteEvent;
 import com.portfl.model.*;
 import com.portfl.repository.TypeRepository;
 import com.portfl.service.RegistrationService;
@@ -28,6 +29,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.portfl.utils.UrlUtils.getAppUrl;
+
 /**
  * Created by Vlad on 22.03.17.
  */
@@ -41,6 +44,8 @@ public class AuthController {
     private UserService userService;
     @Autowired
     private TypeRepository typeRepository;
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
 
     @GetMapping(value = "/registration")
     public String registration(Model model) {
@@ -63,16 +68,16 @@ public class AuthController {
             return "registration";
         }
         userService.create(user);
-        registrationService.confirmRegistration(user, request.getLocale(), UrlUtils.getAppUrl(request));
+        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user, request.getLocale(), getAppUrl(request)));
         return "redirect:/auth/login";
     }
 
     @GetMapping(value = "/registrationConfirm.html")
     public String registrationConfirm(@RequestParam("token") String token) {
         if (userService.enableAccount(token)) {
-            return "redirect:/profile";
+            return "redirect:/auth/login";
         }
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     @GetMapping(value = "/edit/{profileId}")
@@ -100,14 +105,7 @@ public class AuthController {
         if (result.hasErrors()) {
             return "edit";
         }
-        if (userService.isExistUsername(user.getUsername())) {
-            model.addAttribute("existUsername", true);
-            return "edit";
-        }
-        if (userService.isExistEmail(user.getEmail())) {
-            model.addAttribute("existEmail", true);
-            return "edit";
-        }
+        System.out.println(user.toString());
         userService.update(user);
         return "redirect:/profile/" + user.getId();
     }

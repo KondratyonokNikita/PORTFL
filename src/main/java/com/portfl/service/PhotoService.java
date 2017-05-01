@@ -2,12 +2,11 @@ package com.portfl.service;
 
 import com.portfl.model.Photo;
 import com.portfl.model.User;
+import com.portfl.repository.PhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -16,8 +15,19 @@ import java.util.Map;
  */
 @Service
 public class PhotoService {
+
+    @Autowired
+    private PhotoRepository photoRepository;
+
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RateService rateService;
+
+    public Photo findOne(Long photoId) {
+        return this.photoRepository.findOne(photoId);
+    }
 
     public void addPhotos(List<Map<String, Object>> photos) {
         User user = userService.getUser();
@@ -35,5 +45,17 @@ public class PhotoService {
             userPhotos.add(photo);
         }
         userService.update(user);
+    }
+
+    public void updateRate() {
+        List<Photo> photos = photoRepository.findAll();
+        for (Photo photo : photos) {
+            photo.setRate(rateService.getRate(photo.getId()));
+        }
+        photoRepository.save(photos);
+    }
+
+    public List<Photo> findAll() {
+        return photoRepository.findAll();
     }
 }

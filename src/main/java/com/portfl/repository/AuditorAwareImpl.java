@@ -1,19 +1,22 @@
 package com.portfl.repository;
 
-import com.portfl.configuration.security.CrmUserDetails;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * @author ikatlinsky
  * @since 3/30/17
  */
 public class AuditorAwareImpl implements AuditorAware<Long> {
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Long getCurrentAuditor() {
-        CrmUserDetails crmUserDetails = (CrmUserDetails) SecurityContextHolder.getContext()
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
-        return crmUserDetails.getId();
+        return userRepository.findByUsername(userDetails.getUsername()).getId();
     }
 }
