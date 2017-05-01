@@ -87,7 +87,6 @@ public class PhotoController {
     }
 
     @GetMapping(value = "/rating/{photoId}/my")
-    @PreAuthorize("isAuthenticated()")
     public @ResponseBody
     Long getMyRating(@PathVariable Long photoId) throws IOException {
         Rate rate = rateService.getMyRate(photoId);

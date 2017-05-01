@@ -121,6 +121,10 @@
                 <form method="post" class="form-horizontal"
                       th:action="@{/auth/login}">
                     <fieldset>
+                        <div class="form-group">
+                            <label class="col-md-4 col-md-offset-4 text-left control-label" th:if="${param.error}"
+                                   th:text="#{login.error}"/>
+                        </div>
                         <!-- Username -->
                         <div class="form-group">
                             <label class="col-md-4 control-label" th:text="#{login.username}"></label>
@@ -141,7 +145,7 @@
                         </div>
                         <!-- Button -->
                         <div class="form-group">
-                            <label class="col-md-4 control-label"></label>
+                            <label class="col-md-4 control-label"/>
                             <div class="col-md-4">
                                 <button type="submit" class="btn btn-success" th:text="#{login.submit}"/>
                             </div>

@@ -52,6 +52,8 @@ public class RateService {
     }
 
     public Rate getMyRate(Long photoId) {
+        if (userService.getUser() == null)
+            return null;
         return rateRepository.findOneByPhotoIdAndUserId(photoId, userService.getUser().getId());
     }
 

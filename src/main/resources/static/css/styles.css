@@ -32,7 +32,7 @@ body {
     top: 51px;
     bottom: 0;
     left: 0;
-    z-index: 1031;
+    z-index: 100;
     display: block;
     padding: 46px 18px 20px 18px;
     overflow-x: hidden;
@@ -209,7 +209,7 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 1030;
+    z-index: 99;
     display: none;
 }
 

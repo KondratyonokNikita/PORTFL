@@ -22,7 +22,6 @@
     <link type="text/css" rel="stylesheet" href="../css/styles.css"/>
     <link type="text/css" rel="stylesheet" href="../css/gallery.css"/>
     <link type='text/css' rel="stylesheet" href="../css/simplelightbox.min.css"/>
-    <link type='text/css' rel="stylesheet" href="../css/comments.css"/>
 
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../css/themes/fontawesome-stars-o.css"/>
@@ -138,6 +137,7 @@
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select>
+                            <span class="glyphicon glyphicon-chevron-left" onclick="prev_photo();"/>
                             <span class="title current-rating">
                                 <div th:text="#{photo.rating}" style="display: inline;"/>
                                 <span class="value">0</span>
@@ -146,6 +146,7 @@
                                     <i class="fa fa-times-circle"></i>
                                 </a>
                             </span>
+                            <span class="glyphicon glyphicon-chevron-right" onclick="next_photo();"/>
                         </div>
                     </div>
                 </div>

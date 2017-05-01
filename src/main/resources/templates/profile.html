@@ -33,7 +33,7 @@
             </div>
         </div>
     </nav>
-
+<!--@thymesVar id="user" type="com.portfl.model.User"-->
     <main class="container-fluid" id="main">
         <div class="row">
             <div class="col-lg-2 sidebar sidebar-offcanvas" id="sidebar">
@@ -54,6 +54,12 @@
                         <a th:href="${'/profile/' + current_user_id}">
                             <span class="glyphicon glyphicon-user"></span>
                             <span class="menu-name" th:text="#{navbar.profile}"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="${'/photo/' + user.id}">
+                            <span class="glyphicon glyphicon-comment"></span>
+                            <span class="menu-name" th:text="#{navbar.comments}"></span>
                         </a>
                     </li>
                     <li sec:authorize="isAuthenticated()">
@@ -120,7 +126,6 @@
                 <h1 class="page-header" th:text="#{profile.header}"></h1>
                 <div class="panel-group" id="accordion">
                     <!--Main info-->
-                    <!--@thymesVar id="user" type="com.portfl.model.User"-->
                     <div class="panel panel-default">
                         <div class="metrics hoverable text-info" data-toggle="collapse" data-parent="#accordion"
                              href="#collapse1">
@@ -130,19 +135,22 @@
                         <div id="collapse1" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <div class="col-sm-6">
-                                    <div class="metrics text-muted" href="#" aria-controls="map1" role="tab" data-toggle="tab">
+                                    <div class="metrics text-success" href="#" aria-controls="map1" role="tab"
+                                         data-toggle="tab">
                                         <span th:text="${user.firstName + ' ' + user.lastName}"/>
                                         <div class="description" th:text="#{profile.person_name}"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="metrics text-primary" href="#" aria-controls="map1" role="tab" data-toggle="tab">
+                                    <div class="metrics text-success" href="#" aria-controls="map1" role="tab"
+                                         data-toggle="tab">
                                         <span th:text="${user.email}"/>
                                         <div class="description" th:text="#{profile.email}"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
-                                    <div class="metrics text-danger" href="#map3" aria-controls="map3" role="tab" data-toggle="tab">
+                                    <div class="metrics text-success" href="#map3" aria-controls="map3" role="tab"
+                                         data-toggle="tab">
                                         <span th:text="${user.gender.getLabel()}"/>
                                         <div class="description" th:text="#{profile.gender}"></div>
                                     </div>
@@ -154,13 +162,13 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
-                                    <div class="metrics text-info">
+                                    <div class="metrics text-success">
                                         <span th:text="${user.height}"/>
                                         <div class="description" th:text="#{profile.height}"></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
-                                    <div class="metrics text-warning">
+                                    <div class="metrics text-success">
                                         <span th:text="${user.birthday}"/>
                                         <div class="description" th:text="#{profile.birthyear}"></div>
                                     </div>

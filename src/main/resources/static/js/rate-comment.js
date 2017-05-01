@@ -18,6 +18,7 @@ var get_photos = function () {
             setInterval(function () {
                 update_all();
             }, 30000);
+            update_all();
         }
     });
 }
@@ -26,6 +27,14 @@ var next_photo = function () {
     cur++;
     cur %= photos.length;
     img_holder.setAttribute('src', 'http://res.cloudinary.com/kondrat/image/upload/' + photos[cur].path);
+    update_all();
+}
+
+var prev_photo = function () {
+    cur += photos.length - 1;
+    cur %= photos.length;
+    img_holder.setAttribute('src', 'http://res.cloudinary.com/kondrat/image/upload/' + photos[cur].path);
+    update_all();
 }
 
 var update_all = function () {
@@ -33,6 +42,7 @@ var update_all = function () {
         type: 'GET',
         url: '/photo/rating/' + photos[cur].id,
         success: function (response) {
+            console.log(response, 'rating');
             $('.value').html(response);
         }
     });
@@ -40,15 +50,23 @@ var update_all = function () {
         type: 'GET',
         url: '/photo/rating/' + photos[cur].id + '/my',
         success: function (response) {
-            $('#example-fontawesome-o').barrating('set', response);
-            $('.stars-example-fontawesome-o .clear-rating')
-                .removeClass('hidden');
+            console.log(response, 'rating my');
+            if (response != 0) {
+                $('#example-fontawesome-o').barrating('set', response);
+                $('.stars-example-fontawesome-o .clear-rating')
+                    .removeClass('hidden');
+            } else {
+                $('#example-fontawesome-o').barrating('set', '');
+                $('.stars-example-fontawesome-o .clear-rating')
+                    .addClass('hidden');
+            }
         }
     });
     $.ajax({
         type: 'GET',
         url: '/photo/get/comment/' + photos[cur].id,
         success: function (response) {
+            console.log(response, 'comment');
             comment_holder.innerHTML = '';
             response.forEach(function (item, i, response) {
                 var li = document.createElement('li');
@@ -79,6 +97,7 @@ var comment = function () {
         }),
         success: function () {
             comment_textfield.value = '';
+            update_all();
         }
     });
 }
@@ -92,6 +111,7 @@ var rate = function (value) {
             "rate": value
         }),
         success: function () {
+            update_all();
         }
     });
 }
