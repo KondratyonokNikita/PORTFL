@@ -7,7 +7,7 @@ import java.util.Set;
  * Created by User on 29.04.2017.
  */
 public class SearchForm {
-    Long id=Long.valueOf(1);
+    Long id = Long.valueOf(1);
     String firstName;
     String lastName;
 

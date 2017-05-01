@@ -51,7 +51,6 @@ public class Type {
         return "Type{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", users=" + users +
                 '}';
     }
 }

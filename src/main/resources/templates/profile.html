@@ -62,6 +62,12 @@
                             <span class="menu-name" th:text="#{navbar.comments}"></span>
                         </a>
                     </li>
+                    <li>
+                        <a th:href="${'/profile/table/' + user.id}">
+                            <span class="glyphicon glyphicon-th-list"></span>
+                            <span class="menu-name" th:text="#{navbar.photo_table}"></span>
+                        </a>
+                    </li>
                     <li sec:authorize="isAuthenticated()">
                         <a href="/auth/edit">
                             <span class="glyphicon glyphicon-edit"></span>
@@ -74,7 +80,7 @@
                             <span class="menu-name" th:text="#{navbar.upload}"></span>
                         </a>
                     </li>
-                    <li sec:authorize="isAuthenticated()">
+                    <li>
                         <a href="/searchByParam">
                             <span class="glyphicon glyphicon glyphicon-search"></span>
                             <span class="menu-name" th:text="#{navbar.searchByParam}"></span>
