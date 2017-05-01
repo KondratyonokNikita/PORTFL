@@ -1,8 +1,7 @@
 package com.portfl.controller;
 
-import com.portfl.model.Commentary;
-import com.portfl.model.Photo;
-import com.portfl.model.User;
+import com.portfl.model.*;
+import com.portfl.repository.TypeRepository;
 import com.portfl.service.CommentaryService;
 import com.portfl.service.RateService;
 import com.portfl.service.PhotoService;
@@ -20,6 +19,9 @@ import org.springframework.web.context.request.WebRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.portfl.model.Gender.*;
 
 /**
  * Created by Samsung on 19.04.2017.
@@ -34,6 +36,8 @@ public class MainController {
     private CommentaryService commentaryService;
     @Autowired
     private RateService rateService;
+    @Autowired
+    private TypeRepository typeRepository;
 
     @GetMapping(value = "/")
     public String homePage(Model model) {
@@ -68,5 +72,28 @@ public class MainController {
     String loadPhoto(@RequestBody List<Map<String, Object>> photos, ModelMap map) {
         photoService.addPhotos(photos);
         return "saved";
+    }
+
+    @GetMapping(value = "/searchByParam")
+    public String searchByParam(Model model) {
+        SearchForm searchForm = new SearchForm();
+        model.addAttribute("searchForm", searchForm);
+        return "searchByParam";
+    }
+
+    @PostMapping(value = "/searchByParam")
+    public String searchByParamSubmit(@Valid SearchForm searchForm, BindingResult result, WebRequest request, Model model) {
+        model.addAttribute("users",userService.getUsersByParam(searchForm));
+        return "searchUsers";
+    }
+
+    @ModelAttribute("genders")
+    public Map<Gender, String> initializeRoles() {
+        return Arrays.stream(Gender.values()).collect(Collectors.toMap(value -> value, Gender::getLabel));
+    }
+
+    @ModelAttribute("photosession_types")
+    public List<Type> getTypes(){
+        return typeRepository.findAll();
     }
 }
