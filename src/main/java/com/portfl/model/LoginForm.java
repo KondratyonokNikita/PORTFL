@@ -1,8 +1,5 @@
 package com.portfl.model;
 
-/**
- * Created by Samsung on 19.04.2017.
- */
 public class LoginForm {
     private String username;
     private String password;

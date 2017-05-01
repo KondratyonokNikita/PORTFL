@@ -17,9 +17,6 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Created by Samsung on 17.04.2017.
- */
 @ControllerAdvice
 @SessionAttributes("principal")
 @RequestMapping("/")

@@ -42,7 +42,7 @@
                      aria-controls="sidebar"><span class="glyphicon glyphicon-circle-arrow-left"></span></div>
                 <!--Menu-->
                 <ul class="nav nav-sidebar">
-                    <li>
+                    <li class="active">
                         <a href="/">
                             <span class="glyphicon glyphicon-home"></span>
                             <span class="menu-name" th:text="#{navbar.home}"></span>
@@ -73,7 +73,7 @@
                             <span class="menu-name" th:text="#{navbar.searchByParam}"></span>
                         </a>
                     </li>
-                    <li class="active" sec:authorize="isAnonymous()">
+                    <li sec:authorize="isAnonymous()">
                         <a href="/auth/login">
                             <span class="glyphicon glyphicon-log-in"></span>
                             <span class="menu-name" th:text="#{navbar.login}"></span>

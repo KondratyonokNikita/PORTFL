@@ -15,10 +15,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-/**
- * @author ikatlinsky
- * @since 3/30/17
- */
 @Configuration
 @EnableTransactionManagement
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")

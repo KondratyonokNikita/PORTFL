@@ -1,8 +1,5 @@
 package com.portfl.constants;
 
-/**
- * Created by Vlad on 06.03.17.
- */
 public class Constants {
     public static final class Views {
         public static final String HOME_PAGE = "home";

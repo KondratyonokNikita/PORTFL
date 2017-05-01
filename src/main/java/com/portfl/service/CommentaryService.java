@@ -5,9 +5,6 @@ import com.portfl.repository.CommentaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by User on 25.04.2017.
- */
 @Service
 public class CommentaryService {
 

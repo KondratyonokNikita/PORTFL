@@ -19,10 +19,10 @@
     <![endif]-->
 
     <link type="text/css" rel="stylesheet" href="../css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/styles.css"/>
     <link type="text/css" rel="stylesheet" href="../css/gallery.css"/>
     <link type="text/css" rel="stylesheet" href="../css/simplelightbox.min.css"/>
     <link type="text/css" rel="stylesheet" href="../css/jquery.easyselect.min.css"/>
-    <link type="text/css" rel="stylesheet" href="../css/styles.css"/>
 
     <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'/>
 
@@ -39,15 +39,13 @@
 <main class="container-fluid" id="main">
     <div class="row">
         <div class="col-lg-2 sidebar sidebar-offcanvas" id="sidebar">
-            <div class="collapse-menu-button expand hidden-lg" data-toggle="collapse" href="#sidebar"
-                 aria-expanded="false"
+            <div class="collapse-menu-button expand hidden-lg" data-toggle="collapse" href="#sidebar" aria-expanded="false"
                  aria-controls="sidebar"><span class="glyphicon glyphicon-circle-arrow-right"></span></div>
-            <div class="collapse-menu-button collapse hidden-lg" data-toggle="collapse" href="#sidebar"
-                 aria-expanded="false"
+            <div class="collapse-menu-button collapse hidden-lg" data-toggle="collapse" href="#sidebar" aria-expanded="false"
                  aria-controls="sidebar"><span class="glyphicon glyphicon-circle-arrow-left"></span></div>
             <!--Menu-->
             <ul class="nav nav-sidebar">
-                <li>
+                <li class="active">
                     <a href="/">
                         <span class="glyphicon glyphicon-home"></span>
                         <span class="menu-name" th:text="#{navbar.home}"></span>
@@ -67,12 +65,12 @@
                     </a>
                 </li>
                 <li sec:authorize="isAuthenticated()">
-                    <a id="upload_widget_opener">
+                    <a href="#" id="upload_widget_opener">
                         <span class="glyphicon glyphicon-cloud-upload"></span>
                         <span class="menu-name" th:text="#{navbar.upload}"></span>
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="/searchByParam">
                         <span class="glyphicon glyphicon glyphicon-search"></span>
                         <span class="menu-name" th:text="#{navbar.searchByParam}"></span>
@@ -102,7 +100,7 @@
                 <li>
                     <a href="/users">
                         <span class="glyphicon glyphicon-th-list"></span>
-                        <span class="manu-name" th:text="#{navbar.admin.users}"></span>
+                        <span class="menu-name" th:text="#{navbar.admin.users}"></span>
                     </a>
                 </li>
             </ul>
@@ -157,6 +155,7 @@
                                 <!--@thymesVar id="genders" type="java.util.Map<com.portfl.model.Gender, java.lang.String>"-->
                                 <select id="genders" class="form-control input-md" th:field="*{gender}"
                                         th:placeholder="#{searchByParam.gender}">
+                                    <option th:value="null"/>
                                     <option th:each="genderOption : ${genders}"
                                             th:value="${genderOption.key}"
                                             th:text="${genderOption.value}"/>
@@ -195,14 +194,12 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label" th:text="#{searchByParam.birthyear}"></label>
                             <div class="col-md-3">
-                                <input id="birthdayMin" type="number" min="1900" max="2100"
-                                       class="form-control input-md"
+                                <input id="birthdayMin" type="number" min="1900" max="2100" class="form-control input-md"
                                        th:placeholder="#{searchByParam.Min}" th:field="*{birthyearMin}"/>
                             </div>
                             <label class="col-md-3 control-label" th:text="#{searchByParam.birthyear}"></label>
                             <div class="col-md-3">
-                                <input id="birthdayMax" type="number" min="1900" max="2100"
-                                       class="form-control input-md"
+                                <input id="birthdayMax" type="number" min="1900" max="2100" class="form-control input-md"
                                        th:placeholder="#{searchByParam.Max}" th:field="*{birthyearMax}"/>
                             </div>
                         </div>
@@ -219,8 +216,7 @@
                                 <select id="types" class="form-control input-md" multiple=""
                                         th:placeholder="#{registration.types}" th:field="*{types}">
                                     <option th:each="type:${photosession_types}"
-                                            th:value="${type.id}" th:text="${type.name}">Photo type
-                                    </option>
+                                            th:value="${type.id}" th:text="${type.name}">Photo type</option>
                                 </select>
                             </div>
                         </div>

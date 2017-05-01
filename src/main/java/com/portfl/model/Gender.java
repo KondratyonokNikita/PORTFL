@@ -3,9 +3,6 @@ package com.portfl.model;
 import javax.persistence.*;
 import java.util.Set;
 
-/**
- * Created by Samsung on 13.04.2017.
- */
 //        2.  - андроген, гермафродит (мужчиноженщина)
 //        3. Androgynous - мужеженственный (внутренне, по ощущениям)
 //        4. Bigender - ощущающие себя в разное время то мужчиной, то женщиной

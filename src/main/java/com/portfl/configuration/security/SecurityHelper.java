@@ -4,10 +4,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-/**
- * @author ikatlinsky
- * @since 3/30/17
- */
 public final class SecurityHelper {
 
     public static Long getUserId() {

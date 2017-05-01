@@ -5,10 +5,6 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-/**
- * @author ikatlinsky
- * @since 3/30/17
- */
 public class AuditorAwareImpl implements AuditorAware<Long> {
     @Autowired
     private UserRepository userRepository;

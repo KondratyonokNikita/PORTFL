@@ -10,9 +10,6 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Samsung on 21.04.2017.
- */
 @Service
 public class PhotoService {
 

@@ -13,10 +13,6 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
-/**
- * @author ikatlinsky
- * @since 3/29/17
- */
 @Service
 public class CrmUserDetailsService implements UserDetailsService {
     @Autowired

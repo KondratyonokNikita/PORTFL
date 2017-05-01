@@ -10,9 +10,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.*;
 import java.time.Instant;
 
-/**
- * Created by Samsung on 14.04.2017.
- */
 @Entity
 @Table(name = "commentaries")
 public class Commentary {
