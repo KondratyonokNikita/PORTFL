@@ -159,8 +159,7 @@ public class UserService {
             User user = userIterator.next();
             if (weightMin != null && user.getWeight() < weightMin) {
                 userIterator.remove();
-            }
-            else {
+            } else {
                 if (weightMax != null && user.getWeight() > weightMax) {
                     userIterator.remove();
                 }
@@ -174,8 +173,7 @@ public class UserService {
             User user = userIterator.next();
             if (heightMin != null && user.getHeight() < heightMin) {
                 userIterator.remove();
-            }
-            else {
+            } else {
                 if (heightMax != null && user.getHeight() > heightMax) {
                     userIterator.remove();
                 }
@@ -189,8 +187,7 @@ public class UserService {
             User user = userIterator.next();
             if (birthyearMin != null && user.getBirthday() < birthyearMin) {
                 userIterator.remove();
-            }
-            else {
+            } else {
                 if (birthyearMax != null && user.getBirthday() > birthyearMax) {
                     userIterator.remove();
                 }

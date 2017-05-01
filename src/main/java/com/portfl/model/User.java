@@ -80,18 +80,10 @@ public class User {
                 ", height=" + height +
                 ", birthday=" + birthday +
                 ", role=" + role +
-                ", types=" + toString(types) +
+                ", types=" + types +
                 ", gender=" + gender +
                 ", photos=" + photos +
                 '}';
-    }
-
-    private String toString(Set<Type> list) {
-        StringBuilder builder = new StringBuilder("{");
-        for(Object object: list) {
-            builder.append(object.toString() + ",");
-        }
-        return builder.append("}").toString();
     }
 
     public void setId(Long id) {

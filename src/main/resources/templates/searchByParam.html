@@ -19,10 +19,10 @@
     <![endif]-->
 
     <link type="text/css" rel="stylesheet" href="../css/bootstrap.css"/>
-    <link type="text/css" rel="stylesheet" href="../css/styles.css"/>
     <link type="text/css" rel="stylesheet" href="../css/gallery.css"/>
     <link type="text/css" rel="stylesheet" href="../css/simplelightbox.min.css"/>
     <link type="text/css" rel="stylesheet" href="../css/jquery.easyselect.min.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/styles.css"/>
 
     <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'/>
 
@@ -72,6 +72,12 @@
                         <span class="menu-name" th:text="#{navbar.upload}"></span>
                     </a>
                 </li>
+                <li class="active">
+                    <a href="/searchByParam">
+                        <span class="glyphicon glyphicon glyphicon-search"></span>
+                        <span class="menu-name" th:text="#{navbar.searchByParam}"></span>
+                    </a>
+                </li>
                 <li sec:authorize="isAnonymous()">
                     <a href="/auth/login">
                         <span class="glyphicon glyphicon-log-in"></span>
@@ -84,7 +90,7 @@
                         <span class="menu-name" th:text="#{navbar.logout}"></span>
                     </a>
                 </li>
-                <li class="active" sec:authorize="isAnonymous()">
+                <li sec:authorize="isAnonymous()">
                     <a href="/auth/registration">
                         <span class="glyphicon glyphicon-save-file"></span>
                         <span class="menu-name" th:text="#{navbar.register}"></span>
@@ -189,12 +195,14 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label" th:text="#{searchByParam.birthyear}"></label>
                             <div class="col-md-3">
-                                <input id="birthdayMin" type="number" min="1900" max="2100" class="form-control input-md"
+                                <input id="birthdayMin" type="number" min="1900" max="2100"
+                                       class="form-control input-md"
                                        th:placeholder="#{searchByParam.Min}" th:field="*{birthyearMin}"/>
                             </div>
                             <label class="col-md-3 control-label" th:text="#{searchByParam.birthyear}"></label>
                             <div class="col-md-3">
-                                <input id="birthdayMax" type="number" min="1900" max="2100" class="form-control input-md"
+                                <input id="birthdayMax" type="number" min="1900" max="2100"
+                                       class="form-control input-md"
                                        th:placeholder="#{searchByParam.Max}" th:field="*{birthyearMax}"/>
                             </div>
                         </div>
@@ -211,7 +219,8 @@
                                 <select id="types" class="form-control input-md" multiple=""
                                         th:placeholder="#{registration.types}" th:field="*{types}">
                                     <option th:each="type:${photosession_types}"
-                                            th:value="${type.id}" th:text="${type.name}">Photo type</option>
+                                            th:value="${type.id}" th:text="${type.name}">Photo type
+                                    </option>
                                 </select>
                             </div>
                         </div>
