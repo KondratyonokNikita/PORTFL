@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 public class SearchForm {
-    Long id=Long.valueOf(1);
+    Long id = Long.valueOf(1);
     String firstName;
     String lastName;
 

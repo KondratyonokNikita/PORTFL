@@ -42,6 +42,21 @@ public class MainController {
         return "home";
     }
 
+    @GetMapping(value = "/profile/table/{profileId}")
+    public String profileTable(@PathVariable Long profileId, Model model) {
+        if (profileId != -1) {
+            User user = userService.findOne(profileId);
+            if (user == null) {
+                return "redirect:/";
+            } else {
+                model.addAttribute("photos", user.getPhotoInfo());
+                return "photo_table";
+            }
+        } else {
+            return "redirect:/auth/login";
+        }
+    }
+
     @GetMapping(value = "/profile/{profileId}")
     public String profilePage(@PathVariable Long profileId, Model model) {
         if(profileId != -1) {
@@ -80,7 +95,7 @@ public class MainController {
 
     @PostMapping(value = "/searchByParam")
     public String searchByParamSubmit(@Valid SearchForm searchForm, BindingResult result, WebRequest request, Model model) {
-        model.addAttribute("users",userService.getUsersByParam(searchForm));
+        model.addAttribute("users", userService.getUsersByParam(searchForm));
         return "searchUsers";
     }
 
@@ -90,7 +105,7 @@ public class MainController {
     }
 
     @ModelAttribute("photosession_types")
-    public List<Type> getTypes(){
+    public List<Type> getTypes() {
         return typeRepository.findAll();
     }
 }
