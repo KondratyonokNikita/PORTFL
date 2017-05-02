@@ -12,9 +12,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-/**
- * Created by Samsung on 13.04.2017.
- */
 @Entity
 @Table(name = "photos")
 public class Photo {

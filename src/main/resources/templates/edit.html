@@ -45,7 +45,7 @@
                  aria-controls="sidebar"><span class="glyphicon glyphicon-circle-arrow-left"></span></div>
             <!--Menu-->
             <ul class="nav nav-sidebar">
-                <li>
+                <li class="active">
                     <a href="/">
                         <span class="glyphicon glyphicon-home"></span>
                         <span class="menu-name" th:text="#{navbar.home}"></span>
@@ -58,7 +58,7 @@
                         <span class="menu-name" th:text="#{navbar.profile}"></span>
                     </a>
                 </li>
-                <li class="active" sec:authorize="isAuthenticated()">
+                <li sec:authorize="isAuthenticated()">
                     <a href="/auth/edit">
                         <span class="glyphicon glyphicon-edit"></span>
                         <span class="menu-name" th:text="#{navbar.edit}"></span>
@@ -126,6 +126,9 @@
         </div>
         <div class="col-lg-10 col-lg-offset-2 main">
             <h1 class="page-header" th:text="#{edit.header}"></h1>
+            <div class="form-group"><a href="/change">
+                <button type="submit" class="btn btn-success" th:text="#{edit.color}"/>
+            </a></div>
             <!--@thymesVar id="user" type="com.portfl.model.User"-->
             <form class="form-horizontal" action="#"
                   th:object="${user}" th:action="@{/auth/edit}" method="post">
@@ -256,6 +259,7 @@
 
 <script type="text/javascript" src="../../js/all.js"></script>
 <!-- cloudinary -->
+<script src="https://algorithmia.com/v1/clients/js/algorithmia-0.2.0.js" type="text/javascript"/>
 <script src="../../js/cloudinary.js" type="text/javascript"></script>
 
 <script type="text/javascript" src="../../js/jquery.easyselect.js"></script>

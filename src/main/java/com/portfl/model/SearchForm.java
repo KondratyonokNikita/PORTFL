@@ -3,9 +3,6 @@ package com.portfl.model;
 import javax.persistence.*;
 import java.util.Set;
 
-/**
- * Created by User on 29.04.2017.
- */
 public class SearchForm {
     Long id = Long.valueOf(1);
     String firstName;

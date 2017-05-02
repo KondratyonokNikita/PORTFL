@@ -17,9 +17,6 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
-/**
- * Created by Samsung on 29.04.2017.
- */
 @Controller
 @RequestMapping("/photo")
 public class PhotoController {

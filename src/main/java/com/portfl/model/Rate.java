@@ -2,9 +2,6 @@ package com.portfl.model;
 
 import javax.persistence.*;
 
-/**
- * Created by Pokemon on 27.04.2017.
- */
 @Entity
 @Table(name = "rates")
 public class Rate {

@@ -23,9 +23,6 @@ import java.util.stream.Collectors;
 
 import static com.portfl.model.Gender.*;
 
-/**
- * Created by Samsung on 19.04.2017.
- */
 @Controller
 public class MainController {
     @Autowired
@@ -45,21 +42,6 @@ public class MainController {
         return "home";
     }
 
-    @GetMapping(value = "/profile/{profileId}")
-    public String profilePage(@PathVariable Long profileId, Model model) {
-        if(profileId != -1) {
-            User user = userService.findOne(profileId);
-            if(user == null) {
-                return "redirect:/";
-            } else {
-                model.addAttribute("user", user);
-                return "profile";
-            }
-        } else {
-            return "redirect:/auth/login";
-        }
-    }
-
     @GetMapping(value = "/profile/table/{profileId}")
     public String profileTable(@PathVariable Long profileId, Model model) {
         if (profileId != -1) {
@@ -69,6 +51,21 @@ public class MainController {
             } else {
                 model.addAttribute("photos", user.getPhotoInfo());
                 return "photo_table";
+            }
+        } else {
+            return "redirect:/auth/login";
+        }
+    }
+
+    @GetMapping(value = "/profile/{profileId}")
+    public String profilePage(@PathVariable Long profileId, Model model) {
+        if(profileId != -1) {
+            User user = userService.findOne(profileId);
+            if(user == null) {
+                return "redirect:/";
+            } else {
+                model.addAttribute("user", user);
+                return "profile";
             }
         } else {
             return "redirect:/auth/login";
@@ -94,6 +91,17 @@ public class MainController {
         SearchForm searchForm = new SearchForm();
         model.addAttribute("searchForm", searchForm);
         return "searchByParam";
+    }
+
+    @GetMapping(value = "/change")
+    public String changeColor() {
+        User user = userService.getUser();
+        if(user.getColor().equals("white"))
+            user.setColor("blue");
+        else
+            user.setColor("white");
+        userService.update(user);
+        return "redirect:/profile/" + user.getId();
     }
 
     @PostMapping(value = "/searchByParam")

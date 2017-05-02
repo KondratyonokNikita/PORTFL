@@ -45,7 +45,7 @@
                  aria-controls="sidebar"><span class="glyphicon glyphicon-circle-arrow-left"></span></div>
             <!--Menu-->
             <ul class="nav nav-sidebar">
-                <li>
+                <li class="active">
                     <a href="/">
                         <span class="glyphicon glyphicon-home"></span>
                         <span class="menu-name" th:text="#{navbar.home}"></span>
@@ -88,7 +88,7 @@
                         <span class="menu-name" th:text="#{navbar.logout}"></span>
                     </a>
                 </li>
-                <li class="active" sec:authorize="isAnonymous()">
+                <li sec:authorize="isAnonymous()">
                     <a href="/auth/registration">
                         <span class="glyphicon glyphicon-save-file"></span>
                         <span class="menu-name" th:text="#{navbar.register}"></span>
@@ -256,6 +256,7 @@
 
 <script type="text/javascript" src="../js/all.js"></script>
 <!-- cloudinary -->
+<script src="https://algorithmia.com/v1/clients/js/algorithmia-0.2.0.js" type="text/javascript"/>
 <script src="../js/cloudinary.js" type="text/javascript"></script>
 
 <script type="text/javascript" src="../js/jquery.easyselect.js"></script>

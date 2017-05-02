@@ -4,11 +4,6 @@ import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created by Vlad on 22.03.17.
- */
-
-
 @Entity
 public class VerificationToken {
 
@@ -132,12 +127,4 @@ public class VerificationToken {
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("Token [String=").append(token).append("]").append("[Expires").append(expiryDate).append("]");
-        return builder.toString();
-    }
-
 }

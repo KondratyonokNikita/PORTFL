@@ -15,10 +15,6 @@ import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 import java.util.Locale;
 
-/**
- * Created by Vlad on 06.03.17.
- */
-
 @Configuration
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 

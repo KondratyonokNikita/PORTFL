@@ -3,9 +3,6 @@ package com.portfl.model;
 import javax.persistence.*;
 import java.util.Set;
 
-/**
- * Created by Samsung on 14.04.2017.
- */
 @Entity
 @Table(name = "types")
 public class Type {
@@ -46,11 +43,4 @@ public class Type {
         this.users = users;
     }
 
-    @Override
-    public String toString() {
-        return "Type{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

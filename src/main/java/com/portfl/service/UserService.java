@@ -39,6 +39,7 @@ public class UserService {
     @Transactional
     public void create(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setColor("black");
         user.setRole(UserRole.ROLE_USER);
         user.setPhotos(new ArrayList<>());
         this.userRepository.save(user);
@@ -57,6 +58,7 @@ public class UserService {
             entity.setHeight(user.getHeight());
             entity.setWeight(user.getWeight());
             entity.setTypes(user.getTypes());
+            entity.setColor(user.getColor());
             this.userRepository.save(entity);
         }
     }
@@ -204,6 +206,28 @@ public class UserService {
         }
     }
 
+    private void findByParamTypes(Set<Type> types, List<User> userList) {
+        for (Iterator<User> userIterator = userList.iterator(); userIterator.hasNext(); ) {
+            int check = 0;
+            User user = userIterator.next();
+            for (Type type : types) {
+                for (Type type1 : user.getTypes()) {
+                    if (type.equals(type1)) {
+                        check++;
+                        if (check == types.size())
+                            break;
+                    }
+                }
+                if (check == types.size()) {
+                    break;
+                }
+            }
+            if (check != types.size()) {
+                userIterator.remove();
+            }
+        }
+    }
+
     public List<User> getUsersByParam(SearchForm searchForm) {
         List<User> userList = findAllInList();
         findByParamFirstName(searchForm.getFirstName(), userList);
@@ -212,62 +236,7 @@ public class UserService {
         findByParamHeight(searchForm.getHeightMin(), searchForm.getHeightMax(), userList);
         findByParamBirthyear(searchForm.getBirthyearMin(), searchForm.getBirthyearMax(), userList);
         findByParamGender(searchForm.getGender(), userList);
+        findByParamTypes(searchForm.getTypes(), userList);
         return userList;
     }
-
-//    public List<User> getUsersByParam(SearchForm searchForm){
-//        List<User> userList = findAllInList();
-//        Iterator<User> userIterator=userList.iterator();
-//        while (userIterator.hasNext()){
-//            User user = userIterator.next();
-//            if(searchForm.getFirstName()!=""){
-//                if(!user.getFirstName().equals(searchForm.getFirstName())){
-//                    userIterator.remove();
-//                }
-//            }
-//
-//            if(searchForm.getLastName()!=""){
-//                if(!user.getLastName().equals(searchForm.getLastName())){
-//                    userIterator.remove();
-//                }
-//            }
-//
-//            if(searchForm.getWeightMin()!=null){
-//                if(user.getWeight()<searchForm.getWeightMin()){
-//                    userIterator.remove();
-//                }
-//            }
-//
-//            if(searchForm.getWeightMax()!=null){
-//                if(user.getWeight()>searchForm.getWeightMax()){
-//                    userIterator.remove();
-//                }
-//            }
-//
-//            if(searchForm.getHeightMin()!=null){
-//                if(user.getHeight()<searchForm.getHeightMin()){
-//                    userIterator.remove();
-//                }
-//            }
-//
-//            if(searchForm.getHeightMax()!=null){
-//                if(user.getHeight()>searchForm.getHeightMax()){
-//                    userIterator.remove();
-//                }
-//            }
-//
-//            if(searchForm.getBirthyearMin()!=null){
-//                if(user.getBirthday()<searchForm.getBirthyearMin()){
-//                    userIterator.remove();
-//                }
-//            }
-//
-//            if(searchForm.getBirthyearMax()!=null){
-//                if(user.getBirthday()>searchForm.getBirthyearMax()){
-//                    userIterator.remove();
-//                }
-//            }
-//        }
-//        return userList;
-//    }
 }

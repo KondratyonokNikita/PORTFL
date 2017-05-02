@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Vlad on 20.03.17.
- */
 @Entity
 @Table(name = "users")
 public class User {
@@ -25,6 +22,17 @@ public class User {
     private String firstName;
 
     private String lastName;
+
+    private String color;
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     @Email
     private String email;
 
@@ -64,26 +72,6 @@ public class User {
 
     public Long getId() {
         return id;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", enabled=" + enabled +
-                ", weight=" + weight +
-                ", height=" + height +
-                ", birthday=" + birthday +
-                ", role=" + role +
-                ", types=" + types +
-                ", gender=" + gender +
-                ", photos=" + photos +
-                '}';
     }
 
     public void setId(Long id) {
