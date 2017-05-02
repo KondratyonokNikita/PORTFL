@@ -101,7 +101,6 @@ public class AuthController {
         if (result.hasErrors()) {
             return "edit";
         }
-        System.out.println(user.toString());
         userService.update(user);
         return "redirect:/profile/" + user.getId();
     }

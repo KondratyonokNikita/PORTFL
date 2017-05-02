@@ -39,6 +39,7 @@ public class UserService {
     @Transactional
     public void create(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setColor("black");
         user.setRole(UserRole.ROLE_USER);
         user.setPhotos(new ArrayList<>());
         this.userRepository.save(user);
@@ -57,6 +58,7 @@ public class UserService {
             entity.setHeight(user.getHeight());
             entity.setWeight(user.getWeight());
             entity.setTypes(user.getTypes());
+            entity.setColor(user.getColor());
             this.userRepository.save(entity);
         }
     }
