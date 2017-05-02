@@ -40,22 +40,20 @@
 <main class="container-fluid" id="main">
     <div class="row">
         <div class="col-lg-2 sidebar sidebar-offcanvas" id="sidebar">
-            <div class="collapse-menu-button expand hidden-lg" data-toggle="collapse" href="#sidebar"
-                 aria-expanded="false"
+            <div class="collapse-menu-button expand hidden-lg" data-toggle="collapse" href="#sidebar" aria-expanded="false"
                  aria-controls="sidebar"><span class="glyphicon glyphicon-circle-arrow-right"></span></div>
-            <div class="collapse-menu-button collapse hidden-lg" data-toggle="collapse" href="#sidebar"
-                 aria-expanded="false"
+            <div class="collapse-menu-button collapse hidden-lg" data-toggle="collapse" href="#sidebar" aria-expanded="false"
                  aria-controls="sidebar"><span class="glyphicon glyphicon-circle-arrow-left"></span></div>
             <!--Menu-->
             <ul class="nav nav-sidebar">
-                <li>
+                <li class="active">
                     <a href="/">
                         <span class="glyphicon glyphicon-home"></span>
                         <span class="menu-name" th:text="#{navbar.home}"></span>
                     </a>
                 </li>
                 <!--@thymesVar id="current_user_id" type="java.lang.String"-->
-                <li class="active" sec:authorize="isAuthenticated()">
+                <li sec:authorize="isAuthenticated()">
                     <a th:href="${'/profile/' + current_user_id}">
                         <span class="glyphicon glyphicon-user"></span>
                         <span class="menu-name" th:text="#{navbar.profile}"></span>
@@ -68,7 +66,7 @@
                     </a>
                 </li>
                 <li sec:authorize="isAuthenticated()">
-                    <a id="upload_widget_opener">
+                    <a href="#" id="upload_widget_opener">
                         <span class="glyphicon glyphicon-cloud-upload"></span>
                         <span class="menu-name" th:text="#{navbar.upload}"></span>
                     </a>
@@ -103,7 +101,7 @@
                 <li>
                     <a href="/users">
                         <span class="glyphicon glyphicon-th-list"></span>
-                        <span class="manu-name" th:text="#{navbar.admin.users}"></span>
+                        <span class="menu-name" th:text="#{navbar.admin.users}"></span>
                     </a>
                 </li>
             </ul>

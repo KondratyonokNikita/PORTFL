@@ -10,9 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Created by User on 27.04.2017.
- */
 @Repository
 public interface RateRepository extends JpaRepository<Rate, Long> {
     Rate findOneByPhotoIdAndUserId(Long photoId, Long userId);

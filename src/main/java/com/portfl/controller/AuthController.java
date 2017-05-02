@@ -31,10 +31,6 @@ import java.util.stream.Collectors;
 
 import static com.portfl.utils.UrlUtils.getAppUrl;
 
-/**
- * Created by Vlad on 22.03.17.
- */
-
 @Controller
 @RequestMapping("/auth")
 public class AuthController {

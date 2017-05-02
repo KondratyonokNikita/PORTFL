@@ -6,9 +6,6 @@ import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 
-/**
- * Created by Samsung on 26.04.2017.
- */
 @Configuration
 public class ErrorConfiguration implements EmbeddedServletContainerCustomizer {
     @Override

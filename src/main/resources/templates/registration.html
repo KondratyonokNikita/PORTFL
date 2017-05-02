@@ -37,15 +37,13 @@
 <main class="container-fluid" id="main">
     <div class="row">
         <div class="col-lg-2 sidebar sidebar-offcanvas" id="sidebar">
-            <div class="collapse-menu-button expand hidden-lg" data-toggle="collapse" href="#sidebar"
-                 aria-expanded="false"
+            <div class="collapse-menu-button expand hidden-lg" data-toggle="collapse" href="#sidebar" aria-expanded="false"
                  aria-controls="sidebar"><span class="glyphicon glyphicon-circle-arrow-right"></span></div>
-            <div class="collapse-menu-button collapse hidden-lg" data-toggle="collapse" href="#sidebar"
-                 aria-expanded="false"
+            <div class="collapse-menu-button collapse hidden-lg" data-toggle="collapse" href="#sidebar" aria-expanded="false"
                  aria-controls="sidebar"><span class="glyphicon glyphicon-circle-arrow-left"></span></div>
             <!--Menu-->
             <ul class="nav nav-sidebar">
-                <li>
+                <li class="active">
                     <a href="/">
                         <span class="glyphicon glyphicon-home"></span>
                         <span class="menu-name" th:text="#{navbar.home}"></span>
@@ -88,7 +86,7 @@
                         <span class="menu-name" th:text="#{navbar.logout}"></span>
                     </a>
                 </li>
-                <li class="active" sec:authorize="isAnonymous()">
+                <li sec:authorize="isAnonymous()">
                     <a href="/auth/registration">
                         <span class="glyphicon glyphicon-save-file"></span>
                         <span class="menu-name" th:text="#{navbar.register}"></span>

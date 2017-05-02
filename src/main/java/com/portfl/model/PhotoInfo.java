@@ -1,18 +1,9 @@
 package com.portfl.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.portfl.service.RateService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
-import java.text.DecimalFormat;
 import java.time.Instant;
 import java.util.Set;
 
-/**
- * Created by Samsung on 29.04.2017.
- */
 public class PhotoInfo {
     private Long id;
     private String path;

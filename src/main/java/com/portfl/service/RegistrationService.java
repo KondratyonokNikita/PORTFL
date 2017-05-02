@@ -13,9 +13,6 @@ import org.springframework.stereotype.Component;
 import java.util.Locale;
 import java.util.UUID;
 
-/**
- * Created by Vlad on 21.03.17.
- */
 @Component
 public class RegistrationService implements ApplicationListener<OnRegistrationCompleteEvent> {
 

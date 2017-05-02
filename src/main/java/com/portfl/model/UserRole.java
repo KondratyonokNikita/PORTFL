@@ -1,8 +1,5 @@
 package com.portfl.model;
 
-/**
- * Created by Vlad on 20.03.17.
- */
 public enum UserRole {
     ROLE_USER("User"),
     ROLE_ADMIN("Admin");

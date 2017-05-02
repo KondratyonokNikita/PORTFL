@@ -12,9 +12,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * Created by User on 27.04.2017.
- */
 @Service
 public class RateService {
     @Autowired
