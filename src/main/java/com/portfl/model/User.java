@@ -22,6 +22,17 @@ public class User {
     private String firstName;
 
     private String lastName;
+
+    private String color;
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     @Email
     private String email;
 

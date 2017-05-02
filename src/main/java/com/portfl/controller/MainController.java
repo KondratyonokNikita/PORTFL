@@ -78,6 +78,17 @@ public class MainController {
         return "searchByParam";
     }
 
+    @GetMapping(value = "/change")
+    public String changeColor() {
+        User user = userService.getUser();
+        if(user.getColor().equals("white"))
+            user.setColor("blue");
+        else
+            user.setColor("white");
+        userService.update(user);
+        return "redirect:/profile/" + user.getId();
+    }
+
     @PostMapping(value = "/searchByParam")
     public String searchByParamSubmit(@Valid SearchForm searchForm, BindingResult result, WebRequest request, Model model) {
         model.addAttribute("users",userService.getUsersByParam(searchForm));
